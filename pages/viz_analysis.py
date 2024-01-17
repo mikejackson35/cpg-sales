@@ -40,7 +40,7 @@ pyg_html = pyg.to_html(all_sales)
 
 # pyg_html = pyg.walk(all_sales, dark='light', return_html=True)
 
-components.html(pyg_html, height=1000, width=1500,scrolling=True)
+st.components.html(pyg_html, height=1000, width=1500,scrolling=True)
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
