@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from io import StringIO
 
 
 st.set_page_config(page_title='Charts',

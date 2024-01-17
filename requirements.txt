@@ -3,6 +3,5 @@ pandas
 numpy
 streamlit
 altair
-io
 streamlit_toggle
 pygwalker
