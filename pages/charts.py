@@ -90,7 +90,7 @@ all_sales.sort_values(by='Dollars',ascending=False,inplace=True)
 
 # --- FILTERS AND SIDEBAR ----
 segment = st.sidebar.multiselect(
-    "",
+    # "",
     options=all_sales['Market Segment'].unique(),
     default=all_sales['Market Segment'].unique(),
 )
