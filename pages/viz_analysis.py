@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import pygwalker as pyg
+import streamlit.components.v1 as components
 
 st.set_page_config(page_title='Main Page',
                    page_icon=":bar_chart:",
@@ -40,7 +41,7 @@ pyg_html = pyg.to_html(all_sales)
 
 # pyg_html = pyg.walk(all_sales, dark='light', return_html=True)
 
-st.components.html(pyg_html, height=1000, width=1500,scrolling=True)
+components.html(pyg_html, height=1000, width=1500,scrolling=True)
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
