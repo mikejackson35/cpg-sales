@@ -47,18 +47,7 @@ def get_data_from_csv():
     return df
 df = get_data_from_csv()
 
-### MASTER DATA ###
 all_sales = df.copy()
-all_sales = all_sales.convert_dtypes()
-
-# invoice date cleanup
-all_sales['date'] = pd.to_datetime(all_sales['date'])
-all_sales['date'] = all_sales['date'].dt.normalize()
-all_sales['date'] = all_sales['date'].dt.floor('D')
-all_sales.sort_values(by='usd',ascending=False,inplace=True)
-
-# sales_23 = int(all_sales[all_sales['date'].dt.year == 2023].usd.sum())
-# sales_22 = int(all_sales[all_sales['date'].dt.year == 2022].usd.sum())
 
 # --- FILTERS AND SIDEBAR ----
 
@@ -70,8 +59,8 @@ year = st.sidebar.multiselect(
 
 segment = st.sidebar.multiselect(
     label='Market Segment',
-    options=list(pd.Series(all_sales['market_segment'].unique())),
-    default=list(pd.Series(all_sales['market_segment'].unique())),
+    options=all_sales['market_segment'].unique(),
+    default=all_sales['market_segment'].unique(),
 )
 
 # line divider
@@ -79,7 +68,7 @@ st.markdown(" ")
 
 # QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
 df_selection = all_sales[
-    (all_sales['date'].dt.year.isin(year)) &
+    (all_sales['year'].isin(year)) &
     (all_sales['market_segment'].isin(segment))
     ]
 
@@ -100,6 +89,7 @@ sales = int(df_selection.usd.sum())
 mean_sales = int(sales/customer_count)
 
 ############
+# df_selection.index = pd.to_datetime(df_selection['date'],format = '%m/%d/%y')
 df_selection.index = pd.to_datetime(df_selection['date'],format = '%m/%d/%y')
 mth_sales = df_selection.groupby(pd.Grouper(freq='M'))['usd'].sum()
 
