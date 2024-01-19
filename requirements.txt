@@ -6,4 +6,3 @@ altair
 streamlit_toggle
 pygwalker
 SQLAlchemy
-secrets
