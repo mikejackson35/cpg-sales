@@ -3,7 +3,6 @@ import pandas as pd
 import plotly.express as px
 import altair as alt
 from sqlalchemy import create_engine
-import psychopg2
 
 
 st.set_page_config(page_title='Charts',

@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from sqlalchemy import create_engine
-import psychopg2
 
 
 st.set_page_config(page_title='Charts',

@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import pygwalker as pyg
-import streamlit.components.v1 as components
-import psycopg2
 
 st.set_page_config(page_title='Main Page',
                    page_icon=":bar_chart:",
