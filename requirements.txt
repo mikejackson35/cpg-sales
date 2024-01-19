@@ -5,6 +5,6 @@ streamlit
 altair
 streamlit_toggle
 pygwalker
-sqlalchemy
+SQLAlchemy
 config
 psychopg2
