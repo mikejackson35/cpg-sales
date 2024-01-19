@@ -158,7 +158,7 @@ fig_dist_sales = px.bar(top_custs,
             'usd':'<b>$USD</b>'},
     opacity=.6,        
     color = 'market_segment').update_layout(showlegend=False,title_x=0.5)#,margin=dict(l=20, r=20, t=80, b=20),paper_bgcolor="LightGrey")
-fig_dist_sales.update_yaxes(tick0=0,dtick=250000)
+fig_dist_sales.update_yaxes(tick0=0,dtick=250000).update_yaxes(gridcolor='lightgray')
 
 # parent distributor bar
 top_parents = pd.DataFrame(df_selection.groupby(['parent_customer','market_segment'],as_index=False)['usd'].sum().sort_values(by='usd',ascending=False)[:20])
@@ -172,7 +172,7 @@ fig_parent_sales = px.bar(top_parents,
                           height=500,
                           opacity = .6,
                           color = 'market_segment').update_layout(showlegend=False, title_x=0.5)#,margin=dict(l=20, r=20, t=80, b=20),paper_bgcolor="LightGrey")
-fig_parent_sales.update_yaxes(tick0=0,dtick=500000)
+fig_parent_sales.update_yaxes(tick0=0,dtick=500000).update_yaxes(gridwidth=1,gridcolor='lightgray')
 
 # segment pie chart
 seg_sales = df_selection.groupby('market_segment',as_index=False)['usd'].sum().sort_values(by='market_segment',ascending=False)
@@ -201,8 +201,8 @@ with child_bar:
 st.markdown("---")
 
 # WEEKLY SCATTER CHARTS
-sales_per_week = df_selection.groupby(pd.Grouper(freq='W', key='date'))['usd'].sum()
-# sales_per_day_2023 = sales_per_day[sales_per_day.index.year==2023]
+df_selection.index = pd.to_datetime(df_selection['date'],format = '%y/%m/%d')
+sales_per_week = df_selection.groupby(pd.Grouper(freq='W'))['usd'].sum()
 
 #all sales weekly scatter
 fig_scatter_all = px.scatter(
@@ -214,10 +214,10 @@ fig_scatter_all = px.scatter(
     labels={'date':'',
             'usd':'<b>$USD</b>'},
     height=425,
-    # size='usd',
-    # size_max=15,
+    size='usd',
+    size_max=15,
     trendline="rolling", trendline_options=dict(function="mean", window=10), trendline_scope="overall", trendline_color_override="black"
-).update_layout(title_x=0.4,hovermode="x unified")
+).update_layout(title_x=0.4,hovermode="x unified").update_yaxes(gridcolor='lightgray')
 
 fig_scatter_all.update_layout(
     legend=dict(
