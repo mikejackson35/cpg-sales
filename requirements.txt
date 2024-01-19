@@ -6,5 +6,4 @@ altair
 streamlit_toggle
 pygwalker
 sqlalchemy
-psycopg2
 config
