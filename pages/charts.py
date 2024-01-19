@@ -38,7 +38,7 @@ st.markdown("""
 # ---- PULL IN DATA ----
 @st.cache_data
 def get_data_from_csv():
-    df = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\all_sales_data.csv")
+    df = pd.read_csv(r"data/all_sales_data.csv")
     # df = pd.read_sql("""
     #         SELECT * 
     #         FROM level_2
