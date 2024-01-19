@@ -26,28 +26,34 @@ st.markdown("""
 
 ## ----- CONNECT TO POSTGRESQL DATABASE --------
 
-db_password = "UnitCircle42!"
-db_user = "postgres"
-db_name = "dot"
-endpoint = "awakedb.cre3f7yk1unp.us-west-1.rds.amazonaws.com"
+# db_password = "UnitCircle42!"
+# db_user = "postgres"
+# db_name = "dot"
+# endpoint = "awakedb.cre3f7yk1unp.us-west-1.rds.amazonaws.com"
 
-connection_string = f"postgresql://{db_user}:{db_password}@{endpoint}:5432/{db_name}"
-engine = create_engine(connection_string)
+# connection_string = f"postgresql://{db_user}:{db_password}@{endpoint}:5432/{db_name}"
+# engine = create_engine(connection_string)
 
 
 # ---- PULL IN DATA ----
 @st.cache_data
 def get_data_from_csv():
-    df = pd.read_sql("""
-            SELECT * 
-            FROM level_2
-            WHERE year > '2020'
-            """
-            ,con = engine)
+    df = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\all_sales_data.csv")
+    # df = pd.read_sql("""
+    #         SELECT * 
+    #         FROM level_2
+    #         WHERE year > '2020'
+    #         """
+    #         ,con = engine)
     return df
 df = get_data_from_csv()
 
 all_sales = df.copy()
+
+# invoice date cleanup
+all_sales['date'] = pd.to_datetime(all_sales['date'])
+all_sales['date'] = all_sales['date'].dt.normalize()
+all_sales['date'] = all_sales['date'].dt.floor('D')
 
 # --- FILTERS AND SIDEBAR ----
 
@@ -89,8 +95,8 @@ sales = int(df_selection.usd.sum())
 mean_sales = int(sales/customer_count)
 
 ############
-# df_selection.index = pd.to_datetime(df_selection['date'],format = '%m/%d/%y')
 df_selection.index = pd.to_datetime(df_selection['date'],format = '%m/%d/%y')
+# df_selection.index = pd.to_datetime(df_selection['date'],format = '%y/%m/%d')
 mth_sales = df_selection.groupby(pd.Grouper(freq='M'))['usd'].sum()
 
 fig_mth_bar = px.bar(mth_sales,

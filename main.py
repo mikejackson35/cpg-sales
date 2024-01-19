@@ -68,29 +68,33 @@ st.markdown("""
 
 ## ----- CONNECT TO POSTGRESQL DATABASE --------
 
-db_password = "UnitCircle42!"
-db_user = "postgres"
-db_name = "dot"
-endpoint = "awakedb.cre3f7yk1unp.us-west-1.rds.amazonaws.com"
+# db_password = "UnitCircle42!"
+# db_user = "postgres"
+# db_name = "dot"
+# endpoint = "awakedb.cre3f7yk1unp.us-west-1.rds.amazonaws.com"
 
-connection_string = f"postgresql://{db_user}:{db_password}@{endpoint}:5432/{db_name}"
-engine = create_engine(connection_string)
+# connection_string = f"postgresql://{db_user}:{db_password}@{endpoint}:5432/{db_name}"
+# engine = create_engine(connection_string)
 
 # ---- PULL IN DATA ----
 @st.cache_data
 def get_data_from_csv():
-    df = pd.read_sql("""
-            SELECT * 
-            FROM level_2
-            WHERE year > '2017'
-            """
-            ,con = engine)
+    df = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\all_sales_data.csv")
+
+
+# @st.cache_data
+# def get_data_from_csv():
+#     df = pd.read_sql("""
+#             SELECT * 
+#             FROM level_2
+#             WHERE year > '2017'
+#             """
+#             ,con = engine)
     return df
 df = get_data_from_csv()
 
-### MASTER DATA ###
+# ### MASTER DATA ###
 all_sales = df.copy()
-# all_sales = all_sales.convert_dtypes()
 
 # invoice date cleanup
 all_sales['date'] = pd.to_datetime(all_sales['date'])
