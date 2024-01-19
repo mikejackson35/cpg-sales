@@ -7,3 +7,4 @@ streamlit_toggle
 pygwalker
 sqlalchemy
 config
+psychopg2
