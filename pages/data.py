@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from sqlalchemy import create_engine
 
 
 st.set_page_config(page_title='Charts',
@@ -20,49 +21,66 @@ st.markdown("""
         </style>
         """, unsafe_allow_html=True)
 
-st.markdown("<h1 style='margin-left:30%;'>Data Downloader</h1>", unsafe_allow_html=True)
-st.markdown('##')
+
+## ----- CONNECT TO POSTGRESQL DATABASE --------
+
+db_password = "UnitCircle42!"
+db_user = "postgres"
+db_name = "dot"
+endpoint = "awakedb.cre3f7yk1unp.us-west-1.rds.amazonaws.com"
+
+connection_string = f"postgresql://{db_user}:{db_password}@{endpoint}:5432/{db_name}"
+engine = create_engine(connection_string)
+
+
 # ---- PULL IN DATA ----
-# @st.cache_data
+@st.cache_data
 def get_data_from_csv():
-    df = pd.read_csv('data/all_sales_data.csv')
+    df = pd.read_sql("""
+            SELECT * 
+            FROM level_2
+            WHERE year > '2020'
+            """
+            ,con = engine)
     return df
 df = get_data_from_csv()
 
 ### MASTER DATA ###
 all_sales = df.copy()
+all_sales = all_sales.convert_dtypes()
 
-# invoice date cleanup
-all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'])
-all_sales['Invoice Date'] = all_sales['Invoice Date'].dt.normalize()
-all_sales['Invoice Date'] = all_sales['Invoice Date'].dt.floor('D')
+
+st.markdown("<h1 style='margin-left:30%;'>Data Downloader</h1>", unsafe_allow_html=True)
+st.markdown('##')
+
+
+# date cleanup
+all_sales['date'] = pd.to_datetime(all_sales['date'])
+all_sales['date'] = all_sales['date'].dt.normalize()
+all_sales['date'] = all_sales['date'].dt.floor('D')
 
 # --- FILTERS AND SIDEBAR ----
-# variables
 
 year = st.sidebar.multiselect(
-    "Year:",
-    options=all_sales['Invoice Date'].dt.year.unique(),
-    default=all_sales['Invoice Date'].dt.year.unique(),
+    label = 'Year',
+    options=sorted(list(all_sales['year'].unique())),
+    default=sorted(list(all_sales['year'].unique()))
 )
 
 segment = st.sidebar.multiselect(
-    "Market Segment:",
-    options=all_sales['Market Segment'].unique(),
-    default=all_sales['Market Segment'].unique(),
+    label='Market Segment',
+    options=list(pd.Series(all_sales['market_segment'].unique())),
+    default=list(pd.Series(all_sales['market_segment'].unique())),
 )
 
 # QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
 df_selection = all_sales[
-    (all_sales['Invoice Date'].dt.year.isin(year)) &
-    (all_sales['Market Segment'].isin(segment))
+    (all_sales['date'].dt.year.isin(year)) &
+    (all_sales['market_segment'].isin(segment))
     ]
 
 # ---- TOP KPI's Row ----
-sales_in_data = df_selection.Dollars.sum()
-sales_23 = int(all_sales[all_sales["Invoice Date"].dt.year == 2023].Dollars.sum())
-sales_22 = all_sales[all_sales['Invoice Date'].dt.year == 2022]['Dollars'].sum().round(2)
-# delta = sales_23 - sales_22
+sales_in_data = df_selection.usd.sum()
 
 def plus_minus(delta):
     if delta > 0:
@@ -71,11 +89,8 @@ def plus_minus(delta):
         symbol = ""
     return symbol
 
-delta = sales_23 - sales_22
-yoy_chg_perc = plus_minus(delta) + f"{int(sales_23/sales_22*100-100)}%"
-mean_sales = int(all_sales[all_sales["Invoice Date"].dt.year == 2023].Dollars.mean())
-parent_count = int(df_selection['Parent Customer'].nunique())
-customer_count = int(df_selection.Customer.nunique())
+parent_count = int(df_selection.parent_customer.nunique())
+customer_count = int(df_selection.customer.nunique())
 
 # blank, col1, col2, col3, col4 = st.columns([.33,1.1,1,1,.5])
 blank, col1, col2, col3 = st.columns([.12,.33,.33,.33])
@@ -117,7 +132,9 @@ blank, num_rows_text = st.columns([.1,.9])
 blank.markdown("##")
 num_rows_text.markdown(f"raw data  -  {len(df_selection)} rows")
 
-table_to_display = df_selection[['Invoice Date', 'Sale Origin', 'Market Segment', 'Parent Customer', 'Customer', 'Customer Order Number','Item Full Description','Dollars']].sort_values(by='Invoice Date').reset_index(drop=True)
+table_to_display = df_selection[['date', 'sale_origin', 'market_segment', 'parent_customer', 'customer','item','qty','usd','cad','month','year']].sort_values(by='date',ascending=False).reset_index(drop=True)
+table_to_display['date'] = table_to_display['date'].dt.date
+table_to_display['year'] = table_to_display['year'].astype('category')
 
 blank, table = st.columns([.1,.9])
 blank.markdown("##")

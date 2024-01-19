@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import altair as alt
+from sqlalchemy import create_engine
 
 
 st.set_page_config(page_title='Main Page',
@@ -65,41 +66,45 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Remove whitespace from the top of the page and sidebar
-# st.markdown("""
-#         <style>
-#                .block-container {
-#                     padding-top: 1rem;
-#                     padding-bottom: 0rem;
-#                     padding-left: 5rem;
-#                     padding-right: 5rem;
-#                 }
-#         </style>
-#         """, unsafe_allow_html=True)
+## ----- CONNECT TO POSTGRESQL DATABASE --------
 
-st.sidebar.image("assets/Nevil.png")
+db_password = "UnitCircle42!"
+db_user = "postgres"
+db_name = "dot"
+endpoint = "awakedb.cre3f7yk1unp.us-west-1.rds.amazonaws.com"
+
+connection_string = f"postgresql://{db_user}:{db_password}@{endpoint}:5432/{db_name}"
+engine = create_engine(connection_string)
+
 # ---- PULL IN DATA ----
 @st.cache_data
 def get_data_from_csv():
-    df = pd.read_csv('data/all_sales_data.csv')
+    df = pd.read_sql("""
+            SELECT * 
+            FROM level_2
+            WHERE year > '2017'
+            """
+            ,con = engine)
     return df
 df = get_data_from_csv()
 
 ### MASTER DATA ###
 all_sales = df.copy()
+# all_sales = all_sales.convert_dtypes()
 
 # invoice date cleanup
-all_sales['Invoice Date'] = pd.to_datetime(all_sales['Invoice Date'])
-all_sales['Invoice Date'] = all_sales['Invoice Date'].dt.normalize()
-all_sales['Invoice Date'] = all_sales['Invoice Date'].dt.floor('D')
+all_sales['date'] = pd.to_datetime(all_sales['date'])
+all_sales['date'] = all_sales['date'].dt.normalize()
+all_sales['date'] = all_sales['date'].dt.floor('D')
 
+st.sidebar.image("assets/Nevil.png")
 
 st.markdown("<h1 style='text-align: center;'>2023 AWAKE</h1>", unsafe_allow_html=True)
 st.markdown("##")
 
 # ---- TOP KPI's Row ----
-sales_23 = int(all_sales[all_sales["Invoice Date"].dt.year == 2023].Dollars.sum())
-sales_22 = all_sales[all_sales['Invoice Date'].dt.year == 2022]['Dollars'].sum().round(2)
+sales_23 = int(all_sales[all_sales['date'].dt.year == 2023].usd.sum())
+sales_22 = all_sales[all_sales['date'].dt.year == 2022]['usd'].sum().round(2)
 # delta = sales_23 - sales_22
 
 def plus_minus(delta):
@@ -111,8 +116,9 @@ def plus_minus(delta):
 
 delta = sales_23 - sales_22
 yoy_chg_perc = plus_minus(delta) + f"{int(sales_23/sales_22*100-100)}%"
-mean_sales = int(all_sales[all_sales["Invoice Date"].dt.year == 2023].Dollars.mean())
-customer_count = int(all_sales[all_sales["Invoice Date"].dt.year == 2023].Customer.nunique())
+customer_count = int(all_sales[all_sales['date'].dt.year == 2023].customer.nunique())
+sales = all_sales[all_sales['date'].dt.year == 2023]['usd'].sum()
+mean_sales = int(sales/customer_count)
 
 logo, col1, col2, col3, col4 = st.columns([.5,1.13,1.13,1.13,1.12])
 with logo:
@@ -136,57 +142,60 @@ st.markdown("---")
 
 st.markdown("<b><h2 style='text-align: center;'>Market Segments</h2></b>", unsafe_allow_html=True)
 
+all_sales['date'] = pd.to_datetime(all_sales['date'])
+
 # METRICS
-vending_23 = all_sales[(all_sales["Invoice Date"].dt.year == 2023) & (all_sales["Market Segment"] == 'Vending')].Dollars.sum()
-vending_22 = all_sales[(all_sales['Invoice Date'].dt.year == 2022) & (all_sales['Market Segment'] == 'Vending')].Dollars.sum()
+vending_23 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Vending')].usd.sum()
+vending_22 = all_sales[(all_sales['date'].dt.year == 2022) & (all_sales['market_segment'] == 'Vending')].usd.sum()
 yoy_vend = int(vending_23-vending_22)
 yoy_vend_perc = round(int(vending_23-vending_22) / vending_22,2)
 
 
-online_23 = all_sales[(all_sales['Invoice Date'].dt.year == 2023) & (all_sales['Market Segment'] == 'Online')].Dollars.sum()
-online_22 = all_sales[(all_sales['Invoice Date'].dt.year == 2022) & (all_sales['Market Segment'] == 'Online')].Dollars.sum()
+online = all_sales[(all_sales.market_segment == 'Online Direct') | (all_sales.market_segment=='Online Distributor')]
+online_23 = int(online[online.date.dt.year==2023].usd.sum())
+online_22 = int(online[online.date.dt.year==2022].usd.sum())
 yoy_online = int(online_23-online_22)
 yoy_online_perc = round(int(online_23-online_22) / online_22,2)
 
-alt_23 = all_sales[(all_sales['Invoice Date'].dt.year == 2023) & (all_sales['Market Segment'] == 'Alternate Retail')].Dollars.sum()
-alt_22 = all_sales[(all_sales['Invoice Date'].dt.year == 2022) & (all_sales['Market Segment'] == 'Alternate Retail')].Dollars.sum()
+alt_23 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Alternate Retail')].usd.sum()
+alt_22 = all_sales[(all_sales['date'].dt.year == 2022) & (all_sales['market_segment'] == 'Alternate Retail')].usd.sum()
 yoy_alt = int(alt_23-alt_22)
 yoy_alt_perc = round(int(alt_23-alt_22) / alt_22,2)
 
-conv_23 = all_sales[(all_sales["Invoice Date"].dt.year == 2023) & (all_sales["Market Segment"] == 'Convenience')].Dollars.sum()
-conv_22 = all_sales[(all_sales['Invoice Date'].dt.year == 2022) & (all_sales['Market Segment'] == 'Convenience')].Dollars.sum()
+conv_23 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Convenience')].usd.sum()
+conv_22 = all_sales[(all_sales['date'].dt.year == 2022) & (all_sales['market_segment'] == 'Convenience')].usd.sum()
 yoy_conv = int(conv_23-conv_22)
 yoy_conv_perc = round(int(conv_23-conv_22) / conv_22,2)
 
-canada_23 = all_sales[(all_sales['Invoice Date'].dt.year == 2023) & (all_sales['Market Segment'] == 'Canada')].Dollars.sum()
-canada_22 = all_sales[(all_sales['Invoice Date'].dt.year == 2022) & (all_sales['Market Segment'] == 'Canada')].Dollars.sum()
+canada_23 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Canada')].usd.sum()
+canada_22 = all_sales[(all_sales['date'].dt.year == 2022) & (all_sales['market_segment'] == 'Canada')].usd.sum()
 yoy_canada = int(canada_23-canada_22)
 yoy_canada_perc = round(int(canada_23-canada_22) / canada_22,2)
 
-grocery_23 = all_sales[(all_sales['Invoice Date'].dt.year == 2023) & (all_sales['Market Segment'] == 'Grocery')].Dollars.sum()
-grocery_22 = all_sales[(all_sales['Invoice Date'].dt.year == 2022) & (all_sales['Market Segment'] == 'Grocery')].Dollars.sum()
+grocery_23 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Grocery')].usd.sum()
+grocery_22 = all_sales[(all_sales['date'].dt.year == 2022) & (all_sales['market_segment'] == 'Grocery')].usd.sum()
 yoy_grocery = int(grocery_23-grocery_22)
 yoy_grocery_perc = round(int(grocery_23-grocery_22) / grocery_22,2)
 
 # next line of metrics
-broadline_23 = all_sales[(all_sales["Invoice Date"].dt.year == 2023) & (all_sales["Market Segment"] == 'Broadline Distributor')].Dollars.sum()
-broadline_22 = all_sales[(all_sales['Invoice Date'].dt.year == 2022) & (all_sales['Market Segment'] == 'Broadline Distributor')].Dollars.sum()
+broadline_23 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Broadline Distributor')].usd.sum()
+broadline_22 = all_sales[(all_sales['date'].dt.year == 2022) & (all_sales['market_segment'] == 'Broadline Distributor')].usd.sum()
 yoy_broadline = int(broadline_23-broadline_22)
 yoy_broadline_perc = round(int(broadline_23-broadline_22) / broadline_22,2)
 
 
-other_23 = all_sales[(all_sales['Invoice Date'].dt.year == 2023) & (all_sales['Market Segment'] == 'Other (to be categorized)')].Dollars.sum()
-other_22 = all_sales[(all_sales['Invoice Date'].dt.year == 2022) & (all_sales['Market Segment'] == 'Other (to be categorized)')].Dollars.sum()
+other_23 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Other')].usd.sum()
+other_22 = all_sales[(all_sales['date'].dt.year == 2022) & (all_sales['market_segment'] == 'Other')].usd.sum()
 yoy_other = int(other_23-other_22)
 yoy_other_perc = round(int(other_23-other_22) / other_22,2)
 
-dir_uni_23 = all_sales[(all_sales['Invoice Date'].dt.year == 2023) & (all_sales['Market Segment'] == 'Direct University')].Dollars.sum()
-dir_uni_22 = all_sales[(all_sales['Invoice Date'].dt.year == 2022) & (all_sales['Market Segment'] == 'Direct University')].Dollars.sum()
-yoy_dir_univ = int(dir_uni_23-dir_uni_22)
-yoy_dir_univ_perc = round(int(dir_uni_23-dir_uni_22) / dir_uni_22,2)
+samples_23 = int(all_sales[(all_sales.date.dt.year==2023) & (all_sales.market_segment=='Samples')]['qty'].sum())
+samples_22 = int(all_sales[(all_sales.date.dt.year==2022) & (all_sales.market_segment=='Samples')]['qty'].sum())
+yoy_samples = int(samples_23-samples_22)
+yoy_samples_perc = round(int(samples_23-samples_22)/samples_22,2)
 
-outlet_23 = all_sales[(all_sales['Invoice Date'].dt.year == 2023) & (all_sales['Market Segment'] == 'Outlet')].Dollars.sum()
-outlet_22 = all_sales[(all_sales['Invoice Date'].dt.year == 2022) & (all_sales['Market Segment'] == 'Outlet')].Dollars.sum()
+outlet_23 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Outlet')].usd.sum()
+outlet_22 = all_sales[(all_sales['date'].dt.year == 2022) & (all_sales['market_segment'] == 'Outlet')].usd.sum()
 yoy_outlet = int(outlet_23-outlet_22)
 yoy_outlet_perc = round(int(outlet_23-outlet_22) / outlet_22,2)
 
@@ -196,7 +205,7 @@ blank,col1, col2, col3, col4, col5,blank = st.columns((1,2,2,2,2,2,1))
 blank.markdown("")
 col1.metric(label='Vending', value=f"${int(vending_23):,}", delta = f"{yoy_vend_perc:.0%}")
 col2.metric(label='Online', value=f"${int(online_23):,}", delta = f"{yoy_online_perc:.0%}")
-col3.metric(label='Alternative Retail', value=f"${int(alt_23):,}", delta = f"{yoy_alt_perc:.0%}")
+col3.metric(label='Alternate Retail', value=f"${int(alt_23):,}", delta = f"{yoy_alt_perc:.0%}")
 col4.metric(label='Canada', value=f"${int(canada_23):,}", delta = f"{yoy_canada_perc:.0%}")
 col5.metric(label='Convenience', value=f"${int(conv_23):,}", delta = f"{yoy_conv_perc:.0%}")
 blank.markdown("")
@@ -211,7 +220,7 @@ col1.metric(label='Grocery', value=f"${int(grocery_23):,}", delta = f"{yoy_groce
 col2.metric(label='Broadline', value=f"${int(broadline_23):,}", delta = f"{yoy_broadline_perc:.0%}")
 col3.metric(label='Other', value=f"${int(other_23):,}", delta = f"{yoy_other_perc:.0%}")
 col4.metric(label='Outlet', value = f"${int(outlet_23):,}", delta = f"{yoy_outlet_perc:.0%}")
-col5.metric(label='Direct University', value=f"${int(dir_uni_23):,}", delta = f"{yoy_dir_univ_perc:.0%}")
+col5.metric(label='Sample Cases', value=f"{int(samples_23):,}", delta = f"{yoy_samples_perc:.0%}")
 blank.markdown("")
 
 
