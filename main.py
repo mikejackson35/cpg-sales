@@ -87,7 +87,7 @@ def get_data_from_csv():
     df = pd.read_sql("""
             SELECT * 
             FROM level_2
-            WHERE year > '2017'
+            WHERE year > '2020'
             """
             ,con = engine)
     return df

@@ -34,9 +34,9 @@ engine = create_engine(connection_string)
 
 
 # ---- PULL IN DATA ----
-@st.cache_data
-def get_data_from_csv():
-    df = pd.read_csv(r"data/all_sales_data.csv")
+# @st.cache_data
+# def get_data_from_csv():
+#     df = pd.read_csv(r"data/all_sales_data.csv")
 @st.cache_data
 def get_data_from_csv():
     df = pd.read_sql("""
