@@ -5,6 +5,7 @@ import altair as alt
 # from sqlalchemy import create_engine
 # import secrets
 import numpy as np
+from datetime import datetime
 
 
 st.set_page_config(page_title='Main Page',
@@ -98,9 +99,19 @@ st.sidebar.image(r"assets/Nevil.png")
 st.markdown("<h1 style='text-align: center;'>2024 AWAKE</h1>", unsafe_allow_html=True)
 st.markdown("##")
 
+current_date = datetime.today().strftime('%Y-%m-%d')
+import datetime
+year_ago_today = datetime.datetime.today() - datetime.timedelta(days=365)
+year_ago_today.strftime('%Y-%m-%d')
+
 # ---- TOP KPI's Row ----
-sales_24 = int(all_sales[all_sales['date'].dt.year == 2024].usd.sum())
-sales_23 = all_sales[all_sales['date'].dt.year == 2023]['usd'].sum().round(2)
+sales_24 = int(all_sales[(all_sales['date'] > '2023-12-31') & (all_sales['date'] < current_date)].usd.sum())
+sales_23 = int(all_sales[(all_sales['date'] > '2022-12-31') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum())
+
+# sales_24 = int(all_sales[all_sales['date'].dt.year == 2024].usd.sum())
+# sales_23 = all_sales[all_sales['date'].dt.year == 2023]['usd'].sum().round(2)
+
+delta = sales_24 - sales_23
 
 def plus_minus(delta):
     if delta > 0:
@@ -109,7 +120,6 @@ def plus_minus(delta):
         symbol = ""
     return symbol
 
-delta = sales_24 - sales_23
 yoy_chg_perc = plus_minus(delta) + f"{int(sales_24/sales_23*100-100)}%"
 customer_count = int(all_sales[all_sales['date'].dt.year == 2024].customer.nunique())
 sales = all_sales[all_sales['date'].dt.year == 2024]['usd'].sum()
