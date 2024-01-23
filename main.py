@@ -93,7 +93,7 @@ all_sales['date'] = pd.to_datetime(all_sales['date'])
 all_sales['date'] = all_sales['date'].dt.normalize()
 all_sales['date'] = all_sales['date'].dt.floor('D')
 
-st.sidebar.image(r"assets\Nevil.png")
+st.sidebar.image(r"assets/Nevil.png")
 
 st.markdown("<h1 style='text-align: center;'>2023 AWAKE</h1>", unsafe_allow_html=True)
 st.markdown("##")
