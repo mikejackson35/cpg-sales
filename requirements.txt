@@ -1,0 +1,5 @@
+plotly
+altair
+numpy
+SQLAlchemy
+pygwalker
