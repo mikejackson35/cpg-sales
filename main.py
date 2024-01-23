@@ -4,6 +4,7 @@ import plotly.express as px
 import altair as alt
 from sqlalchemy import create_engine
 import secrets
+import OpenSSL
 
 
 st.set_page_config(page_title='Main Page',
@@ -80,6 +81,7 @@ def get_data_from_csv():
             WHERE year > '2020'
             """
             ,con = engine)
+    # df = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\all_sales_data.csv")
     return df
 df = get_data_from_csv()
 
