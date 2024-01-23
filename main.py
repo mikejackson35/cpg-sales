@@ -4,7 +4,6 @@ import plotly.express as px
 import altair as alt
 # from sqlalchemy import create_engine
 import secrets
-import OpenSSL
 import numpy as np
 
 

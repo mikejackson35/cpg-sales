@@ -5,7 +5,6 @@ import pygwalker as pyg
 import streamlit.components.v1 as components
 from sqlalchemy import create_engine
 import secrets
-import OpenSSL
 import numpy as np
 
 st.set_page_config(page_title='Main Page',
