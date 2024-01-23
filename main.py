@@ -81,7 +81,7 @@ def get_data_from_csv():
     #         WHERE year > '2020'
     #         """
     #         ,con = engine)
-    df = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\all_sales_data.csv")
+    df = pd.read_csv(r"data\all_sales_data.csv")
     return df
 df = get_data_from_csv()
 
