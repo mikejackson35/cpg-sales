@@ -33,7 +33,8 @@ engine = create_engine(connection_string)
 # ---- PULL IN DATA ----
 @st.cache_data
 def get_data_from_csv():
-    df = pd.read_sql("SELECT * FROM level_2 WHERE date > '2019-12-31'",con = engine)
+    # df = pd.read_sql("SELECT * FROM level_2 WHERE date > '2019-12-31'",con = engine)
+    df = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\all_sales_data.csv")
     return df
 all_sales = get_data_from_csv()
 
