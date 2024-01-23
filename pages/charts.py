@@ -5,6 +5,7 @@ import altair as alt
 from sqlalchemy import create_engine
 import secrets
 import numpy as np
+import OpenSSL
 
 
 st.set_page_config(page_title='Charts',
