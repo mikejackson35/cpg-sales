@@ -3,3 +3,4 @@ altair
 numpy
 SQLAlchemy
 pygwalker
+datetime
