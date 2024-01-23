@@ -100,7 +100,7 @@ st.markdown("##")
 
 # ---- TOP KPI's Row ----
 sales_24 = int(all_sales[all_sales['date'].dt.year == 2024].usd.sum())
-sales_23 = all_sales[all_sales['date'].dt.year == 2024]['usd'].sum().round(2)
+sales_23 = all_sales[all_sales['date'].dt.year == 2023]['usd'].sum().round(2)
 
 def plus_minus(delta):
     if delta > 0:
