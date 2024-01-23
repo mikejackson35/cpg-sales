@@ -1,10 +1,19 @@
-plotly
-pandas
-numpy
+# plotly
+# pandas
+# numpy
+# streamlit
+# altair
+# streamlit_toggle
+# pygwalker
+# SQLAlchemy
+# config
+
 streamlit
+pandas
 altair
-streamlit_toggle
-pygwalker
-SQLAlchemy
-config
-secrets
+plotly
+seaborn
+requests
+tls_client
+numpy
+matplotlib
