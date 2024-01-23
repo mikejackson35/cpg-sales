@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 import altair as alt
 from sqlalchemy import create_engine
+import secrets
 
 
 st.set_page_config(page_title='Main Page',
@@ -67,21 +68,10 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 ## ----- CONNECT TO POSTGRESQL DATABASE --------
-
-db_password = "UnitCircle42!"
-db_user = "postgres"
-db_name = "dot"
-endpoint = "awakedb.cre3f7yk1unp.us-west-1.rds.amazonaws.com"
-
-connection_string = f"postgresql://{db_user}:{db_password}@{endpoint}:5432/{db_name}"
+connection_string = f"postgresql://{st.secrets['db_user']}:{st.secrets['db_password']}@{st.secrets['endpoint']}:5432/{st.secrets['db_name']}"
 engine = create_engine(connection_string)
 
 # ---- PULL IN DATA ----
-# @st.cache_data
-# def get_data_from_csv():
-#     df = pd.read_csv(r"data/all_sales_data.csv")
-
-
 @st.cache_data
 def get_data_from_csv():
     df = pd.read_sql("""
@@ -159,7 +149,7 @@ online = all_sales[(all_sales.market_segment == 'Online Direct') | (all_sales.ma
 online_23 = int(online[online.date.dt.year==2023].usd.sum())
 online_22 = int(online[online.date.dt.year==2022].usd.sum())
 yoy_online = int(online_23-online_22)
-yoy_online_perc = round(int(online_23-online_22) / online_22,2)
+# yoy_online_perc = round(int(online_23-online_22) / online_22,2)
 
 alt_23 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Alternate Retail')].usd.sum()
 alt_22 = all_sales[(all_sales['date'].dt.year == 2022) & (all_sales['market_segment'] == 'Alternate Retail')].usd.sum()
@@ -208,7 +198,7 @@ blank,col1, col2, col3, col4, col5,blank = st.columns((1,2,2,2,2,2,1))
 
 blank.markdown("")
 col1.metric(label='Vending', value=f"${int(vending_23):,}", delta = f"{yoy_vend_perc:.0%}")
-col2.metric(label='Online', value=f"${int(online_23):,}", delta = f"{yoy_online_perc:.0%}")
+# col2.metric(label='Online', value=f"${int(online_23):,}", delta = f"{yoy_online_perc:.0%}")
 col3.metric(label='Alternate Retail', value=f"${int(alt_23):,}", delta = f"{yoy_alt_perc:.0%}")
 col4.metric(label='Canada', value=f"${int(canada_23):,}", delta = f"{yoy_canada_perc:.0%}")
 col5.metric(label='Convenience', value=f"${int(conv_23):,}", delta = f"{yoy_conv_perc:.0%}")

@@ -3,6 +3,8 @@ import pandas as pd
 import plotly.express as px
 import pygwalker as pyg
 import streamlit.components.v1 as components
+from sqlalchemy import create_engine
+import secrets
 
 st.set_page_config(page_title='Main Page',
                    page_icon=":bar_chart:",
@@ -22,13 +24,17 @@ st.markdown("""
         """, unsafe_allow_html=True)
 
 # ---- PULL IN DATA ----
+## ----- CONNECT TO POSTGRESQL DATABASE --------
+connection_string = f"postgresql://{st.secrets['db_user']}:{st.secrets['db_password']}@{st.secrets['endpoint']}:5432/{st.secrets['db_name']}"
+engine = create_engine(connection_string)
+
+# ---- PULL IN DATA ----
 @st.cache_data
 def get_data_from_csv():
-    df = pd.read_csv('data/all_sales_data.csv')
+    df = pd.read_sql("SELECT * FROM level_2 WHERE year > '2020'",con = engine)
     return df
 df = get_data_from_csv()
 
-### MASTER DATA ###
 all_sales = df.copy()
 
 # date cleanup

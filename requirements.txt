@@ -7,3 +7,4 @@ streamlit_toggle
 pygwalker
 SQLAlchemy
 config
+secrets

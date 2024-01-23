@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from sqlalchemy import create_engine
+import secrets
 
 
 st.set_page_config(page_title='Charts',
@@ -23,20 +24,11 @@ st.markdown("""
 
 
 ## ----- CONNECT TO POSTGRESQL DATABASE --------
-
-db_password = "UnitCircle42!"
-db_user = "postgres"
-db_name = "dot"
-endpoint = "awakedb.cre3f7yk1unp.us-west-1.rds.amazonaws.com"
-
-connection_string = f"postgresql://{db_user}:{db_password}@{endpoint}:5432/{db_name}"
+connection_string = f"postgresql://{st.secrets['db_user']}:{st.secrets['db_password']}@{st.secrets['endpoint']}:5432/{st.secrets['db_name']}"
 engine = create_engine(connection_string)
 
 
 # ---- PULL IN DATA ----
-# @st.cache_data
-# def get_data_from_csv():
-#     df = pd.read_csv(r"data/all_sales_data.csv")
 @st.cache_data
 def get_data_from_csv():
     df = pd.read_sql("""
@@ -50,8 +42,6 @@ df = get_data_from_csv()
 
 ### MASTER DATA ###
 all_sales = df.copy()
-# all_sales = all_sales.convert_dtypes()
-
 
 st.markdown("<h1 style='margin-left:30%;'>Data Downloader</h1>", unsafe_allow_html=True)
 st.markdown('##')
