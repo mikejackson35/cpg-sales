@@ -27,8 +27,8 @@ st.markdown("""
 
 # ---- PULL IN DATA ----
 ## ----- CONNECT TO POSTGRESQL DATABASE --------
-connection_string = f"postgresql://{st.secrets['db_user']}:{st.secrets['db_password']}@{st.secrets['endpoint']}:5432/{st.secrets['db_name']}"
-engine = create_engine(connection_string)
+# connection_string = f"postgresql://{st.secrets['db_user']}:{st.secrets['db_password']}@{st.secrets['endpoint']}:5432/{st.secrets['db_name']}"
+# engine = create_engine(connection_string)
 
 # ---- PULL IN DATA ----
 @st.cache_data

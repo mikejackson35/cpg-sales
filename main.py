@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import altair as alt
-from sqlalchemy import create_engine
+# from sqlalchemy import create_engine
 import secrets
 import OpenSSL
 import numpy as np
@@ -70,8 +70,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 ## ----- CONNECT TO POSTGRESQL DATABASE --------
-connection_string = f"postgresql://{st.secrets['db_user']}:{st.secrets['db_password']}@{st.secrets['endpoint']}:5432/{st.secrets['db_name']}"
-engine = create_engine(connection_string)
+# connection_string = f"postgresql://{st.secrets['db_user']}:{st.secrets['db_password']}@{st.secrets['endpoint']}:5432/{st.secrets['db_name']}"
+# engine = create_engine(connection_string)
 
 # ---- PULL IN DATA ----
 @st.cache_data
@@ -94,7 +94,7 @@ all_sales['date'] = pd.to_datetime(all_sales['date'])
 all_sales['date'] = all_sales['date'].dt.normalize()
 all_sales['date'] = all_sales['date'].dt.floor('D')
 
-st.sidebar.image("assets/Nevil.png")
+st.sidebar.image(r"assets\Nevil.png")
 
 st.markdown("<h1 style='text-align: center;'>2023 AWAKE</h1>", unsafe_allow_html=True)
 st.markdown("##")
@@ -102,7 +102,6 @@ st.markdown("##")
 # ---- TOP KPI's Row ----
 sales_23 = int(all_sales[all_sales['date'].dt.year == 2023].usd.sum())
 sales_22 = all_sales[all_sales['date'].dt.year == 2022]['usd'].sum().round(2)
-# delta = sales_23 - sales_22
 
 def plus_minus(delta):
     if delta > 0:
@@ -148,11 +147,11 @@ yoy_vend = int(vending_23-vending_22)
 yoy_vend_perc = round(int(vending_23-vending_22) / vending_22,2)
 
 
-online = all_sales[(all_sales.market_segment == 'Online Direct') | (all_sales.market_segment=='Online Distributor')]
-online_23 = int(online[online.date.dt.year==2023].usd.sum())
-online_22 = int(online[online.date.dt.year==2022].usd.sum())
+# online = all_sales[(all_sales.market_segment == 'Online Direct') | (all_sales.market_segment=='Online Distributor')]
+online_23 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Online')].usd.sum()
+online_22 = all_sales[(all_sales['date'].dt.year == 2022) & (all_sales['market_segment'] == 'Online')].usd.sum()
 yoy_online = int(online_23-online_22)
-# yoy_online_perc = round(int(online_23-online_22) / online_22,2)
+yoy_online_perc = round(int(online_23-online_22) / online_22,2)
 
 alt_23 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Alternate Retail')].usd.sum()
 alt_22 = all_sales[(all_sales['date'].dt.year == 2022) & (all_sales['market_segment'] == 'Alternate Retail')].usd.sum()
@@ -201,7 +200,7 @@ blank,col1, col2, col3, col4, col5,blank = st.columns((1,2,2,2,2,2,1))
 
 blank.markdown("")
 col1.metric(label='Vending', value=f"${int(vending_23):,}", delta = f"{yoy_vend_perc:.0%}")
-# col2.metric(label='Online', value=f"${int(online_23):,}", delta = f"{yoy_online_perc:.0%}")
+col2.metric(label='Online', value=f"${int(online_23):,}", delta = f"{yoy_online_perc:.0%}")
 col3.metric(label='Alternate Retail', value=f"${int(alt_23):,}", delta = f"{yoy_alt_perc:.0%}")
 col4.metric(label='Canada', value=f"${int(canada_23):,}", delta = f"{yoy_canada_perc:.0%}")
 col5.metric(label='Convenience', value=f"${int(conv_23):,}", delta = f"{yoy_conv_perc:.0%}")

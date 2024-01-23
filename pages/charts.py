@@ -28,8 +28,8 @@ st.markdown("""
         """, unsafe_allow_html=True)
 
 ## ----- CONNECT TO POSTGRESQL DATABASE --------
-connection_string = f"postgresql://{st.secrets['db_user']}:{st.secrets['db_password']}@{st.secrets['endpoint']}:5432/{st.secrets['db_name']}"
-engine = create_engine(connection_string)
+# connection_string = f"postgresql://{st.secrets['db_user']}:{st.secrets['db_password']}@{st.secrets['endpoint']}:5432/{st.secrets['db_name']}"
+# engine = create_engine(connection_string)
 
 # ---- PULL IN DATA ----
 @st.cache_data
@@ -55,6 +55,11 @@ segment = st.sidebar.multiselect(
     options=np.array(all_sales['market_segment'].unique()),
     default=np.array(all_sales['market_segment'].unique()),
 )
+sale_origin = st.sidebar.multiselect(
+    label = 'Direct or Dot',
+    options=np.array(all_sales['sale_origin'].unique()),
+    default=np.array(all_sales['sale_origin'].unique()),
+)
 
 # line divider
 st.markdown(" ")
@@ -62,7 +67,8 @@ st.markdown(" ")
 # QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
 df_selection = all_sales[
     (all_sales['year'].isin(year)) &
-    (all_sales['market_segment'].isin(segment))
+    (all_sales['market_segment'].isin(segment)) &
+    (all_sales['sale_origin'].isin(sale_origin))
     ]
 
 # theme used for charts
