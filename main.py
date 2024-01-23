@@ -102,7 +102,7 @@ st.markdown("##")
 current_date = datetime.today().strftime('%Y-%m-%d')
 import datetime
 year_ago_today = datetime.datetime.today() - datetime.timedelta(days=365)
-year_ago_today.strftime('%Y-%m-%d')
+# year_ago_today.strftime('%Y-%m-%d')
 
 # ---- TOP KPI's Row ----
 sales_24 = int(all_sales[(all_sales['date'] > '2023-12-31') & (all_sales['date'] < current_date)].usd.sum())
