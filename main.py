@@ -149,46 +149,49 @@ st.markdown("<b><h2 style='text-align: center;'>Market Segments</h2></b>", unsaf
 
 all_sales['date'] = pd.to_datetime(all_sales['date'])
 
+sales_24 = int(all_sales[(all_sales['date'] > '2023-12-31') & (all_sales['date'] < current_date)].usd.sum())
+sales_23 = int(all_sales[(all_sales['date'] > '2022-12-31') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum())
+
 # METRICS
 vending_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Vending')].usd.sum()
-vending_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Vending')].usd.sum()
+vending_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Vending') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
 yoy_vend = int(vending_23-vending_22)
 yoy_vend_perc = round(int(vending_23-vending_22) / vending_22,2)
 
 online_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Online')].usd.sum()
-online_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Online')].usd.sum()
+online_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Online') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
 yoy_online = int(online_23-online_22)
 yoy_online_perc = round(int(online_23-online_22) / online_22,2)
 
 alt_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Alternate Retail')].usd.sum()
-alt_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Alternate Retail')].usd.sum()
+alt_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Alternate Retail') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
 yoy_alt = int(alt_23-alt_22)
 yoy_alt_perc = round(int(alt_23-alt_22) / alt_22,2)
 
 conv_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Convenience')].usd.sum()
-conv_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Convenience')].usd.sum()
+conv_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Convenience') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
 yoy_conv = int(conv_23-conv_22)
 yoy_conv_perc = round(int(conv_23-conv_22) / conv_22,2)
 
 canada_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Canada')].usd.sum()
-canada_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Canada')].usd.sum()
+canada_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Canada') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
 yoy_canada = int(canada_23-canada_22)
 yoy_canada_perc = round(int(canada_23-canada_22) / canada_22,2)
 
 grocery_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Grocery')].usd.sum()
-grocery_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Grocery')].usd.sum()
+grocery_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Grocery') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
 yoy_grocery = int(grocery_23-grocery_22)
 yoy_grocery_perc = round(int(grocery_23-grocery_22) / grocery_22,2)
 
 # next line of metrics
 broadline_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Broadline Distributor')].usd.sum()
-broadline_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Broadline Distributor')].usd.sum()
+broadline_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Broadline Distributor') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
 yoy_broadline = int(broadline_23-broadline_22)
 yoy_broadline_perc = round(int(broadline_23-broadline_22) / broadline_22,2)
 
 
 other_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Other')].usd.sum()
-other_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Other')].usd.sum()
+other_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Other') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
 yoy_other = int(other_23-other_22)
 yoy_other_perc = round(int(other_23-other_22) / other_22,2)
 
@@ -198,7 +201,7 @@ yoy_samples = int(samples_23-samples_22)
 yoy_samples_perc = round(int(samples_23-samples_22)/samples_22,2)
 
 outlet_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Outlet')].usd.sum()
-outlet_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Outlet')].usd.sum()
+outlet_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Outlet') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
 yoy_outlet = int(outlet_23-outlet_22)
 yoy_outlet_perc = round(int(outlet_23-outlet_22) / outlet_22,2)
 
