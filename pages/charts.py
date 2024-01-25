@@ -37,6 +37,7 @@ def get_data_from_csv():
     df = pd.read_csv(r"data/all_sales_data.csv")
     return df
 all_sales = get_data_from_csv()
+all_sales = all_sales[all_sales.market_segment != 'Samples']
 
 # invoice date cleanup
 all_sales['date'] = pd.to_datetime(all_sales['date'])
