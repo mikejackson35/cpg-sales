@@ -187,7 +187,7 @@ yoy_other_perc = round(int(other_23-other_22) / other_22,2)
 samples_23 = int(all_sales[(all_sales.date.dt.year==2023) & (all_sales.market_segment=='Samples')]['qty'].sum())
 samples_22 = int(all_sales[(all_sales.date.dt.year==2022) & (all_sales.market_segment=='Samples')]['qty'].sum())
 yoy_samples = int(samples_23-samples_22)
-yoy_samples_perc = round(int(samples_23-samples_22)/samples_22,2)
+yoy_samples_perc = round(int(samples_23-samples_22)/(1 + samples_22),2)
 
 outlet_23 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Outlet')].usd.sum()
 outlet_22 = all_sales[(all_sales['date'].dt.year == 2022) & (all_sales['market_segment'] == 'Outlet')].usd.sum()
