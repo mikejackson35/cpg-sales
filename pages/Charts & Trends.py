@@ -234,7 +234,7 @@ sales_per_week = df_selection.groupby(pd.Grouper(freq='W'))['usd'].sum()
 
 #all sales weekly scatter
 fig_scatter_all = px.scatter(
-    sales_per_week,
+    round(sales_per_week),
     x=sales_per_week.index,
     y='usd',
     title='<b>Weekly Sales</b>',
@@ -244,11 +244,17 @@ fig_scatter_all = px.scatter(
     height=425,
     size='usd',
     size_max=15,
-    # hover_name='usd',
-    trendline="rolling", trendline_options=dict(function="mean", window=10), trendline_scope="overall", trendline_color_override="black"
-).update_layout(title_x=0.4,hovermode='x').update_yaxes(gridcolor='lightgray')#.update_traces(hovertemplate="%{sales_per_week.index}")
+    color='usd',
+    color_continuous_scale=px.colors.sequential.Oranges,
+    trendline="rolling", trendline_options=dict(function="mean", window=10), trendline_scope="overall", trendline_color_override="grey"
+)
+
+fig_scatter_all.update_coloraxes(showscale=False)
+fig_scatter_all.update_yaxes(gridcolor='lightgray')
 
 fig_scatter_all.update_layout(
+    title_x=0.4,
+    hovermode='x unified',
     legend=dict(
         yanchor="top",
         y=0.99,
@@ -257,6 +263,10 @@ fig_scatter_all.update_layout(
         # title = '10 Week Moving Average'
     )
 )
+
+fig_scatter_all.update_traces(
+    hovertemplate=
+    "Sales: <b>%{y:$,.0f}")
 
 blank_left, scatter, blank_right,  = st.columns([.5,2.8,.5])
 with blank:
