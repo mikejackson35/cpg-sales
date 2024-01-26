@@ -45,7 +45,7 @@ df = get_data_from_csv()
 ### MASTER DATA ###
 all_sales = df.copy()
 
-st.markdown("<h1 style='margin-left:30%;'>Data Downloader</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='margin-left:30%;'>Data Finder</h1>", unsafe_allow_html=True)
 st.markdown('##')
 
 
