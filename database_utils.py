@@ -94,7 +94,7 @@ def clean_dot():
     dot_raw = dot_raw.merge(segment_table, how='left',left_index=True,right_index=True).reset_index()
 
     # add year/month columns
-    dot_raw['invoice_date'] = pd.to_datetime(dot['invoice_date'])
+    dot_raw['invoice_date'] = pd.to_datetime(dot_raw['invoice_date'])
     year_col = dot_raw.set_index(['invoice_date']).index.year
     month_col = dot_raw.set_index(['invoice_date']).index.month_name()
 
