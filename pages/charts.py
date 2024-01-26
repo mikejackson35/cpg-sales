@@ -37,7 +37,7 @@ def get_data_from_csv():
     df = pd.read_csv(r"data/all_sales_data.csv")
     return df
 all_sales = get_data_from_csv()
-all_sales = all_sales[all_sales.market_segment != 'Samples']
+# all_sales = all_sales[all_sales.market_segment != 'Samples']
 
 # invoice date cleanup
 all_sales['date'] = pd.to_datetime(all_sales['date'])
@@ -68,7 +68,8 @@ st.markdown(" ")
 df_selection = all_sales[
     (all_sales['year'].isin(year)) &
     (all_sales['market_segment'].isin(segment)) &
-    (all_sales['sale_origin'].isin(sale_origin))
+    (all_sales['sale_origin'].isin(sale_origin)) &
+    (all_sales.market_segment != 'Samples')
     ]
 
 # theme used for charts
