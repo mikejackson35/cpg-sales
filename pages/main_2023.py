@@ -185,7 +185,7 @@ yoy_other = int(other_23-other_22)
 yoy_other_perc = round(int(other_23-other_22) / other_22,2)
 
 # BEGIN ROWS AND COLUMNS METRICS
-blank,col1, col2, col3, col4, blank = st.columns((1,2,2,2,1))
+blank,col1, col2, col3, col4, blank = st.columns([1,2,2,2,2,1])
 
 blank.markdown("")
 col1.metric(label='Vending', value=f"${int(vending_23):,}", delta = f"{yoy_vend_perc:.0%}")
@@ -197,7 +197,7 @@ blank.markdown("")
 st.markdown("##")
 st.markdown("##")
 
-blank,col1, col2, col3, col4, blank = st.columns((1,2,2,2,1))
+blank,col1, col2, col3, col4, blank = st.columns([1,2,2,2,2,1])
 
 blank.markdown("")
 col1.metric(label='Convenience', value=f"${int(conv_23):,}", delta = f"{yoy_conv_perc:.0%}")
