@@ -107,10 +107,6 @@ year_ago_today = datetime.datetime.today() - datetime.timedelta(days=365)
 # ---- TOP KPI's Row ----
 sales_24 = int(all_sales[(all_sales['date'] > '2023-12-31') & (all_sales['date'] < current_date)].usd.sum())
 sales_23 = int(all_sales[(all_sales['date'] > '2022-12-31') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum())
-
-# sales_24 = int(all_sales[all_sales['date'].dt.year == 2024].usd.sum())
-# sales_23 = all_sales[all_sales['date'].dt.year == 2023]['usd'].sum().round(2)
-
 delta = sales_24 - sales_23
 
 def plus_minus(delta):
@@ -148,9 +144,6 @@ st.markdown("---")
 st.markdown("<b><h2 style='text-align: center;'>Market Segments</h2></b>", unsafe_allow_html=True)
 
 all_sales['date'] = pd.to_datetime(all_sales['date'])
-
-sales_24 = int(all_sales[(all_sales['date'] > '2023-12-31') & (all_sales['date'] < current_date)].usd.sum())
-sales_23 = int(all_sales[(all_sales['date'] > '2022-12-31') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum())
 
 # METRICS
 vending_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Vending')].usd.sum()
@@ -195,10 +188,10 @@ other_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_se
 yoy_other = int(other_23-other_22)
 yoy_other_perc = round(int(other_23-other_22) / other_22,2)
 
-samples_23 = int(all_sales[(all_sales.date.dt.year==2024) & (all_sales.market_segment=='Samples')]['qty'].sum())
-samples_22 = int(all_sales[(all_sales.date.dt.year==2023) & (all_sales.market_segment=='Samples')]['qty'].sum())
-yoy_samples = int(samples_23-samples_22)
-yoy_samples_perc = round(int(samples_23-samples_22)/(1 + samples_22),2)
+# samples_23 = int(all_sales[(all_sales.date.dt.year==2024) & (all_sales.market_segment=='Samples')]['qty'].sum())
+# samples_22 = int(all_sales[(all_sales.date.dt.year==2023) & (all_sales.market_segment=='Samples')]['qty'].sum())
+# yoy_samples = int(samples_23-samples_22)
+# yoy_samples_perc = round(int(samples_23-samples_22)/(1 + samples_22),2)
 
 outlet_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Outlet')].usd.sum()
 outlet_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Outlet') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
@@ -206,27 +199,25 @@ yoy_outlet = int(outlet_23-outlet_22)
 yoy_outlet_perc = round(int(outlet_23-outlet_22) / outlet_22,2)
 
 # BEGIN ROWS AND COLUMNS METRICS
-blank,col1, col2, col3, col4, col5,blank = st.columns((.5,2,2,2,2,2,.5))
+blank,col1, col2, col3, col4,blank = st.columns((1,2,2,2,2,1))
 
 blank.markdown("")
 col1.metric(label='Vending', value=f"${int(vending_23):,}", delta = f"{yoy_vend_perc:.0%}")
 col2.metric(label='Online', value=f"${int(online_23):,}", delta = f"{yoy_online_perc:.0%}")
 col3.metric(label='Alternate Retail', value=f"${int(alt_23):,}", delta = f"{yoy_alt_perc:.0%}")
 col4.metric(label='Canada', value=f"${int(canada_23):,}", delta = f"{yoy_canada_perc:.0%}")
-col5.metric(label='Convenience', value=f"${int(conv_23):,}", delta = f"{yoy_conv_perc:.0%}")
 blank.markdown("")
 
 st.markdown("##")
 st.markdown("##")
 
-blank,col1, col2, col3, col5,blank = st.columns((1,2,2,2,2,1))
+blank,col1, col2, col3, col4,blank = st.columns((1,2,2,2,2,1))
 
 blank.markdown("")
-col1.metric(label='Grocery', value=f"${int(grocery_23):,}", delta = f"{yoy_grocery_perc:.0%}")
-col2.metric(label='Broadline', value=f"${int(broadline_23):,}", delta = f"{yoy_broadline_perc:.0%}")
-col3.metric(label='Other', value=f"${int(other_23):,}", delta = f"{yoy_other_perc:.0%}")
-# col4.markdown("")#metric(label='Outlet', value = f"${int(outlet_23):,}", delta = f"{yoy_outlet_perc:.0%}")
-col5.metric(label='Sample Cases', value=f"{int(samples_23):,}", delta = f"{yoy_samples_perc:.0%}")
+col1.metric(label='Convenience', value=f"${int(conv_23):,}", delta = f"{yoy_conv_perc:.0%}")
+col2.metric(label='Grocery', value=f"${int(grocery_23):,}", delta = f"{yoy_grocery_perc:.0%}")
+col3.metric(label='Broadline', value=f"${int(broadline_23):,}", delta = f"{yoy_broadline_perc:.0%}")
+col4.metric(label='Other', value=f"${int(other_23):,}", delta = f"{yoy_other_perc:.0%}")
 blank.markdown("")
 
 
