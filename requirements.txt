@@ -4,4 +4,4 @@ numpy
 sqlalchemy
 pygwalker
 datetime
-pysycopg2-binary
+pysycopg2
