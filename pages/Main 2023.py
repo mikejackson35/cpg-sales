@@ -54,7 +54,7 @@ st.markdown("""
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
-    font-weight: 900;
+    # font-weight: 900;
 }
 
 [data-testid="stMetricDeltaIcon-Down"] {
@@ -63,15 +63,20 @@ st.markdown("""
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
-    font-weight: 900;
+    # font-weight: 900;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 # ---- PULL IN DATA FROM POSTGRES DB ----
-conn = st.connection('dot', type ="sql")
-all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2021-12-31'")
+@st.cache_data
+def get_connection():
+    conn = st.connection('dot', type ="sql")
+    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2021-12-31' AND date < '2024-01-01'")
+    return all_sales
+
+all_sales = get_connection()
 
 # invoice date cleanup
 all_sales['date'] = pd.to_datetime(all_sales['date'])

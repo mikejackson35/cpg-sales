@@ -25,8 +25,13 @@ st.markdown("""
         """, unsafe_allow_html=True)
 
 # ---- PULL IN DATA FROM POSTGRES DB ----
-conn = st.connection('dot', type ="sql")
-all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2020-12-31'")
+@st.cache_data
+def get_connection():
+    conn = st.connection('dot', type ="sql")
+    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2020-12-31'")
+    return all_sales
+
+all_sales = get_connection()
 
 st.markdown("<h1 style='margin-left:30%;'>Data Finder</h1>", unsafe_allow_html=True)
 st.markdown('##')
@@ -95,11 +100,9 @@ with col3:
 st.markdown("---")
 
 ## DOWNLOAD CSV BUTTON ###
-# @st.cache_data
+@st.cache_data
 def convert_df(df):
-    # preventing computation on every rerun
     return df_selection.to_csv().encode('utf-8')
-
 csv = convert_df(df_selection)
 
 blank, dl_button = st.columns([.1,.9])
