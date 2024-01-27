@@ -4,4 +4,3 @@ numpy
 sqlalchemy
 pygwalker
 datetime
-pysycopg2
