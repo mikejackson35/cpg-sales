@@ -46,7 +46,7 @@ st.markdown("""
 
 # ---- PULL IN DATA FROM POSTGRES DB ----
 conn = st.connection('dot', type ="sql")
-all_sales = conn.query("SELECT * FROM level_2")
+all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2020-12-31'")
 
 st.markdown("<h1 style='margin-left:30%;'>Data Finder</h1>", unsafe_allow_html=True)
 st.markdown('##')

@@ -91,7 +91,7 @@ st.markdown("""
 
 # ---- PULL IN DATA FROM POSTGRES DB ----
 conn = st.connection('dot', type ="sql")
-all_sales = conn.query("SELECT * FROM level_2")
+all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2021-12-31'")
 
 # invoice date cleanup
 all_sales['date'] = pd.to_datetime(all_sales['date'])
