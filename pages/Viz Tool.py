@@ -25,21 +25,6 @@ st.markdown("""
         </style>
         """, unsafe_allow_html=True)
 
-# ---- PULL IN DATA ----
-## ----- CONNECT TO POSTGRESQL DATABASE --------
-# connection_string = f"postgresql://{st.secrets['db_user']}:{st.secrets['db_password']}@{st.secrets['endpoint']}:5432/{st.secrets['db_name']}"
-# engine = create_engine(connection_string)
-
-# ---- PULL IN DATA ----
-# @st.cache_data
-# def get_data_from_csv():
-#     # df = pd.read_sql("SELECT * FROM level_2 WHERE year > '2020'",con = engine)
-#     df = pd.read_csv(r"data/all_sales_data.csv")
-#     return df
-# df = get_data_from_csv()
-
-# all_sales = df.copy()
-
 # ---- PULL IN DATA FROM POSTGRES DB ----
 conn = st.connection('dot', type ="sql")
 all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2020-12-31'")
@@ -48,11 +33,7 @@ all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2020-12-31'")
 all_sales['date'] = pd.to_datetime(all_sales['date'])
 all_sales['date'] = all_sales['date'].dt.normalize()
 all_sales['date'] = all_sales['date'].dt.floor('D')
-
-# st.markdown("<h1 style='text-align: center; color: orange;'>Visualize Data Here</h1>", unsafe_allow_html=True)
 pyg_html = pyg.to_html(all_sales)
-
-# pyg_html = pyg.walk(all_sales, dark='light', return_html=True)
 
 components.html(pyg_html, height=1000, width=1700,scrolling=True)
 

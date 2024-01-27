@@ -27,22 +27,14 @@ st.markdown("""
         </style>
         """, unsafe_allow_html=True)
 
-## ----- CONNECT TO POSTGRESQL DATABASE --------
-# connection_string = f"postgresql://{st.secrets['db_user']}:{st.secrets['db_password']}@{st.secrets['endpoint']}:5432/{st.secrets['db_name']}"
-# engine = create_engine(connection_string)
-
-# ---- PULL IN DATA ----
-
 # ---- PULL IN DATA FROM POSTGRES DB ----
-conn = st.connection('dot', type ="sql")
-all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2020-12-31'")
+@st.cache_data
+def get_connection():
+    conn = st.connection('dot', type ="sql")
+    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2020-12-31'")
+    return all_sales
 
-# @st.cache_data
-# def get_data_from_csv():
-#     # df = pd.read_sql("SELECT * FROM level_2 WHERE date > '2019-12-31'",con = engine)
-#     df = pd.read_csv(r"data/all_sales_data.csv")
-#     return df
-# all_sales = get_data_from_csv()
+all_sales = get_connection()
 all_sales = all_sales[all_sales.market_segment != 'Samples']
 
 # invoice date cleanup

@@ -55,7 +55,6 @@ st.markdown("""
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
-    font-weight: 900;
 }
 
 [data-testid="stMetricDeltaIcon-Down"] {
@@ -64,15 +63,19 @@ st.markdown("""
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
-    font-weight: 900;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 # ---- PULL IN DATA FROM POSTGRES DB ----
-conn = st.connection('dot', type ="sql")
-all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2022-12-31'")
+@st.cache_data
+def get_connection():
+    conn = st.connection('dot', type ="sql")
+    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2022-12-31'")
+    return all_sales
+
+all_sales = get_connection()
 
 # date cleanup
 all_sales['date'] = pd.to_datetime(all_sales['date'])
@@ -85,6 +88,7 @@ st.markdown("<h1 style='text-align: center;'>2024 YTD</h1>", unsafe_allow_html=T
 st.markdown("##")
 
 # CALCS FOR KPI'S
+
 current_date = datetime.today().strftime('%Y-%m-%d')
 import datetime
 year_ago_today = datetime.datetime.today() - datetime.timedelta(days=365)
@@ -116,6 +120,8 @@ with col4:
 # line divider & sub-title
 st.markdown("---")
 st.markdown("<b><h2 style='text-align: center;'>Market Segments</h2></b>", unsafe_allow_html=True)
+
+###################
 
 all_sales['date'] = pd.to_datetime(all_sales['date'])
 
@@ -177,6 +183,9 @@ col2.metric(label='Grocery', value=f"${int(grocery_23):,}", delta = f"{yoy_groce
 col3.metric(label='Broadline', value=f"${int(broadline_23):,}", delta = f"{yoy_broadline_perc:.0%}")
 col4.metric(label='Other', value=f"${int(other_23):,}", delta = f"{yoy_other_perc:.0%}")
 blank.markdown("")
+
+
+
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
