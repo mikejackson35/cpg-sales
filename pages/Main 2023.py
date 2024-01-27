@@ -2,8 +2,9 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import altair as alt
-# from sqlalchemy import create_engine
-# import secrets
+from sqlalchemy import create_engine
+import psycopg2
+import secrets
 import numpy as np
 
 
@@ -73,20 +74,24 @@ st.markdown("""
 # engine = create_engine(connection_string)
 
 # ---- PULL IN DATA ----
-@st.cache_data
-def get_data_from_csv():
-    # df = pd.read_sql("""
-    #         SELECT * 
-    #         FROM level_2
-    #         WHERE year > '2020'
-    #         """
-    #         ,con = engine)
-    df = pd.read_csv(r"data/all_sales_data.csv")
-    return df
-df = get_data_from_csv()
+# @st.cache_data
+# def get_data_from_csv():
+#     # df = pd.read_sql("""
+#     #         SELECT * 
+#     #         FROM level_2
+#     #         WHERE year > '2020'
+#     #         """
+#     #         ,con = engine)
+#     df = pd.read_csv(r"data/all_sales_data.csv")
+#     return df
+# df = get_data_from_csv()
 
-# ### MASTER DATA ###
-all_sales = df.copy()
+# # ### MASTER DATA ###
+# all_sales = df.copy()
+
+# ---- PULL IN DATA FROM POSTGRES DB ----
+conn = st.connection('dot', type ="sql")
+all_sales = conn.query("SELECT * FROM level_2")
 
 # invoice date cleanup
 all_sales['date'] = pd.to_datetime(all_sales['date'])

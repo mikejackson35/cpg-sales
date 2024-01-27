@@ -1,8 +1,9 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-# from sqlalchemy import create_engine
-# import secrets
+from sqlalchemy import create_engine
+import psycopg2
+import secrets
 import numpy as np
 
 
@@ -30,20 +31,22 @@ st.markdown("""
 
 
 # ---- PULL IN DATA ----
-@st.cache_data
-def get_data_from_csv():
-    # df = pd.read_sql("""
-    #         SELECT * 
-    #         FROM level_2
-    #         WHERE year > '2020'
-    #         """
-    #         ,con = engine)
-    df = pd.read_csv(r"data/all_sales_data.csv")
-    return df
-df = get_data_from_csv()
+# @st.cache_data
+# def get_data_from_csv():
+#     # df = pd.read_sql("""
+#     #         SELECT * 
+#     #         FROM level_2
+#     #         WHERE year > '2020'
+#     #         """
+#     #         ,con = engine)
+#     df = pd.read_csv(r"data/all_sales_data.csv")
+#     return df
+# df = get_data_from_csv()
 
-### MASTER DATA ###
-all_sales = df.copy()
+
+# ---- PULL IN DATA FROM POSTGRES DB ----
+conn = st.connection('dot', type ="sql")
+all_sales = conn.query("SELECT * FROM level_2")
 
 st.markdown("<h1 style='margin-left:30%;'>Data Finder</h1>", unsafe_allow_html=True)
 st.markdown('##')
