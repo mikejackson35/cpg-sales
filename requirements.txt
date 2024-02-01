@@ -5,3 +5,4 @@ sqlalchemy
 pygwalker
 datetime
 psycopg2-binary
+millify
