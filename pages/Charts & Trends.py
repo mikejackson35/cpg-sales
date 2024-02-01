@@ -157,7 +157,7 @@ fig_seg_sales = px.pie(
     hover_data = ['market_segment'],
     color='market_segment',
     color_discrete_map=market_segment_color).update_layout(autosize=False,width=450,height=450,showlegend=False)
-fig_seg_sales.update_traces(textposition='inside', textinfo='percent+label')
+fig_seg_sales.update_traces(textposition='inside', textinfo='percent+label', texttemplate='%{label}<br>%{percent:.0%}')
 
 space, pie, space, bar = st.columns([.25,1,.25,3.5])
 with space:
@@ -212,9 +212,9 @@ blank,bar,blank = st.columns([.5,3,.5])
 with blank:
     st.markdown(" ")
 with bar:
-    customer_level = st.radio("Customer Level",
+    customer_level = st.radio("Show By...",
                             ['Parent Customer', 'Individual Customer'],
-                            index=None, label_visibility='hidden', horizontal = True)
+                            index=None, horizontal = False)
 
     if customer_level == 'Parent Customer':
         st.plotly_chart(fig_parent_sales, theme = 'streamlit', use_container_width=True)

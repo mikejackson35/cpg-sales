@@ -98,9 +98,9 @@ st.sidebar.image(r"assets/Nevil.png", width=200)
 # st.markdown("<h1 style='text-align: center;'>2024 YTD</h1>", unsafe_allow_html=True)
 # st.markdown("##")
 
-col1, blank, col2 = st.columns([1,.3,3.5])
+col1, blank, col2 = st.columns([3.5,.5,1])
 
-with col1:
+with col2:
 ######################
     def make_daily_bar_df(df):
         return (
@@ -162,7 +162,7 @@ with col1:
     figb = px.scatter(round(daily_bar_dfb),
         x='usd',
         color='sale_origin',
-        # color_discrete_map=market_segment_color,
+        color_discrete_map={'unl':"#E62F29",'dot':"#3A4DA1"},
         labels={'date':"", 'usd':''},
         hover_name=daily_bar_dfb.index.date,
         height=700,
@@ -188,7 +188,7 @@ with col1:
     with cola:
         st.markdown("")
     with colb:
-        st.caption("**Sales Last 10 Days**",unsafe_allow_html=True)
+        st.write("**Sales Last 10 Days**",unsafe_allow_html=True)
     daily_choice = st.radio("Color Chart by...",
                 ['Market Segment','Dot/Direct'],
                 index=None)
@@ -198,7 +198,7 @@ with col1:
         st.plotly_chart(figb,config=config)
         
 
-with col2:
+with col1:
     st.markdown("<h1 style='text-align: center;'>2024 YTD</h1>", unsafe_allow_html=True)
     st.markdown("##")
     # CALCS FOR KPI'S
