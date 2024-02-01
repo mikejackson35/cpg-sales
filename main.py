@@ -7,6 +7,7 @@ import psycopg2
 import secrets
 import numpy as np
 from datetime import datetime
+from millify import millify
 
 
 st.set_page_config(page_title='Awake YTD',
@@ -82,7 +83,7 @@ all_sales['date'] = pd.to_datetime(all_sales['date'])
 all_sales['date'] = all_sales['date'].dt.normalize()
 all_sales['date'] = all_sales['date'].dt.floor('D')
 
-market_segment_color = {
+market_segment_dict = {
     'Vending': 'rgb(56,149,73)',
     'Grocery': 'rgb(248,184,230)',
     'Alternate Retail': 'rgb(46,70,166)',
@@ -98,7 +99,7 @@ st.sidebar.image(r"assets/Nevil.png", width=200)
 # st.markdown("<h1 style='text-align: center;'>2024 YTD</h1>", unsafe_allow_html=True)
 # st.markdown("##")
 
-col1, blank, col2 = st.columns([3.5,.5,1])
+col1, blank, col2 = st.columns([3.5,.3,1])
 
 with col2:
 ######################
@@ -110,6 +111,7 @@ with col2:
             .rename(columns={'new_date':'date'})
             .groupby(['market_segment','date'],as_index=False)
             .sum()
+            .sort_values(by=['usd','market_segment'],ascending=True)
             .set_index('date')
             .sort_index()
         )
@@ -121,24 +123,25 @@ with col2:
 
     config = {'displayModeBar': False}
 
-    fig = px.scatter(round(daily_bar_df),
-            x='usd',
-            color='market_segment',
-            color_discrete_map=market_segment_color,
-            labels={'date':"", 'usd':''},
-            hover_name=daily_bar_df.index.date,
-            height=700,
-            width=275,
-            opacity=.8,
-            template='presentation',
-            size='usd',
-            size_max=25
-            )#.update_traces(marker_size=20)
+    fig = px.bar(round(daily_bar_df),
+        x='usd',
+        color='market_segment',
+        color_discrete_map=market_segment_dict,
+        labels={'date':"", 'usd':''},
+        hover_name=daily_bar_df.index.date,
+        height=750,
+        opacity=.8,
+        template='presentation',
+        # text_auto='$,.0f',
+        category_orders= {'sale_origin':['dot','unl']},
+        title='Sales Last 10 Days'
+        # size='usd',
+        # size_max=25
+        ).update_yaxes(tickmode='array',tickvals=daily_bar_df.index.date)
     
-    fig.update_xaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=16))
+    fig.update_xaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=12),showticklabels=True)
     fig.update_yaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=14))
-    fig.update_layout(xaxis={'side':'top'})
-
+    fig.update_layout(xaxis={'side':'top'}, title_x=0.33)
     fig.update_traces(marker=dict(line=dict(width=1,color='grey')),selector=dict(mode='markers'))
     fig.update_layout(showlegend=False)
 
@@ -150,6 +153,7 @@ with col2:
             .rename(columns={'new_date':'date'})
             .groupby(['sale_origin','date'],as_index=False)
             .sum()
+            .sort_values(by='usd',ascending=False)
             .set_index('date')
             .sort_index()
         )
@@ -159,23 +163,25 @@ with col2:
     week_ago = datetime.today().date() - pd.offsets.Day(11)
     daily_bar_dfb = daily_bar_dfb[daily_bar_dfb.index > week_ago].sort_index()
 
-    figb = px.scatter(round(daily_bar_dfb),
+    figb = px.bar(round(daily_bar_dfb),
         x='usd',
         color='sale_origin',
         color_discrete_map={'unl':"#E62F29",'dot':"#3A4DA1"},
         labels={'date':"", 'usd':''},
         hover_name=daily_bar_dfb.index.date,
-        height=700,
-        width=275,
+        height=750,
         opacity=.8,
         template='presentation',
-        size='usd',
-        size_max=25
-        )#.update_traces(marker_size=20)
+        # text_auto='$,.0f',
+        category_orders= {'sale_origin':['dot','unl']},
+        title='Sales Last 10 Days'
+        # size='usd',
+        # size_max=25
+        ).update_yaxes(tickmode='array',tickvals=daily_bar_dfb.index.date)
     
-    figb.update_xaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=16))
+    figb.update_xaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=12),showticklabels=True)
     figb.update_yaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=14))
-    figb.update_layout(xaxis={'side':'top'})
+    figb.update_layout(xaxis={'side':'top'}, title_x=0.33)
 
     figb.update_traces(marker=dict(line=dict(width=1,color='grey')),selector=dict(mode='markers'))
     figb.update_layout(showlegend=False)
@@ -188,18 +194,18 @@ with col2:
     with cola:
         st.markdown("")
     with colb:
-        st.write("**Sales Last 10 Days**",unsafe_allow_html=True)
-    daily_choice = st.radio("Color Chart by...",
-                ['Market Segment','Dot/Direct'],
-                index=None)
-    if daily_choice == 'Market Segment':
-        st.plotly_chart(fig,config=config)
+        # st.write("**Sales Last 10 Days**",unsafe_allow_html=True)
+        bar_color_choice = st.radio("Color Chart by...",
+                    ['Market Segment','Dot/Direct'],
+                    index=None)
+    if bar_color_choice == 'Market Segment':
+        st.plotly_chart(fig,config=config,use_container_width=True)
     else:
-        st.plotly_chart(figb,config=config)
+        st.plotly_chart(figb,config=config,use_container_width=True)
         
 
 with col1:
-    st.markdown("<h1 style='text-align: center;'>2024 YTD</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>AWAKE 2024</h1>", unsafe_allow_html=True)
     st.markdown("##")
     # CALCS FOR KPI'S
     current_date = datetime.today().strftime('%Y-%m-%d')
@@ -210,29 +216,21 @@ with col1:
     sales_23 = int(all_sales[(all_sales['date'] > '2022-12-31') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum())
 
     yoy_chg_perc = f"{int(sales_24/sales_23*100-100)}%"
-    customer_count = int(all_sales[all_sales['date'].dt.year == 2024].customer.nunique())
-    mean_sales = int(sales_24/customer_count)
 
     # TOP KPI'S
-    logo, col1, col2, col3, col4 = st.columns([.5,1.13,1.13,1.13,1.12])
-    with logo:
+    blank, col1, col2 = st.columns([.7,1,1])
+    with blank:
         st.markdown(" ")
     with col1:
-        st.markdown('<h4>Sales</h4>', unsafe_allow_html=True)
-        st.title(f"${sales_24:,}")
+        st.markdown('<h4>Sales YTD</h4>', unsafe_allow_html=True)
+        st.title(f"${millify(sales_24)}")
     with col2:
         st.markdown('<h4>YoY Change</h4>', unsafe_allow_html=True)
-        st.title(f"{yoy_chg_perc}")
-    with col3:
-        st.markdown('<h4>Num of Customers</h4>', unsafe_allow_html=True)
-        st.title(F"{customer_count:,}")
-    with col4:
-        st.markdown('<h4>$/Customer</h4>', unsafe_allow_html=True)
-        st.title(f"${mean_sales:,}")
+        st.title(f"+{yoy_chg_perc}")
 
     # line divider & sub-title
     st.markdown("---")
-    st.markdown("<b><h2 style='text-align: center;'>Market Segments</h2></b>", unsafe_allow_html=True)
+    st.markdown("<b><h3 style='text-align: center;'>Market Segments</h3></b>", unsafe_allow_html=True)
 
     ###################
 
@@ -279,22 +277,25 @@ with col1:
     yoy_other = int(other_23-other_22)
     yoy_other_perc = round(int(other_23-other_22) / other_22,2)
 
+
+
     # METRICS BOXES
     blank, col1, col2, col3, col4, blank = st.columns([.5,2,2,2,2,.25])
     blank.markdown("")
-    col1.metric(label='Vending', value=f"${int(vending_23):,}", delta = f"{yoy_vend_perc:.0%}")
-    col2.metric(label='Online', value=f"${int(online_23):,}", delta = f"{yoy_online_perc:.0%}")
-    col3.metric(label='Alternate Retail', value=f"${int(alt_23):,}", delta = f"{yoy_alt_perc:.0%}")
-    col4.metric(label='Canada', value=f"${int(canada_23):,}", delta = f"{yoy_canada_perc:.0%}")
+    # col1.metric(label='Vending', value=f"${int(vending_23):,}", delta = f"{yoy_vend_perc:.0%}")
+    col1.metric(label='Vending', value=f"${millify(vending_23)}", delta = f"{yoy_vend_perc:.0%}")
+    col2.metric(label='Online', value=f"${millify(online_23)}", delta = f"{yoy_online_perc:.0%}")
+    col3.metric(label='Alternate Retail', value=f"${millify(alt_23)}", delta = f"{yoy_alt_perc:.0%}")
+    col4.metric(label='Canada', value=f"${millify(canada_23)}", delta = f"{yoy_canada_perc:.0%}")
     blank.markdown("")
     st.markdown("##")
     st.markdown("##")
     blank, col1, col2, col3, col4, blank = st.columns([.5,2,2,2,2,.25])
     blank.markdown("")
-    col1.metric(label='Convenience', value=f"${int(conv_23):,}", delta = f"{yoy_conv_perc:.0%}")
-    col2.metric(label='Grocery', value=f"${int(grocery_23):,}", delta = f"{yoy_grocery_perc:.0%}")
-    col3.metric(label='Broadline', value=f"${int(broadline_23):,}", delta = f"{yoy_broadline_perc:.0%}")
-    col4.metric(label='Other', value=f"${int(other_23):,}", delta = f"{yoy_other_perc:.0%}")
+    col1.metric(label='Convenience', value=f"${millify(conv_23)}", delta = f"{yoy_conv_perc:.0%}")
+    col2.metric(label='Grocery', value=f"${millify(grocery_23)}", delta = f"{yoy_grocery_perc:.0%}")
+    col3.metric(label='Broadline', value=f"${millify(broadline_23)}", delta = f"{yoy_broadline_perc:.0%}")
+    col4.metric(label='Other', value=f"${millify(other_23)}", delta = f"{yoy_other_perc:.0%}")
     blank.markdown("")
 
 
