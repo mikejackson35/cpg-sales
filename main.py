@@ -280,20 +280,22 @@ with col1:
     yoy_other_perc = round(int(other_23-other_22) / other_22,2)
 
     # METRICS BOXES
-    col1, col2, col3, col4 = st.columns(4)
-    # blank.markdown("")
+    blank, col1, col2, col3, col4, blank = st.columns([.5,2,2,2,2,.25])
+    blank.markdown("")
     col1.metric(label='Vending', value=f"${int(vending_23):,}", delta = f"{yoy_vend_perc:.0%}")
     col2.metric(label='Online', value=f"${int(online_23):,}", delta = f"{yoy_online_perc:.0%}")
     col3.metric(label='Alternate Retail', value=f"${int(alt_23):,}", delta = f"{yoy_alt_perc:.0%}")
     col4.metric(label='Canada', value=f"${int(canada_23):,}", delta = f"{yoy_canada_perc:.0%}")
-    # blank.markdown("")
+    blank.markdown("")
     st.markdown("##")
     st.markdown("##")
-    col1, col2, col3, col4 = st.columns(4)
+    blank, col1, col2, col3, col4, blank = st.columns([.5,2,2,2,2,.25])
+    blank.markdown("")
     col1.metric(label='Convenience', value=f"${int(conv_23):,}", delta = f"{yoy_conv_perc:.0%}")
     col2.metric(label='Grocery', value=f"${int(grocery_23):,}", delta = f"{yoy_grocery_perc:.0%}")
     col3.metric(label='Broadline', value=f"${int(broadline_23):,}", delta = f"{yoy_broadline_perc:.0%}")
     col4.metric(label='Other', value=f"${int(other_23):,}", delta = f"{yoy_other_perc:.0%}")
+    blank.markdown("")
 
 
 
