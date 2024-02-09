@@ -239,7 +239,7 @@ with col1:
         st.markdown(" ")
     with col1:
         st.markdown('<h4>Sales YTD</h4>', unsafe_allow_html=True)
-        st.title(f"${sales_24/1000000:.3f}M")
+        st.title(f"${sales_24/1000000:.2f}M")
     with blank2:
         st.image(r"assets/Nevil.png",width=140)
     with col2:
