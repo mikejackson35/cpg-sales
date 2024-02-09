@@ -4,9 +4,21 @@ import pandas as pd
 import datetime
 from sqlalchemy import create_engine
 
+
 # database connection
-conn = st.connection('dot', type ="sql")
-engine = create_engine(conn)
+
+db_password = "UnitCircle42!"
+db_user = "postgres"
+db_name = "dot"
+endpoint = "awakedb.cre3f7yk1unp.us-west-1.rds.amazonaws.com"
+
+connection_string = f"postgresql://{db_user}:{db_password}@{endpoint}:5432/{db_name}"
+engine = create_engine(connection_string)
+
+
+# database connection
+# conn = st.connection('dot', type ="sql")
+# engine = create_engine(conn)
 
 # FUNCTION TO READ NEW UNL DATA, FIX COLUMN NAMES, APPEND POSTGRES DB
 def add_new_unl(unl_download):
