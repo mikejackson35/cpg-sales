@@ -32,7 +32,7 @@ st.markdown("""
 @st.cache_data
 def get_connection():
     conn = st.connection('dot', type ="sql")
-    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2020-12-31'")
+    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2021-12-31'")
     return all_sales
 
 all_sales = get_connection()
@@ -127,18 +127,18 @@ fig_mth_bar = px.bar(mth_sales,
         y='usd',
         color='usd',
         color_continuous_scale=px.colors.sequential.Oranges,
-        labels = {'date':' ','usd':'<b>$USD</b>'},
+        labels = {'date':' ','usd':''},
         text='usd',
         opacity=.8,
         hover_data=['usd'],
         title='Monthly Sales',
-        width=800
-        # height=400
+        width=800,
+        height=500
         ).update_coloraxes(showscale=False).update_traces(texttemplate='%{text:$,.2s}',textposition='outside')
 # fig_mth_bar.update_traces(texttemplate='<b>%{text:$,}</b>'),#,hovertext=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'])
-fig_mth_bar.update_layout(title_x=0.5)
-fig_mth_bar.update_xaxes(tickmode='array',tickvals = mth_sales.index, ticktext=mth_sales.index.month_name())
-fig_mth_bar.update_yaxes(tick0=0,dtick=250000,showticklabels=False, gridcolor='darkgrey')   
+fig_mth_bar.update_layout(title_x=0.5,xaxis=dict(type = 'category'))
+fig_mth_bar.update_xaxes(tickmode='array',tickvals = mth_sales.index, ticktext=mth_sales.index.strftime('%Y-%m'))
+fig_mth_bar.update_yaxes(tick0=0,dtick=250000,showticklabels=True, tickcolor='darkgrey', gridcolor='darkgrey')   
 
 # line divider
 st.markdown("   ")
@@ -158,10 +158,10 @@ fig_seg_sales = px.pie(
     hole=.33,
     hover_data = ['market_segment'],
     color='market_segment',
-    color_discrete_map=market_segment_color).update_layout(autosize=False,width=450,height=450,showlegend=False)
+    color_discrete_map=market_segment_color).update_layout(autosize=True, width=600,height=600, showlegend=False)
 fig_seg_sales.update_traces(textposition='inside', textinfo='percent+label', texttemplate='%{label}<br>%{percent:.0%}')
 
-space, pie, space, bar = st.columns([.25,1,.5,3.5])
+space, pie, space, bar = st.columns([.25,1,.5,3])
 with space:
     st.markdown(" ")
 with pie:
@@ -187,7 +187,7 @@ fig_dist_sales = px.bar(top_custs,
     labels={'customer':'',
             'usd':' '},
     opacity=.8,
-    height=500,
+    height=600,
     width=1000,        
     color = 'market_segment',
     text = 'usd',

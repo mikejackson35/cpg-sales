@@ -23,8 +23,8 @@ st.markdown("""
 <style>
 
 [data-testid="block-container"] {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 5rem;
+    padding-right: 10rem;
     padding-top: 1rem;
     padding-bottom: 0rem;
     margin-bottom: -7rem;
@@ -65,6 +65,26 @@ st.markdown("""
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
 }
+            
+[data-baseweb="tab-list"] {
+    gap: 6px;
+}
+
+[data-baseweb="tab"] {
+    height: 30px;
+    width: 80px;
+    white-space: pre-wrap;
+    # background-color: #BFB3A0;
+    background-color: #A29F99;
+    border-radius: 4px 4px 0px 0px;
+    gap: 1px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+[aria-selected="true"] {
+    background-color: #A29F99;
+}
 
 </style>
 """, unsafe_allow_html=True)
@@ -95,117 +115,113 @@ market_segment_dict = {
     'Samples': 'rgb(141,62,92)'}
 
 # LOGO AND TITLE
-st.sidebar.image(r"assets/Nevil.png", width=200)
-# st.markdown("<h1 style='text-align: center;'>2024 YTD</h1>", unsafe_allow_html=True)
-# st.markdown("##")
+st.sidebar.title("AWAKE")
 
-col1, blank, col2 = st.columns([3.5,.3,1])
+col1, blank, col2 = st.columns([3,.3,1])
+
+with blank:
+    st.markdown("####")
 
 with col2:
 ######################
-    def make_daily_bar_df(df):
-        return (
-            df.dropna()
-            .assign(new_date=pd.to_datetime(all_sales['date']))
-            .drop(columns=['cad','month','year','date'])
-            .rename(columns={'new_date':'date'})
-            .groupby(['market_segment','date'],as_index=False)
-            .sum()
-            .sort_values(by=['usd','market_segment'],ascending=True)
-            .set_index('date')
-            .sort_index()
-        )
-
-    daily_bar_df = make_daily_bar_df(all_sales)
-
-    week_ago = datetime.today().date() - pd.offsets.Day(11)
-    daily_bar_df = daily_bar_df[daily_bar_df.index > week_ago].sort_index()
-
+    week_ago = datetime.today().date() - pd.offsets.Day(10)
+    recent_sales = all_sales[all_sales.date>week_ago]
     config = {'displayModeBar': False}
 
-    fig = px.bar(round(daily_bar_df),
-        x='usd',
-        color='market_segment',
-        color_discrete_map=market_segment_dict,
-        labels={'date':"", 'usd':''},
-        hover_name=daily_bar_df.index.date,
-        height=750,
-        opacity=.8,
-        template='presentation',
-        # text_auto='$,.0f',
-        category_orders= {'sale_origin':['dot','unl']},
-        title='Sales Last 10 Days'
-        # size='usd',
-        # size_max=25
-        ).update_yaxes(tickmode='array',tickvals=daily_bar_df.index.date)
+    # daily sales scatter colored by sales_origin
+    df = recent_sales.groupby(recent_sales.date).usd.sum().reset_index().set_index('date')
+    fig = px.scatter(df,
+           x='usd',
+           labels={'date':"", 'usd':''},
+           height=750,
+           width=300,
+           template='plotly_white',
+        #    text=round(df.usd),
+          )
+    fig.update_traces(marker=dict(size=35,color='#E09641',line=dict(width=1,color='grey')),selector=dict(mode='markers'),hovertemplate ="<b>$%{x:,.2s}</b>")
+    fig.update_xaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=15),showticklabels=True)
+    fig.update_yaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=18))
+    fig.update_layout(xaxis={'side':'top'},legend=dict(title=''),coloraxis_showscale=False)
+    fig.update_layout(yaxis=dict(type = 'category'))
+    fig.update_yaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('%m-%d'))
+
+    # daily sales scatter colored by sales_origin
+    fig1 = px.scatter(recent_sales.groupby([recent_sales.date,'sale_origin']).usd.sum().reset_index().set_index('date'),
+           x='usd',
+           color='sale_origin',
+           color_discrete_map={'unl':"#E62F29",'dot':"#3A4DA1"},
+           opacity=.8,
+           labels={'date':"", 'usd':''},
+           height=750,
+           width=300,
+           template='plotly_white',
+           hover_name='sale_origin',
+          ).update_layout(showlegend=False)
+    fig1.update_traces(marker=dict(size=30,line=dict(width=1,color='grey')),selector=dict(mode='markers'),hovertemplate ="<b>$%{x:,.2s}</b>")
+    fig1.update_xaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=15), showticklabels=True)
+    fig1.update_yaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=18))
+    fig1.update_layout(xaxis={'side':'top'})
+    fig1.update_layout(yaxis=dict(type = 'category'))
+    fig1.update_yaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('%m-%d'))
+
+    # daily sales scatter colored by 'market_segment
+    fig2 = px.scatter(recent_sales.groupby([recent_sales.date,'market_segment']).usd.sum().reset_index().set_index('date'),
+           x='usd',
+           color='market_segment',
+           color_discrete_map=market_segment_dict,
+           opacity=.8,
+           labels={'date':"", 'usd':''},
+           height=750,
+        #    width=300,
+           template='plotly_white',
+           hover_name='market_segment',
+           log_x=True
+          ).update_layout(showlegend=False)
+    fig2.update_traces(marker=dict(size=15,line=dict(width=2,color='grey')),selector=dict(mode='markers'),hovertemplate ="<b>$%{x:,.2s}</b>")
+    fig2.update_xaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=15),showticklabels=True)
+    fig2.update_yaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=18))
+    fig2.update_layout(xaxis={'side':'top'},legend=dict(title=''))
+    fig2.update_layout(yaxis=dict(type = 'category'))
+    fig2.update_yaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('%m-%d'))
+
+    # daily sales scatter colored by parent_customer
+    fig3 = px.scatter(recent_sales.groupby([recent_sales.date,'parent_customer','market_segment']).usd.sum().reset_index().set_index('date'),
+           x='usd',
+           color='market_segment',
+           color_discrete_map=market_segment_dict,
+           opacity=.8,
+           labels={'date':"", 'usd':''},
+           height=750,
+        #    width=300,
+           template='plotly_white',
+           hover_name='parent_customer',
+           log_x = True
+          ).update_layout(showlegend=False)
+    fig3.update_traces(marker=dict(size=15,line=dict(width=2,color='grey')),selector=dict(mode='markers'))
+    fig3.update_xaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=15),showticklabels=True)
+    fig3.update_yaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=18))
+    fig3.update_layout(xaxis={'side':'top'},legend=dict(title=''))
+    fig3.update_layout(yaxis=dict(type = 'category'))
+    fig3.update_yaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('%m-%d'))
     
-    fig.update_xaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=12),showticklabels=True)
-    fig.update_yaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=14))
-    fig.update_layout(xaxis={'side':'top'}, title_x=0.33)
-    fig.update_traces(marker=dict(line=dict(width=1,color='grey')),selector=dict(mode='markers'))
-    fig.update_layout(showlegend=False)
-
-    def make_daily_bar_dfb(df):
-        return (
-            df.dropna()
-            .assign(new_date=pd.to_datetime(all_sales['date']))
-            .drop(columns=['cad','month','year','date'])
-            .rename(columns={'new_date':'date'})
-            .groupby(['sale_origin','date'],as_index=False)
-            .sum()
-            .sort_values(by='usd',ascending=False)
-            .set_index('date')
-            .sort_index()
-        )
-
-    daily_bar_dfb = make_daily_bar_dfb(all_sales)
-
-    week_ago = datetime.today().date() - pd.offsets.Day(11)
-    daily_bar_dfb = daily_bar_dfb[daily_bar_dfb.index > week_ago].sort_index()
-
-    figb = px.bar(round(daily_bar_dfb),
-        x='usd',
-        color='sale_origin',
-        color_discrete_map={'unl':"#E62F29",'dot':"#3A4DA1"},
-        labels={'date':"", 'usd':''},
-        hover_name=daily_bar_dfb.index.date,
-        height=750,
-        opacity=.8,
-        template='presentation',
-        # text_auto='$,.0f',
-        category_orders= {'sale_origin':['dot','unl']},
-        title='Sales Last 10 Days'
-        # size='usd',
-        # size_max=25
-        ).update_yaxes(tickmode='array',tickvals=daily_bar_dfb.index.date)
-    
-    figb.update_xaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=12),showticklabels=True)
-    figb.update_yaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=14))
-    figb.update_layout(xaxis={'side':'top'}, title_x=0.33)
-
-    figb.update_traces(marker=dict(line=dict(width=1,color='grey')),selector=dict(mode='markers'))
-    figb.update_layout(showlegend=False)
-
-   
-   
     st.markdown("####")
+    st.subheader("Recent Daily Sales")
+    st.caption("choose aggregation...")
+    
+    tab, tab1, tab2, tab3 = st.tabs(["All Sales", "Dot/Direct", "Segment", "Customer"])
 
-    cola,colb = st.columns([.8,2])
-    with cola:
-        st.markdown("")
-    with colb:
-        # st.write("**Sales Last 10 Days**",unsafe_allow_html=True)
-        bar_color_choice = st.radio("Color Chart by...",
-                    ['Market Segment','Dot/Direct'],
-                    index=None)
-    if bar_color_choice == 'Market Segment':
+    with tab:
         st.plotly_chart(fig,config=config,use_container_width=True)
-    else:
-        st.plotly_chart(figb,config=config,use_container_width=True)
+    with tab1:
+        st.plotly_chart(fig1,config=config,use_container_width=True)
+    with tab2:
+        st.plotly_chart(fig2,config=config,use_container_width=True)
+    with tab3:
+        st.plotly_chart(fig3,config=config,use_container_width=True)
         
 
 with col1:
-    st.markdown("<h1 style='text-align: center;'>AWAKE 2024</h1>", unsafe_allow_html=True)
+    # st.markdown("<h1 style='text-align: center;'>AWAKE 2024</h1>", unsafe_allow_html=True)
     st.markdown("##")
     # CALCS FOR KPI'S
     current_date = datetime.today().strftime('%Y-%m-%d')
@@ -215,21 +231,25 @@ with col1:
     sales_24 = int(all_sales[(all_sales['date'] > '2023-12-31') & (all_sales['date'] < current_date)].usd.sum())
     sales_23 = int(all_sales[(all_sales['date'] > '2022-12-31') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum())
 
-    yoy_chg_perc = f"{int(sales_24/sales_23*100-100)}%"
+    yoy_chg_perc = f"{(sales_24/sales_23-1)*100:.0f}%"
 
     # TOP KPI'S
-    blank, col1, col2 = st.columns([.7,1,1])
-    with blank:
+    blank1, col1, blank2, col2 = st.columns([.7,1,1,1])
+    with blank1:
         st.markdown(" ")
     with col1:
         st.markdown('<h4>Sales YTD</h4>', unsafe_allow_html=True)
-        st.title(f"${millify(sales_24)}")
+        st.title(f"${sales_24/1000000:.1f}M")
+    with blank2:
+        st.image(r"assets/Nevil.png",width=140)
     with col2:
         st.markdown('<h4>YoY Change</h4>', unsafe_allow_html=True)
         st.title(f"+{yoy_chg_perc}")
 
     # line divider & sub-title
+    st.markdown("####")
     st.markdown("---")
+    st.markdown("####")
     st.markdown("<b><h3 style='text-align: center;'>Market Segments</h3></b>", unsafe_allow_html=True)
 
     ###################
@@ -282,8 +302,8 @@ with col1:
     # METRICS BOXES
     blank, col1, col2, col3, col4, blank = st.columns([.5,2,2,2,2,.25])
     blank.markdown("")
-    # col1.metric(label='Vending', value=f"${int(vending_23):,}", delta = f"{yoy_vend_perc:.0%}")
-    col1.metric(label='Vending', value=f"${millify(vending_23)}", delta = f"{yoy_vend_perc:.0%}")
+    col1.metric(label='Vending', value=f"${vending_23/1000:,.0f}K", delta = f"{yoy_vend_perc:.0%}")
+    # col1.metric(label='Vending', value=f"${millify(vending_23)}", delta = f"{yoy_vend_perc:.0%}")
     col2.metric(label='Online', value=f"${millify(online_23)}", delta = f"{yoy_online_perc:.0%}")
     col3.metric(label='Alternate Retail', value=f"${millify(alt_23)}", delta = f"{yoy_alt_perc:.0%}")
     col4.metric(label='Canada', value=f"${millify(canada_23)}", delta = f"{yoy_canada_perc:.0%}")
@@ -302,12 +322,12 @@ with col1:
 
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
-# hide_st_style = """
-#             <style>
-#             Main Menu {visibility: hidden;}
-#             footer {visibility: hidden;}
-#             header {visibility: hidden;}
-#             </style>
-#             """
+hide_st_style = """
+            <style>
+            Main Menu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
             
-# st.markdown(hide_st_style, unsafe_allow_html=True)
+st.markdown(hide_st_style, unsafe_allow_html=True)
