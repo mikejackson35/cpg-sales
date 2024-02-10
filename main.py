@@ -37,7 +37,6 @@ st.markdown("""
 
 [data-testid="stMetric"] {
     background-color: #E09641;
-    color: #5A5856;
     text-align: center;
     padding: 15px 0;
     
@@ -51,6 +50,7 @@ st.markdown("""
 }
 
 [data-testid="stMetricDeltaIcon-Up"] {
+    color:  #009933;
     position: relative;
     left: 38%;
     -webkit-transform: translateX(-50%);
@@ -322,12 +322,12 @@ with col1:
 
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
-hide_st_style = """
-            <style>
-            Main Menu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            </style>
-            """
+# hide_st_style = """
+#             <style>
+#             Main Menu {visibility: hidden;}
+#             footer {visibility: hidden;}
+#             header {visibility: hidden;}
+#             </style>
+#             """
             
-st.markdown(hide_st_style, unsafe_allow_html=True)
+# st.markdown(hide_st_style, unsafe_allow_html=True)
