@@ -31,8 +31,8 @@ st.markdown("""
 }
 
 [data-testid="stVerticalBlock"] {
-    padding-left: 0rem;
-    padding-right: 0rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 [data-testid="stMetric"] {
@@ -215,8 +215,7 @@ col2.metric(label='Grocery', value=f"${millify(grocery_23)}", delta = f"{yoy_gro
 col3.metric(label='Broadline', value=f"${millify(broadline_23)}", delta = f"{yoy_broadline_perc:.0%}")
 col4.metric(label='Other', value=f"${millify(other_23)}", delta = f"{yoy_other_perc:.0%}")
 
-st.markdown("---")
-st.markdown("")
+st.markdown("<br><br><b>FEBRUARY</b> <small>Daily Sales</small>",unsafe_allow_html=True)
 
 
 # DAILY BY MARKET SEGMENT
@@ -227,7 +226,7 @@ scatter_market = px.scatter(
     df,
     y='usd',
     template = 'plotly_white',
-    labels={'date':'FEBRUARY',
+    labels={'date':'',
             'usd':''},
     height=325,
     color='market_segment',
@@ -245,10 +244,11 @@ scatter_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"
                               showlegend=True,
                               legend=dict(orientation='h',
                                           yanchor="bottom",
-                                          y=1.2,
+                                          y=1.5,
                                           xanchor="right",
                                           x=.9,
-                                          title=''))
+                                          title='')
+                                          )
 
 # DAILY BY SALE CUSTOMER
 df = all_sales.groupby([all_sales.date,'parent_customer','market_segment']).usd.sum().reset_index().set_index('date')
@@ -258,8 +258,8 @@ scatter_customer = px.scatter(
     df.reset_index(),
     x='date',
     y='usd',
-    template = 'plotly_white',
-    labels={'date':'FEBRUARY','usd':''},
+    template = 'plotly_dark',
+    labels={'date':'','usd':''},
     height=325,
     color='market_segment',
     color_discrete_map=market_segment_dict,
@@ -271,7 +271,7 @@ scatter_customer = px.scatter(
                   'date':False
                   }
 )
-scatter_customer.update_traces(marker=dict(size=8,line=dict(width=1,color='lightgrey')),selector=dict(mode='markers'))
+scatter_customer.update_traces(marker=dict(size=9,line=dict(width=1,color='lightgrey')),selector=dict(mode='markers'))
 scatter_customer.update_coloraxes(showscale=False)
 scatter_customer.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[100,1000,10000,100000,1000000],tickfont=dict(color='#5A5856', size=14),showticklabels=True)
 scatter_customer.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
@@ -280,10 +280,11 @@ scatter_customer.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwel
                               showlegend=True,
                               legend=dict(orientation='h',
                                           yanchor="bottom",
-                                          y=1.1,
-                                          xanchor="right",
-                                          x=.9,
-                                          title=''))
+                                          y=1.5,
+                                          xanchor="center",
+                                          x=.5,
+                                          title='')
+                                          )
 
 # DAILY BY SALE ORIGIN
 df = all_sales.groupby([all_sales.date,'sale_origin']).usd.sum().reset_index().set_index('date')
@@ -293,7 +294,7 @@ scatter_origin = px.scatter(
         df,
         y='usd',
         template = 'plotly_white',
-        labels={'date':'FEBRUARY',
+        labels={'date':'',
                 'usd':''},
         height=325,
         color='sale_origin',
@@ -307,7 +308,7 @@ scatter_origin.update_traces(hovertemplate =
 scatter_origin.update_traces(marker=dict(size=23,opacity=.7,line=dict(width=1,color='white')),selector=dict(mode='markers'))
 
 scatter_origin.update_coloraxes(showscale=False)
-scatter_origin.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=17),showticklabels=True)
+scatter_origin.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14),showticklabels=True)
 scatter_origin.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
 scatter_origin.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 scatter_origin.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),showlegend=True,
@@ -326,16 +327,16 @@ bar_all = px.bar(
         df,
         y='usd',
         template = 'plotly_white',
-        labels={'date':'FEBRUARY',
+        labels={'date':'',
                 'usd':''},
         height=325,
-        text_auto='.2s',
+        text_auto='.2s'
     )
 bar_all.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
 bar_all.update_traces(marker_color='#E09641')#=dict(size=25,color='#E09641',line=dict(width=1,color='white')),selector=dict(mode='markers'))
 bar_all.update_coloraxes(showscale=False)
-bar_all.update_yaxes(showticklabels=True,showgrid=False,tickprefix='$',gridcolor="#B1A999",tickvals=[-25000,0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=17))
-bar_all.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
+bar_all.update_yaxes(showticklabels=False,showgrid=False,tickprefix='$',gridcolor="#B1A999",tickvals=[-25000,0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14))
+bar_all.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 bar_all.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),showlegend=True,
                               legend=dict(orientation='h',
