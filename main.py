@@ -23,8 +23,8 @@ st.markdown("""
 <style>
 
 [data-testid="block-container"] {
-    padding-left: 21rem;
-    padding-right: 25rem;
+    padding-left: 5rem;
+    padding-right: 20rem;
     padding-top: 1rem;
     padding-bottom: 0rem;
     margin-bottom: -7rem;
@@ -32,15 +32,14 @@ st.markdown("""
 
 [data-testid="stVerticalBlock"] {
     padding-left: 1rem;
-    padding-right: 1rem;
+    padding-right: 5rem;
 }
 
 [data-testid="stMetric"] {
     background-color: #E09641;
     text-align: center;
-    padding-right: 20px 0;
-    padding-left: 20px 0;
-    
+    # padding-right: 20px 0;
+    # padding-left: 20px 0;
 }
 
 [data-testid="stMetricLabel"] {
@@ -214,9 +213,6 @@ col2.metric(label='Grocery', value=f"${millify(grocery_23)}", delta = f"{yoy_gro
 col3.metric(label='Broadline', value=f"${millify(broadline_23)}", delta = f"{yoy_broadline_perc:.0%}")
 col4.metric(label='Other', value=f"${millify(other_23)}", delta = f"{yoy_other_perc:.0%}")
 
-st.markdown("<br><br><b>FEBRUARY</b> <small>Daily Sales</small>",unsafe_allow_html=True)
-
-
 # DAILY BY MARKET SEGMENT
 df = all_sales.groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
 df = round(df[df.index>'2024-01-31'].sort_index())
@@ -343,8 +339,10 @@ bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),showl
                                           x=.5,
                                           title=''))
 
-tab1, tab2, tab3, tab4 = st.tabs(["All", "Direct/Dot", "Market", "Customer"])
+st.markdown("<br><br><b>FEBRUARY</b> <small>Daily Sales</small>",unsafe_allow_html=True)
 
+tab1, tab2, tab3, tab4 = st.tabs(["All", "Direct/Dot", "Market", "Customer"])
+st.markdown("<br><br><b>FEBRUARY</b> <small>Daily Sales</small>",unsafe_allow_html=True)
 with tab1:
     st.plotly_chart(bar_all,config=config, use_container_width=True)
 with tab2:
