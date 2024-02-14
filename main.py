@@ -12,7 +12,7 @@ from millify import millify
 
 st.set_page_config(page_title='Awake YTD',
                    page_icon='assets/Nevil.png',
-                #    layout='wide'
+                   layout='wide'
 )
 
 alt.themes.enable("dark")
@@ -23,8 +23,8 @@ st.markdown("""
 <style>
 
 [data-testid="block-container"] {
-    # padding-left: 18rem;
-    # padding-right: 22rem;
+    padding-left: 18rem;
+    padding-right: 22rem;
     padding-top: 1rem;
     padding-bottom: 0rem;
     margin-bottom: -7rem;
