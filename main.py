@@ -117,113 +117,15 @@ market_segment_dict = {
 
 # LOGO AND TITLE
 st.sidebar.title("AWAKE")
+st.markdown("")
 
-# col1, col2 = st.columns([3,1])
-
-# # with blank:
-# #     st.markdown("####")
-
-# with col2:
-######################
 week_ago = datetime.today().date() - pd.offsets.Day(10)
 recent_sales = all_sales[all_sales.date>week_ago]
 config = {'displayModeBar': False}
 
-    # daily sales scatter colored by sales_origin
+# daily sales scatter colored by sales_origin
 df = recent_sales.groupby(recent_sales.date).usd.sum().reset_index().set_index('date')
-    # fig = px.scatter(df,
-    #        x='usd',
-    #        labels={'date':"", 'usd':''},
-    #        height=750,
-    #        width=300,
-    #        template='plotly_white',
-    #     #    text=round(df.usd),
-    #       )
-    # fig.update_traces(marker=dict(size=35,color='#E09641',line=dict(width=1,color='grey')),selector=dict(mode='markers'),hovertemplate ="<b>$%{x:,.2s}</b>")
-    # fig.update_xaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=15),showticklabels=True)
-    # fig.update_yaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=18))
-    # fig.update_layout(xaxis={'side':'top'},legend=dict(title=''),coloraxis_showscale=False)
-    # # fig.update_layout(yaxis=dict(type = 'category'))
-    # fig.update_yaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('%a  %b-%d'))
 
-    # # daily sales scatter colored by sales_origin
-    # fig1 = px.scatter(recent_sales.groupby([recent_sales.date,'sale_origin']).usd.sum().reset_index().set_index('date'),
-    #        x='usd',
-    #        color='sale_origin',
-    #        color_discrete_map={'unl':"#E62F29",'dot':"#3A4DA1"},
-    #        opacity=.8,
-    #        labels={'date':"", 'usd':''},
-    #        height=750,
-    #        width=300,
-    #        template='plotly_white',
-    #        hover_name='sale_origin',
-    #       ).update_layout(showlegend=False)
-    # fig1.update_traces(marker=dict(size=30,line=dict(width=1,color='grey')),selector=dict(mode='markers'),hovertemplate ="<b>$%{x:,.2s}</b>")
-    # fig1.update_xaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=15), showticklabels=True)
-    # fig1.update_yaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=18))
-    # fig1.update_layout(xaxis={'side':'top'})
-    # # fig1.update_layout(yaxis=dict(type = 'category'))
-    # fig1.update_yaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('%a  %b-%d'))
-
-    # # daily sales scatter colored by 'market_segment
-    # fig2 = px.scatter(recent_sales.groupby([recent_sales.date,'market_segment']).usd.sum().reset_index().set_index('date'),
-    #        x='usd',
-    #        color='market_segment',
-    #        color_discrete_map=market_segment_dict,
-    #        opacity=.7,
-    #        labels={'date':"", 'usd':''},
-    #        height=750,
-    #     #    width=300,
-    #        template='plotly_white',
-    #        hover_name='market_segment',
-    #        log_x=True
-    #       ).update_layout(showlegend=False)
-    # fig2.update_traces(marker=dict(size=20,line=dict(width=2,color='grey')),selector=dict(mode='markers'),hovertemplate ="<b>$%{x:,.2s}</b>")
-    # fig2.update_xaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[100,1000,10000,100000],tickfont=dict(color='#5A5856', size=15),showticklabels=True)
-    # fig2.update_yaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=18))
-    # fig2.update_layout(xaxis={'side':'top'},legend=dict(title=''))
-    # # fig2.update_layout(yaxis=dict(type = 'category'))
-    # fig2.update_yaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('%a  %b-%d'))
-
-    # # daily sales scatter colored by parent_customer
-    # fig3 = px.scatter(recent_sales.groupby([recent_sales.date,'parent_customer','market_segment']).usd.sum().reset_index().set_index('date'),
-    #        x='usd',
-    #        color='market_segment',
-    #        color_discrete_map=market_segment_dict,
-    #        opacity=.8,
-    #        labels={'date':"", 'usd':''},
-    #        height=750,
-    #     #    width=300,
-    #        template='plotly_white',
-    #        hover_name='parent_customer',
-    #        log_x = True
-    #       ).update_layout(showlegend=False)
-    # fig3.update_traces(marker=dict(size=15,line=dict(width=2,color='grey')),selector=dict(mode='markers'))
-    # fig3.update_xaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[100,1000,10000,100000],tickfont=dict(color='#5A5856', size=15),showticklabels=True)
-    # fig3.update_yaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=18))
-    # fig3.update_layout(xaxis={'side':'top'},legend=dict(title=''))
-    # # fig3.update_layout(yaxis=dict(type = 'category'))
-    # fig3.update_yaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('%a  %b-%d'))
-    
-    # st.markdown("####")
-    # st.subheader("Recent Daily Sales")
-    # st.caption("choose aggregation...")
-    
-    # tab, tab1, tab2, tab3 = st.tabs(["All Sales", "Dot/Direct", "Segment", "Customer"])
-
-    # with tab:
-    #     st.plotly_chart(fig,config=config,use_container_width=True)
-    # with tab1:
-    #     st.plotly_chart(fig1,config=config,use_container_width=True)
-    # with tab2:
-    #     st.plotly_chart(fig2,config=config,use_container_width=True)
-    # with tab3:
-    #     st.plotly_chart(fig3,config=config,use_container_width=True)
-        
-
-# with col1:
-    # st.markdown("<h1 style='text-align: center;'>AWAKE 2024</h1>", unsafe_allow_html=True)
-st.markdown("")
 # CALCS FOR KPI'S
 current_date = datetime.today().strftime('%Y-%m-%d')
 import datetime
@@ -235,22 +137,17 @@ sales_23 = int(all_sales[(all_sales['date'] > '2022-12-31') & (all_sales['date']
 yoy_chg_perc = f"{(sales_24/sales_23-1)*100:.0f}%"
 
 # TOP KPI'S
-blank1, col1, blank2, col2 = st.columns([.6,1,1,1])
-with blank1:
-    st.markdown("")
+col1, col2, col3, col4 = st.columns([.6,1,1,1])
 with col1:
+    st.markdown("")
+with col2:
     st.markdown('<h4>Sales YTD</h4>', unsafe_allow_html=True)
     st.title(f"${sales_24/1000000:.2f}M")
-with blank2:
+with col3:
     st.image(r"assets/Nevil.png",width=125)
-with col2:
+with col4:
     st.markdown('<h4>YoY Change</h4>', unsafe_allow_html=True)
     st.title(f"+{yoy_chg_perc}")
-
-# line divider & sub-title
-# st.markdown("####")
-# st.markdown("####")
-# st.markdown("<b><h3 style='text-align: center;'>Market Segments</h3></b>", unsafe_allow_html=True)
 
 ###################
 
@@ -302,26 +199,21 @@ yoy_other_perc = round(int(other_23-other_22) / other_22,2)
 # METRICS BOXES
 st.markdown("#")
 col1, col2, col3, col4 = st.columns([2,2,2,2])
-# blank.markdown("")
 col1.metric(label='Vending', value=f"${vending_23/1000:,.0f}K", delta = f"{yoy_vend_perc:.0%}")
-# col1.metric(label='Vending', value=f"${millify(vending_23)}", delta = f"{yoy_vend_perc:.0%}")
 col2.metric(label='Online', value=f"${millify(online_23)}", delta = f"{yoy_online_perc:.0%}")
 col3.metric(label='Alternate Retail', value=f"${millify(alt_23)}", delta = f"{yoy_alt_perc:.0%}")
 col4.metric(label='Canada', value=f"${millify(canada_23)}", delta = f"{yoy_canada_perc:.0%}")
-# blank.markdown("")
-# st.markdown("##")
-# st.markdown("##")
+
 col1, col2, col3, col4 = st.columns([2,2,2,2])
-# blank.markdown("")
 col1.metric(label='Convenience', value=f"${millify(conv_23)}", delta = f"{yoy_conv_perc:.0%}")
 col2.metric(label='Grocery', value=f"${millify(grocery_23)}", delta = f"{yoy_grocery_perc:.0%}")
 col3.metric(label='Broadline', value=f"${millify(broadline_23)}", delta = f"{yoy_broadline_perc:.0%}")
 col4.metric(label='Other', value=f"${millify(other_23)}", delta = f"{yoy_other_perc:.0%}")
+
 st.markdown("---")
 st.markdown("")
 
-# DAILY SALES HORIZONTAL SCATTER (XAXIS = CATEGORY)
-
+# DAILY SALES HORIZONTAL SCATTER
 df = all_sales.groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
 df = round(df[df.index>'2024-01-31'].sort_index())
 
@@ -329,12 +221,12 @@ fig_scatter_all = px.scatter(
     df,
     y='usd',
     template = 'plotly_white',
-    labels={'date':'',
+    labels={'date':'FEBRUARY',
             'usd':''},
     height=325,
     color='market_segment',
     color_discrete_map=market_segment_dict,
-    title='February',
+    # title='February',
     log_y=True
 )
 
@@ -358,22 +250,23 @@ fig_scatter_all.update_traces(hovertemplate =
     '$%{y:.2s}'+
     '<br>%{x:%Y-%m-%d}<br>')
 
-fig_scatter_all.update_traces(marker=dict(size=14,opacity=.7,line=dict(width=1,color='grey')),selector=dict(mode='markers'))
+fig_scatter_all.update_traces(marker=dict(size=14,opacity=.7,line=dict(width=1,color='white')),selector=dict(mode='markers'))
 
 fig_scatter_all.update_coloraxes(showscale=False)
 fig_scatter_all.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[100,1000,10000,100000,1000000],tickfont=dict(color='#5A5856', size=17),showticklabels=True)
-fig_scatter_all.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=15))
+fig_scatter_all.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
 fig_scatter_all.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 fig_scatter_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
-                              title=dict(font=dict(size=22)),
+                            #   title=dict(font=dict(size=22)),
                               showlegend=True,
-                              title_x=.02,
-                              title_y=.99,
+                            #   title_x=.02,
+                            #   title_y=.99,
                               legend=dict(orientation='h',
+                                          font_color='#5A5856',
                                           yanchor="bottom",
                                           y=1.5,
                                           xanchor="right",
-                                          x=1,
+                                          x=.9,
                                           title=''))
 
 st.plotly_chart(fig_scatter_all,config=config, use_container_width=True)
