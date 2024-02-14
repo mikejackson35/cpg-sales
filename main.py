@@ -16,7 +16,7 @@ st.set_page_config(page_title='Awake YTD',
 )
 
 alt.themes.enable("dark")
-
+st.write("#")
 #######################
 # CSS styling for metrics
 st.markdown("""
@@ -136,7 +136,6 @@ sales_24 = int(all_sales[(all_sales['date'] > '2023-12-31') & (all_sales['date']
 sales_23 = int(all_sales[(all_sales['date'] > '2022-12-31') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum())
 
 yoy_chg_perc = f"{(sales_24/sales_23-1)*100:.0f}%"
-st.write("#")
 # TOP KPI'S
 col1, col2, col3, col4 = st.columns([.6,1,1,1])
 with col1:
@@ -199,7 +198,7 @@ yoy_other_perc = round(int(other_23-other_22) / other_22,2)
 
 
 # METRICS BOXES
-st.markdown("#")
+# st.markdown("#")
 col1, col2, col3, col4 = st.columns([2,2,2,2])
 col1.metric(label='Vending', value=f"${vending_23/1000:,.0f}K", delta = f"{yoy_vend_perc:.0%}")
 col2.metric(label='Online', value=f"${millify(online_23)}", delta = f"{yoy_online_perc:.0%}")
