@@ -38,8 +38,8 @@ st.markdown("""
 [data-testid="stMetric"] {
     background-color: #E09641;
     text-align: center;
-    # padding-right: 20px 0;
-    # padding-left: 20px 0;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 [data-testid="stMetricLabel"] {
@@ -47,6 +47,10 @@ st.markdown("""
   justify-content: center;
   align-items: center;
   font-weight: 900;
+}
+            
+[data-testid="stMetricValue"] {
+  font-size: 25px;
 }
 
 [data-testid="stMetricDeltaIcon-Up"] {
@@ -71,7 +75,7 @@ st.markdown("""
 }
 
 [data-baseweb="tab"] {
-    height: 30px;
+    height: 25px;
     width: 80px;
     white-space: pre-wrap;
     background-color: #A29F99;
@@ -339,6 +343,7 @@ bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),showl
                                           x=.5,
                                           title=''))
 
+st.markdown("")
 st.markdown("<br><br><b>FEBRUARY</b> <small>Daily Sales</small>",unsafe_allow_html=True)
 
 tab1, tab2, tab3, tab4 = st.tabs(["All", "Direct/Dot", "Market", "Customer"])
@@ -356,12 +361,12 @@ with tab4:
 
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
-# hide_st_style = """
-#             <style>
-#             Main Menu {visibility: hidden;}
-#             footer {visibility: hidden;}
-#             header {visibility: hidden;}
-#             </style>
-#             """
+hide_st_style = """
+            <style>
+            Main Menu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
             
-# st.markdown(hide_st_style, unsafe_allow_html=True)
+st.markdown(hide_st_style, unsafe_allow_html=True)
