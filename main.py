@@ -75,12 +75,11 @@ st.markdown("""
     height: 30px;
     width: 80px;
     white-space: pre-wrap;
-    # background-color: #BFB3A0;
     background-color: #A29F99;
     border-radius: 4px 4px 0px 0px;
     gap: 1px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 [aria-selected="true"] {
@@ -116,7 +115,7 @@ market_segment_dict = {
     'Samples': 'rgb(141,62,92)'}
 
 sale_origin_dict = {
-    'dot': 'rgb(25, 118, 210)',
+    'dot': 'rgb(81, 121, 198)',
     'unl': 'rgb(239, 83, 80)'
 }
 
@@ -245,8 +244,8 @@ scatter_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"
                               legend=dict(orientation='h',
                                           yanchor="bottom",
                                           y=1.5,
-                                          xanchor="right",
-                                          x=.9,
+                                          xanchor="center",
+                                          x=.5,
                                           title='')
                                           )
 
@@ -290,7 +289,7 @@ scatter_customer.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwel
 df = all_sales.groupby([all_sales.date,'sale_origin']).usd.sum().reset_index().set_index('date')
 df = round(df[df.index>'2024-01-31'].sort_index())
 
-scatter_origin = px.scatter(
+scatter_origin = px.bar(
         df,
         y='usd',
         template = 'plotly_white',
@@ -305,10 +304,8 @@ scatter_origin.update_traces(hovertemplate =
     '$%{y:.2s}'+
     '<br>%{x:%Y-%m-%d}<br>')
 
-scatter_origin.update_traces(marker=dict(size=23,opacity=.7,line=dict(width=1,color='white')),selector=dict(mode='markers'))
-
 scatter_origin.update_coloraxes(showscale=False)
-scatter_origin.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14),showticklabels=True)
+scatter_origin.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14),showticklabels=False)
 scatter_origin.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
 scatter_origin.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 scatter_origin.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),showlegend=True,
@@ -346,19 +343,15 @@ bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),showl
                                           x=.5,
                                           title=''))
 
-tab1, tab2, tab3, tab4 = st.tabs(["All Sales", "Direct/Dot", "Segment", "Customer"])
+tab1, tab2, tab3, tab4 = st.tabs(["All", "Direct/Dot", "Market", "Customer"])
 
 with tab1:
-    # st.caption("All Sales")
     st.plotly_chart(bar_all,config=config, use_container_width=True)
 with tab2:
-    # st.subheader("by Origin of Sale")
     st.plotly_chart(scatter_origin,config=config, use_container_width=True)
 with tab3:
-    # st.subheader("by Market Segment")
     st.plotly_chart(scatter_market,config=config, use_container_width=True)
 with tab4:
-    # st.subheader("by Parent Customer")
     st.plotly_chart(scatter_customer,config=config, use_container_width=True)
 
 
