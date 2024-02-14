@@ -12,7 +12,7 @@ from millify import millify
 
 st.set_page_config(page_title='Awake YTD',
                    page_icon='assets/Nevil.png',
-                   layout='wide'
+                #    layout='wide'
 )
 
 alt.themes.enable("dark")
