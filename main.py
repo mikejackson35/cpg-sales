@@ -36,7 +36,10 @@ st.markdown("""
 }
 
 [data-testid="stMetric"] {
-    background-color: #E09641;
+    border: 2px solid;
+    border-radius: 10px;
+    background-color: #e8e6e3;
+    border-color: #B1A999;        
     text-align: center;
     padding-right: 20px;
     padding-left: 20px;
@@ -365,7 +368,7 @@ hide_st_style = """
             <style>
             Main Menu {visibility: hidden;}
             footer {visibility: hidden;}
-            header {visibility: hidden;}
+            # header {visibility: hidden;}
             </style>
             """
             
