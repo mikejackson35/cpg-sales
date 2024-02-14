@@ -41,8 +41,6 @@ st.markdown("""
     background-color: #e8e6e3;
     border-color: #B1A999;        
     text-align: center;
-    # padding-right: 20px;
-    # padding-left: 20px;
 }
 
 [data-testid="stMetricLabel"] {
@@ -53,7 +51,7 @@ st.markdown("""
 }
             
 [data-testid="stMetricValue"] {
-  font-size: 25px;
+  font-size: 20px;
 }
 
 [data-testid="stMetricDeltaIcon-Up"] {
@@ -127,16 +125,9 @@ sale_origin_dict = {
 
 # LOGO AND TITLE
 st.sidebar.title("AWAKE")
-st.markdown("")
 
 week_ago = datetime.today().date() - pd.offsets.Day(10)
 recent_sales = all_sales[(all_sales.date>week_ago) & (all_sales.market_segment!='Samples')]
-config = {'displayModeBar': False}
-
-# daily sales scatter colored by sales_origin
-df = recent_sales.groupby(recent_sales.date).usd.sum().reset_index().set_index('date')
-
-# CALCS FOR KPI'S
 current_date = datetime.today().strftime('%Y-%m-%d')
 import datetime
 year_ago_today = datetime.datetime.today() - datetime.timedelta(days=365)
@@ -151,13 +142,14 @@ col1, col2, col3, col4 = st.columns([.6,1,1,1])
 with col1:
     st.markdown("")
 with col2:
-    st.markdown('<h4>Sales YTD</h4>', unsafe_allow_html=True)
-    st.title(f"${sales_24/1000000:.2f}M")
+    st.header(f"${sales_24/1000000:.2f}M")
+    st.write("Year-to-Date")
 with col3:
-    st.image(r"assets/Nevil.png",width=125)
+    st.markdown("")
+    st.image(r"assets/Nevil.png",width=75)
 with col4:
-    st.markdown('<h4>YoY Change</h4>', unsafe_allow_html=True)
-    st.title(f"+{yoy_chg_perc}")
+    st.header(f"+{yoy_chg_perc}")
+    st.write("YoY Change")
 
 ###################
 
@@ -222,9 +214,11 @@ col4.metric(label='Other', value=f"${millify(other_23)}", delta = f"{yoy_other_p
 
 # DAILY BY MARKET SEGMENT
 df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
-df = round(df[df.index>'2024-01-31'].sort_index())
+df = round(df[df.index>'2024-01-31']).sort_values(by='market_segment',ascending=False)#.sort_index())
+config = {'displayModeBar': False}
 
-scatter_market = px.scatter(
+scatter_market = px.bar(
+    # df.sort_values(by='market_segment',ascending=False),
     df,
     y='usd',
     template = 'plotly_white',
@@ -232,21 +226,18 @@ scatter_market = px.scatter(
             'usd':''},
     height=325,
     color='market_segment',
-    color_discrete_map=market_segment_dict,
-    # title='February',
-    log_y=True
+    color_discrete_map=market_segment_dict
 )
 scatter_market.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
-scatter_market.update_traces(marker=dict(size=14,opacity=.7,line=dict(width=1,color='lightgrey')),selector=dict(mode='markers'))
 scatter_market.update_coloraxes(showscale=False)
-scatter_market.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[100,1000,10000,100000,1000000],tickfont=dict(color='#5A5856', size=14),showticklabels=True)
+scatter_market.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=14),showticklabels=False)
 scatter_market.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
 scatter_market.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 scatter_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
                               showlegend=True,
                               legend=dict(orientation='h',
                                           yanchor="bottom",
-                                          y=1.5,
+                                          y=1.1,
                                           xanchor="center",
                                           x=.5,
                                           title='')
@@ -265,7 +256,6 @@ scatter_customer = px.scatter(
     height=325,
     color='market_segment',
     color_discrete_map=market_segment_dict,
-    # title='February',
     log_y=True,
     hover_name='parent_customer',
     hover_data = {'market_segment':False,
@@ -278,15 +268,14 @@ scatter_customer.update_coloraxes(showscale=False)
 scatter_customer.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[100,1000,10000,100000,1000000],tickfont=dict(color='#5A5856', size=14),showticklabels=True)
 scatter_customer.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
 scatter_customer.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
-scatter_customer.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
-                              showlegend=True,
-                              legend=dict(orientation='h',
-                                          yanchor="bottom",
-                                          y=1.5,
-                                          xanchor="center",
-                                          x=.45,
-                                          title='')
-                                          )
+scatter_customer.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),showlegend=False,)
+                            #   legend=dict(orientation='h',
+                            #               yanchor="bottom",
+                            #               y=1.1,
+                            #               xanchor="center",
+                            #               x=.45,
+                            #               title='')
+                            #               )
 
 # DAILY BY SALE ORIGIN
 df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'sale_origin']).usd.sum().reset_index().set_index('date')
@@ -315,7 +304,7 @@ scatter_origin.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.in
 scatter_origin.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),showlegend=True,
                               legend=dict(orientation='h',
                                           yanchor="bottom",
-                                          y=1.5,
+                                          y=1.1,
                                           xanchor="right",
                                           x=.5,
                                           title=''))
@@ -332,46 +321,39 @@ bar_all = px.bar(
                 'usd':''},
         height=325,
         text_auto='.2s',
-        title='All'
+        title=' '
     )
 bar_all.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
-bar_all.update_traces(marker_color='#E09641')#=dict(size=25,color='#E09641',line=dict(width=1,color='white')),selector=dict(mode='markers'))
+bar_all.update_traces(marker_color='#E09641')
 bar_all.update_coloraxes(showscale=False)
 bar_all.update_yaxes(showticklabels=False,showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14))
 bar_all.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 bar_all.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),title_x=.5)
-                            #   legend=dict(orientation='h',
-                            #               yanchor="bottom",
-                            #               y=1.5,
-                            #               xanchor="right",
-                            #               x=.5,
-                            #               title=''))
 
-st.markdown("")
+# st.markdown("")
 st.markdown("<br><br><b>FEBRUARY</b> <small>Daily Sales</small>",unsafe_allow_html=True)
 
-tab1, tab2, tab3, tab4 = st.tabs(["All", "Direct/Dot", "Market", "Customer"])
-# st.markdown("<br><br><b>FEBRUARY</b> <small>Daily Sales</small>",unsafe_allow_html=True)
+tab1, tab2, tab3 = st.tabs(["All", "Direct/Dot", "Market"])
 with tab1:
     st.plotly_chart(bar_all,config=config, use_container_width=True)
 with tab2:
     st.plotly_chart(scatter_origin,config=config, use_container_width=True)
 with tab3:
     st.plotly_chart(scatter_market,config=config, use_container_width=True)
-with tab4:
-    st.plotly_chart(scatter_customer,config=config, use_container_width=True)
+# with tab4:
+#     st.plotly_chart(scatter_customer,config=config, use_container_width=True)
 
 
 
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
-hide_st_style = """
-            <style>
-            Main Menu {visibility: hidden;}
-            footer {visibility: hidden;}
-            # header {visibility: hidden;}
-            </style>
-            """
+# hide_st_style = """
+#             <style>
+#             Main Menu {visibility: hidden;}
+#             footer {visibility: hidden;}
+#             # header {visibility: hidden;}
+#             </style>
+#             """
             
-st.markdown(hide_st_style, unsafe_allow_html=True)
+# st.markdown(hide_st_style, unsafe_allow_html=True)
