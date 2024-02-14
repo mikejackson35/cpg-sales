@@ -16,7 +16,6 @@ st.set_page_config(page_title='Awake YTD',
 )
 
 alt.themes.enable("dark")
-st.write("#")
 
 #######################
 # CSS styling for metrics
@@ -137,7 +136,7 @@ sales_24 = int(all_sales[(all_sales['date'] > '2023-12-31') & (all_sales['date']
 sales_23 = int(all_sales[(all_sales['date'] > '2022-12-31') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum())
 
 yoy_chg_perc = f"{(sales_24/sales_23-1)*100:.0f}%"
-
+st.write("#")
 # TOP KPI'S
 col1, col2, col3, col4 = st.columns([.6,1,1,1])
 with col1:
@@ -219,7 +218,6 @@ df = round(df[df.index>'2024-01-31']).sort_values(by='market_segment',ascending=
 config = {'displayModeBar': False}
 
 scatter_market = px.bar(
-    # df.sort_values(by='market_segment',ascending=False),
     df,
     y='usd',
     template = 'plotly_white',
@@ -270,13 +268,6 @@ scatter_customer.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",t
 scatter_customer.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
 scatter_customer.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 scatter_customer.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),showlegend=False,)
-                            #   legend=dict(orientation='h',
-                            #               yanchor="bottom",
-                            #               y=1.1,
-                            #               xanchor="center",
-                            #               x=.45,
-                            #               title='')
-                            #               )
 
 # DAILY BY SALE ORIGIN
 df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'sale_origin']).usd.sum().reset_index().set_index('date')
