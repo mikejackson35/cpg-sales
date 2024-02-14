@@ -16,6 +16,7 @@ st.set_page_config(page_title='Awake YTD',
 )
 
 alt.themes.enable("dark")
+st.write("#")
 
 #######################
 # CSS styling for metrics
