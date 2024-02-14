@@ -23,8 +23,8 @@ st.markdown("""
 <style>
 
 [data-testid="block-container"] {
-    padding-left: 18rem;
-    padding-right: 22rem;
+    # padding-left: 18rem;
+    # padding-right: 22rem;
     padding-top: 1rem;
     padding-bottom: 0rem;
     margin-bottom: -7rem;
