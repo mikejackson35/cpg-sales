@@ -112,7 +112,7 @@ with col1:
     st.markdown('<h4>Sales</h4>', unsafe_allow_html=True)
     st.title(f"${sales_23:,}")
 with col2:
-    st.markdown('<h4>YoY Change</h4>', unsafe_allow_html=True)
+    st.markdown('<h4>vs. 2022</h4>', unsafe_allow_html=True)
     st.title(f"{yoy_chg_perc}")
 with col3:
     st.markdown('<h4>Num of Customers</h4>', unsafe_allow_html=True)

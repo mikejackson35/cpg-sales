@@ -11,7 +11,7 @@ from millify import millify
 
 st.set_page_config(page_title='Charts',
                    page_icon=":bar_chart:",
-                   layout='wide'
+                   layout='centered'
 )
 
 alt.themes.enable("dark")
@@ -25,6 +25,24 @@ st.markdown("""
                     padding-left: 1rem;
                     padding-right: 1rem;
                 }
+                [data-baseweb="tab-list"] {
+                gap: 6px;
+}
+
+[data-baseweb="tab"] {
+    height: 25px;
+    width: 80px;
+    white-space: pre-wrap;
+    background-color: #A29F99;
+    border-radius: 4px 4px 0px 0px;
+    gap: 1px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+[aria-selected="true"] {
+    background-color: #A29F99;
+}
         </style>
         """, unsafe_allow_html=True)
 
@@ -60,52 +78,6 @@ sale_origin = st.sidebar.multiselect(
     default=np.array(all_sales['sale_origin'].unique()),
 )
 
-# line divider
-st.markdown(" ")
-
-# QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
-df_selection = all_sales[
-    (all_sales['year'].isin(year)) &
-    (all_sales['market_segment'].isin(segment)) &
-    (all_sales['sale_origin'].isin(sale_origin))
-    ]
-
-# theme used for charts
-template = 'presentation'
-
-# ---- TOP KPI's Row ----
-
-def plus_minus(delta):
-    if delta > 0:
-        symbol = "+"
-    else:
-        symbol = ""
-    return symbol
-
-customer_count = int(df_selection.customer.nunique())
-sales = int(df_selection.usd.sum())
-mean_sales = int(sales/customer_count)
-
-
-
-blank, col1, col2, col3 = st.columns([.25,1.2,1.2,1.2])
-with blank:
-    st.markdown(" ")
-with col1:
-    st.markdown('<h4>Sales</h4>', unsafe_allow_html=True)
-    st.title(f"${millify(df_selection.usd.sum(),precision=1)}")
-with col2:
-    st.markdown('<h4>Num of customers</h4>', unsafe_allow_html=True)
-    st.title(F"{customer_count:,}")
-with col3:
-    st.markdown('<h4>$/customer</h4>', unsafe_allow_html=True)
-    st.title(f"${mean_sales:,}")
-
-
-
-
-############
-
 market_segment_color = {
     'Vending': 'rgb(56,149,73)',
     'Grocery': 'rgb(248,184,230)',
@@ -117,36 +89,26 @@ market_segment_color = {
     'Broadline Distributor': 'rgb(233,152,19)',
     'Samples': 'rgb(141,62,92)'}
 
+# QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
+df_selection = all_sales[
+    (all_sales['year'].isin(year)) &
+    (all_sales['market_segment'].isin(segment)) &
+    (all_sales['sale_origin'].isin(sale_origin))
+    ]
 
-df_selection.index = pd.to_datetime(df_selection['date'],format = '%m/%d/%y')
-mth_sales = round(df_selection.groupby(pd.Grouper(freq='M'))['usd'].sum())
+# top row
+def plus_minus(delta):
+    if delta > 0:
+        symbol = "+"
+    else:
+        symbol = ""
+    return symbol
 
-fig_mth_bar = px.bar(mth_sales,
-        template=template,
-        x= mth_sales.index,
-        y='usd',
-        color='usd',
-        color_continuous_scale=px.colors.sequential.Oranges,
-        labels = {'date':' ','usd':''},
-        text='usd',
-        opacity=.8,
-        hover_data=['usd'],
-        title='Monthly Sales',
-        width=800,
-        height=500
-        ).update_coloraxes(showscale=False).update_traces(texttemplate='%{text:$,.2s}',textposition='outside')
-# fig_mth_bar.update_traces(texttemplate='<b>%{text:$,}</b>'),#,hovertext=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'])
-fig_mth_bar.update_layout(title_x=0.5,xaxis=dict(type = 'category'))
-fig_mth_bar.update_xaxes(tickmode='array',tickvals = mth_sales.index, ticktext=mth_sales.index.strftime('%Y-%m'))
-fig_mth_bar.update_yaxes(tick0=0,dtick=250000,showticklabels=True, tickcolor='darkgrey', gridcolor='darkgrey')   
-
-# line divider
-st.markdown("   ")
-st.markdown("---")
-st.markdown("   ")
+customer_count = int(df_selection.customer.nunique())
+sales = int(df_selection.usd.sum())
+mean_sales = int(sales/customer_count)
 
 config = {'displayModeBar': False}
-
 seg_sales = round(df_selection.groupby('market_segment',as_index=False)['usd'].sum()).sort_values(by='market_segment',ascending=False)
 fig_seg_sales = px.pie(
     seg_sales, 
@@ -158,41 +120,67 @@ fig_seg_sales = px.pie(
     hole=.33,
     hover_data = ['market_segment'],
     color='market_segment',
-    color_discrete_map=market_segment_color).update_layout(autosize=True, width=600,height=600, showlegend=False)
+    color_discrete_map=market_segment_color).update_layout(showlegend=False, autosize=True, width=450,height=450)
 fig_seg_sales.update_traces(textposition='inside', textinfo='percent+label', texttemplate='%{label}<br>%{percent:.0%}')
 
-space, pie, space, bar = st.columns([.25,1,.5,3])
-with space:
-    st.markdown(" ")
-with pie:
+col1, col2 = st.columns([1,2])
+with col1:
+    st.markdown("####") 
+    st.markdown("####")
+    st.markdown("####")
+    st.markdown("####")
+    st.caption("showing...")
+    st.markdown(f"<h3>SALES: ${millify(df_selection.usd.sum(),precision=1)}</h3>", unsafe_allow_html=True)
+    st.markdown("####")
+    st.markdown(f"<h5>Customers: {customer_count:,}</h5>", unsafe_allow_html=True)
+    st.markdown(f'<h5>$/Customer: ${millify(mean_sales)}</h5>', unsafe_allow_html=True)
+with col2:
     st.plotly_chart(fig_seg_sales, theme='streamlit', use_container_width=True)
-with space:
-    st.markdown(" ")
-with bar:
-    st.plotly_chart(fig_mth_bar, config=config,legend=None)#, use_container_width=True)
 
-# line divider
-st.markdown("   ")
-st.markdown("---")
-st.markdown("   ")
+## monthly bar chart
+df_selection.index = pd.to_datetime(df_selection['date'],format = '%m/%y')
+mth_sales = round(df_selection.groupby(pd.Grouper(freq='M'))['usd'].sum())
 
-# distributor bar
+fig_mth_bar = px.bar(mth_sales.reset_index(),
+        template='plotly_white',
+        x= 'date',
+        y='usd',
+        # color='usd',
+        # color_continuous_scale=px.colors.sequential.Oranges,
+        labels = {'date':' ','usd':''},
+        text='usd',
+        opacity=.8,
+        hover_data=['usd'],
+        title='Monthly',
+        # width=800,
+        height=300
+        ).update_coloraxes(showscale=False).update_traces(texttemplate='%{text:$,.2s}',textposition='outside')
+fig_mth_bar.update_traces(marker_color='#E09641')
+fig_mth_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m}<br>')
+fig_mth_bar.update_layout(title_x=0.5)
+fig_mth_bar.update_xaxes(showgrid=False,gridcolor='gray',tickvals = mth_sales.index,ticktext=mth_sales.index.strftime('%Y-%m'),tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
+fig_mth_bar.update_yaxes(showgrid=False,tick0=0,dtick=250000,showticklabels=False, tickcolor='darkgrey', gridcolor='darkgrey')   
+
+st.plotly_chart(fig_mth_bar, config=config,legend=None, use_container_width=True)
+
+# distributor bar chart
 top_custs = pd.DataFrame(df_selection.groupby(['customer','market_segment'],as_index=False)['usd'].sum().sort_values(by='usd',ascending=False)[:50])
 fig_dist_sales = px.bar(top_custs,
        x = 'customer',
        y = 'usd',
-    # title='<b>Top Individual customers</b>',
-    # height=600,
-    template = template,
+    template = 'plotly_white',
     labels={'customer':'',
             'usd':' '},
     opacity=.8,
-    height=600,
-    width=1000,        
+    height=425,
+    # width=1000,        
     color = 'market_segment',
     text = 'usd',
     color_discrete_map=market_segment_color).update_layout(showlegend=False)
-fig_dist_sales.update_yaxes(tick0=0,dtick=500000).update_yaxes(gridcolor='lightgray').update_traces(texttemplate='%{text:$,.2s}',textposition='outside')
+fig_dist_sales.update_yaxes(tick0=0,dtick=500000)
+fig_dist_sales.update_yaxes(gridcolor='lightgray')
+fig_dist_sales.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
+fig_dist_sales.update_traces(texttemplate='%{text:$,.2s}',textposition='outside')
 
 # parent distributor bar
 top_parents = pd.DataFrame(df_selection.groupby(['parent_customer','market_segment'],as_index=False)['usd'].sum().sort_values(by='usd',ascending=False)[:30])
@@ -200,76 +188,56 @@ fig_parent_sales = px.bar(top_parents,
                           x = 'parent_customer',
                           y = 'usd',
                         #   title='<b>Top Parent customers</b>',
-                          template = template,
+                          template = 'plotly_white',
                           labels={'parent_customer':'',
                                 'usd':''},
-                          height=500,
+                          height=400,
                           opacity = .8,
                           color = 'market_segment',
                           text = 'usd',
-                          width=800,
+                        #   width=800,
                           color_discrete_map=market_segment_color).update_layout(showlegend=False)
-fig_parent_sales.update_yaxes(tick0=0,dtick=1000000).update_yaxes(gridwidth=1,gridcolor='lightgray').update_traces(texttemplate='%{text:$,.2s}',textposition='outside')
+fig_parent_sales.update_yaxes(tick0=0,dtick=1000000)
+# fig_parent_sales.update_yaxes(gridwidth=1,gridcolor='lightgray')
+fig_parent_sales.update_yaxes(showgrid=True,showticklabels=True,gridcolor='darkgray',tickfont=dict(color='#5A5856', size=13)) 
+fig_parent_sales.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
+fig_parent_sales.update_traces(texttemplate='%{text:$,.2s}',textposition='outside')
 
+tab1, tab2 = st.tabs(["by Parent", "by Customer"])
+with tab1:
+    st.plotly_chart(fig_parent_sales, theme = 'streamlit', use_container_width=True)
+with tab2:
+    st.plotly_chart(fig_dist_sales, theme = 'streamlit', use_container_width=True)
 
-blank,radio,bar,blank2 = st.columns([.5,1,4.5,1])
-with blank:
-    st.markdown(" ")
-with radio:
-    st.markdown("####")
-    st.subheader("Top Customers")
-    customer_level = st.radio("Show By...",
-                            ['Parent Customer', 'Individual Customer'],
-                            index=None, horizontal = False)
-# with blank2:
-#     st.markdown(" ")
-with bar:
-    if customer_level == 'Parent Customer':
-        st.plotly_chart(fig_parent_sales, theme = 'streamlit', use_container_width=True)
-    else:
-        st.plotly_chart(fig_dist_sales, theme = 'streamlit', use_container_width=True)
-with blank2:
-    st.markdown(" ")
-# line divider
 st.markdown("---")
 
-# WEEKLY SCATTER CHARTS
+# WEEKLY SCATTER CHART
 df_selection.index = pd.to_datetime(df_selection['date'],format = '%y/%m/%d')
 sales_per_week = df_selection.groupby(pd.Grouper(freq='W'))['usd'].sum()
 
-#all sales weekly scatter
 fig_scatter_all = px.scatter(
     round(sales_per_week),
     x=sales_per_week.index,
     y='usd',
-    template = template,
+    template = 'plotly_white',
     labels={'date':'',
-            'usd':'<b>$USD</b>'},
-    height=500,
+            'usd':''},
+    height=350,
     size='usd',
     size_max=15,
     color='usd',
     color_continuous_scale=px.colors.sequential.Oranges,
-    trendline="rolling", trendline_options=dict(function="mean", window=10), trendline_scope="overall", trendline_color_override="grey"
-).update_traces(name="",hovertemplate="Sales: <b>%{y:$,.0f}")
+    title='8 Week Moving Avg',
+    trendline="rolling", trendline_options=dict(function="mean", window=8), trendline_scope="overall", trendline_color_override="grey"
+)
+fig_scatter_all.update_traces(name="",hovertemplate="Sales: <b>%{y:$,.0f}")
 fig_scatter_all.update_coloraxes(showscale=False)
-fig_scatter_all.update_yaxes(gridcolor='lightgray')
-fig_scatter_all.update_layout(
-    hovermode='x unified',
-    legend=dict(y=0.99, x=0.1,title='10-Wk Moving Avg'))
+fig_scatter_all.update_yaxes(showgrid=True,showticklabels=True,gridcolor='darkgray',tickfont=dict(color='#5A5856', size=13)) 
+fig_scatter_all.update_layout(hovermode='x unified',showlegend=False)#,legend=dict(y=0.99, x=0.1,title='10-Wk Moving Avg'))
 fig_scatter_all.update_layout(hoverlabel=dict(font_size=15,font_family="Rockwell"))
+fig_scatter_all.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 
-blank_left, holder, scatter, blank_right,  = st.columns([.5,1,4.5,1])
-with blank:
-    st.markdown(" ")
-with holder:
-    st.markdown("####")
-    st.markdown("####")
-    st.subheader("Weekly Trend")
-with scatter:
-    st.plotly_chart(fig_scatter_all, theme = 'streamlit', use_container_width=True)
-with blank:
-    st.markdown(" ")
+st.plotly_chart(fig_scatter_all, theme = 'streamlit', use_container_width=True)
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """

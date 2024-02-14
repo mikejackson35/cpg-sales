@@ -12,7 +12,7 @@ from millify import millify
 
 st.set_page_config(page_title='Awake YTD',
                    page_icon='assets/Nevil.png',
-                   layout='wide'
+                   layout='centered'
 )
 
 alt.themes.enable("dark")
@@ -23,16 +23,16 @@ st.markdown("""
 <style>
 
 [data-testid="block-container"] {
-    padding-left: 5rem;
-    padding-right: 20rem;
+    # padding-left: 5rem;
+    # padding-right: 20rem;
     padding-top: 1rem;
     padding-bottom: 0rem;
     margin-bottom: -7rem;
 }
 
 [data-testid="stVerticalBlock"] {
-    padding-left: 1rem;
-    padding-right: 5rem;
+    # padding-left: 1rem;
+    # padding-right: 5rem;
 }
 
 [data-testid="stMetric"] {
@@ -41,8 +41,8 @@ st.markdown("""
     background-color: #e8e6e3;
     border-color: #B1A999;        
     text-align: center;
-    padding-right: 20px;
-    padding-left: 20px;
+    # padding-right: 20px;
+    # padding-left: 20px;
 }
 
 [data-testid="stMetricLabel"] {
@@ -130,7 +130,7 @@ st.sidebar.title("AWAKE")
 st.markdown("")
 
 week_ago = datetime.today().date() - pd.offsets.Day(10)
-recent_sales = all_sales[all_sales.date>week_ago]
+recent_sales = all_sales[(all_sales.date>week_ago) & (all_sales.market_segment!='Samples')]
 config = {'displayModeBar': False}
 
 # daily sales scatter colored by sales_origin
@@ -221,7 +221,7 @@ col3.metric(label='Broadline', value=f"${millify(broadline_23)}", delta = f"{yoy
 col4.metric(label='Other', value=f"${millify(other_23)}", delta = f"{yoy_other_perc:.0%}")
 
 # DAILY BY MARKET SEGMENT
-df = all_sales.groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
+df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
 df = round(df[df.index>'2024-01-31'].sort_index())
 
 scatter_market = px.scatter(
@@ -237,7 +237,7 @@ scatter_market = px.scatter(
     log_y=True
 )
 scatter_market.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
-scatter_market.update_traces(marker=dict(size=14,opacity=.7,line=dict(width=1,color='grey')),selector=dict(mode='markers'))
+scatter_market.update_traces(marker=dict(size=14,opacity=.7,line=dict(width=1,color='lightgrey')),selector=dict(mode='markers'))
 scatter_market.update_coloraxes(showscale=False)
 scatter_market.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[100,1000,10000,100000,1000000],tickfont=dict(color='#5A5856', size=14),showticklabels=True)
 scatter_market.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
@@ -253,14 +253,14 @@ scatter_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"
                                           )
 
 # DAILY BY SALE CUSTOMER
-df = all_sales.groupby([all_sales.date,'parent_customer','market_segment']).usd.sum().reset_index().set_index('date')
+df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'parent_customer','market_segment']).usd.sum().reset_index().set_index('date')
 df = round(df[df.index>'2024-01-31'].sort_index())
 
 scatter_customer = px.scatter(
     df.reset_index(),
     x='date',
     y='usd',
-    template = 'plotly_dark',
+    template = 'plotly_white',
     labels={'date':'','usd':''},
     height=325,
     color='market_segment',
@@ -273,7 +273,7 @@ scatter_customer = px.scatter(
                   'date':False
                   }
 )
-scatter_customer.update_traces(marker=dict(size=9,line=dict(width=1,color='lightgrey')),selector=dict(mode='markers'))
+scatter_customer.update_traces(marker=dict(size=14,opacity=.6,line=dict(width=1,color='lightgrey')),selector=dict(mode='markers'))
 scatter_customer.update_coloraxes(showscale=False)
 scatter_customer.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[100,1000,10000,100000,1000000],tickfont=dict(color='#5A5856', size=14),showticklabels=True)
 scatter_customer.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
@@ -284,12 +284,12 @@ scatter_customer.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwel
                                           yanchor="bottom",
                                           y=1.5,
                                           xanchor="center",
-                                          x=.5,
+                                          x=.45,
                                           title='')
                                           )
 
 # DAILY BY SALE ORIGIN
-df = all_sales.groupby([all_sales.date,'sale_origin']).usd.sum().reset_index().set_index('date')
+df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'sale_origin']).usd.sum().reset_index().set_index('date')
 df = round(df[df.index>'2024-01-31'].sort_index())
 
 scatter_origin = px.bar(
@@ -300,7 +300,8 @@ scatter_origin = px.bar(
                 'usd':''},
         height=325,
         color='sale_origin',
-        color_discrete_map=sale_origin_dict
+        color_discrete_map=sale_origin_dict,
+        text_auto='.2s'
     )
 
 scatter_origin.update_traces(hovertemplate = 
@@ -320,7 +321,7 @@ scatter_origin.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"
                                           title=''))
 
 # DAILY BY All (level 2)
-df = all_sales.groupby(all_sales.date).usd.sum().reset_index().set_index('date')
+df = all_sales[all_sales.market_segment != 'Samples'].groupby(all_sales.date).usd.sum().reset_index().set_index('date')
 df = round(df[df.index>'2024-01-31'].sort_index())
 
 bar_all = px.bar(
@@ -330,27 +331,28 @@ bar_all = px.bar(
         labels={'date':'',
                 'usd':''},
         height=325,
-        text_auto='.2s'
+        text_auto='.2s',
+        title='All'
     )
 bar_all.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
 bar_all.update_traces(marker_color='#E09641')#=dict(size=25,color='#E09641',line=dict(width=1,color='white')),selector=dict(mode='markers'))
 bar_all.update_coloraxes(showscale=False)
-bar_all.update_yaxes(showticklabels=False,showgrid=False,tickprefix='$',gridcolor="#B1A999",tickvals=[-25000,0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14))
+bar_all.update_yaxes(showticklabels=False,showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14))
 bar_all.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 bar_all.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
-bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),showlegend=True,
-                              legend=dict(orientation='h',
-                                          yanchor="bottom",
-                                          y=1.5,
-                                          xanchor="right",
-                                          x=.5,
-                                          title=''))
+bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),title_x=.5)
+                            #   legend=dict(orientation='h',
+                            #               yanchor="bottom",
+                            #               y=1.5,
+                            #               xanchor="right",
+                            #               x=.5,
+                            #               title=''))
 
 st.markdown("")
 st.markdown("<br><br><b>FEBRUARY</b> <small>Daily Sales</small>",unsafe_allow_html=True)
 
 tab1, tab2, tab3, tab4 = st.tabs(["All", "Direct/Dot", "Market", "Customer"])
-st.markdown("<br><br><b>FEBRUARY</b> <small>Daily Sales</small>",unsafe_allow_html=True)
+# st.markdown("<br><br><b>FEBRUARY</b> <small>Daily Sales</small>",unsafe_allow_html=True)
 with tab1:
     st.plotly_chart(bar_all,config=config, use_container_width=True)
 with tab2:
