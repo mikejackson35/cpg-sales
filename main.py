@@ -235,7 +235,7 @@ scatter_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"
                               showlegend=True,
                               legend=dict(orientation='h',
                                           yanchor="bottom",
-                                          y=1.1,
+                                          y=1,
                                           xanchor="center",
                                           x=.5,
                                           title='')
@@ -295,7 +295,7 @@ scatter_origin.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.in
 scatter_origin.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),showlegend=True,
                               legend=dict(orientation='h',
                                           yanchor="bottom",
-                                          y=1.1,
+                                          y=1,
                                           xanchor="right",
                                           x=.5,
                                           title=''))
