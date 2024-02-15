@@ -324,7 +324,7 @@ bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
                       legend=dict(
                           orientation='h',
                           yanchor="bottom",
-                          y=1.1,
+                          y=1.3,
                           xanchor="right",
                           x=.5,
                           title=''
