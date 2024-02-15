@@ -16,7 +16,6 @@ st.set_page_config(page_title='Awake YTD',
 )
 
 alt.themes.enable("dark")
-st.subheader("#")
 #######################
 # CSS styling for metrics
 st.markdown("""
@@ -141,13 +140,13 @@ col1, col2, col3, col4 = st.columns([.6,1,1,1])
 with col1:
     st.markdown("")
 with col2:
-    st.header(f"${sales_24/1000000:.2f}M")
+    st.markdown(f"${sales_24/1000000:.2f}M")
     st.write("Year-to-Date")
 with col3:
     st.markdown("")
     st.image(r"assets/Nevil.png",width=75)
 with col4:
-    st.header(f"+{yoy_chg_perc}")
+    st.markdown(f"+{yoy_chg_perc}")
     st.write("YoY Change")
 
 ###################
