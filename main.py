@@ -319,17 +319,17 @@ bar_all.update_coloraxes(showscale=False)
 bar_all.update_yaxes(showticklabels=False,showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14))
 bar_all.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 bar_all.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
-bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
-                      showlegend=True,
-                      legend=dict(
-                          orientation='h',
-                          yanchor="bottom",
-                          y=.8,
-                          xanchor="right",
-                          x=.5,
-                          title=''
-                          )
-                          )
+bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),)
+                    #   showlegend=True,
+                    #   legend=dict(
+                    #       orientation='h',
+                    #       yanchor="bottom",
+                    #       y=.8,
+                    #       xanchor="right",
+                    #       x=.5,
+                    #       title=''
+                    #       )
+                    #       )
 
 # st.markdown("")
 st.markdown("<br><br><b>FEBRUARY</b> <small>Daily Sales</small>",unsafe_allow_html=True)
