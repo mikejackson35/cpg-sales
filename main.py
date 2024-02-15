@@ -323,7 +323,7 @@ bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),showl
                                           legend=dict(orientation='h',
                                           yanchor="bottom",
                                           y=1.1,
-                                          xanchor="center",
+                                          xanchor="right",
                                           x=.5,
                                           title='')
                                           )
