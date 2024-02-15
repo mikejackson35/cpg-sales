@@ -140,13 +140,13 @@ col1, col2, col3, col4 = st.columns([.6,1,1,1])
 with col1:
     st.markdown("")
 with col2:
-    st.markdown(f"${sales_24/1000000:.2f}M")
+    st.subheader(f"${sales_24/1000000:.2f}M")
     st.write("Year-to-Date")
 with col3:
     st.markdown("")
     st.image(r"assets/Nevil.png",width=75)
 with col4:
-    st.markdown(f"+{yoy_chg_perc}")
+    st.subheader(f"+{yoy_chg_perc}")
     st.write("YoY Change")
 
 ###################
