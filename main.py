@@ -16,6 +16,7 @@ st.set_page_config(page_title='Awake YTD',
 )
 
 alt.themes.enable("dark")
+st.sidebar.title("AWAKE")
 #######################
 # CSS styling for metrics
 st.markdown("""
@@ -123,7 +124,7 @@ sale_origin_dict = {
 }
 
 # LOGO AND TITLE
-st.sidebar.title("AWAKE")
+# st.sidebar.title("AWAKE")
 
 week_ago = datetime.today().date() - pd.offsets.Day(10)
 recent_sales = all_sales[(all_sales.date>week_ago) & (all_sales.market_segment!='Samples')]
