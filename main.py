@@ -311,7 +311,8 @@ bar_all = px.bar(
         labels={'date':'',
                 'usd':''},
         height=325,
-        text_auto='.2s'
+        text_auto='.2s',
+        title=''
     )
 bar_all.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
 bar_all.update_traces(marker_color='#E09641')
