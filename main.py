@@ -228,7 +228,7 @@ scatter_market = px.bar(
 )
 scatter_market.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
 scatter_market.update_coloraxes(showscale=False)
-scatter_market.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=14),showticklabels=False)
+scatter_market.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14),showticklabels=False)
 scatter_market.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
 scatter_market.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 scatter_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
