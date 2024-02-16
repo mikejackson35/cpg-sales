@@ -50,7 +50,7 @@ st.markdown("""
 @st.cache_data
 def get_connection():
     conn = st.connection('dot', type ="sql")
-    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2022-12-31'")
+    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2021-12-31'")
     return all_sales
 
 all_sales = get_connection()
@@ -67,15 +67,15 @@ year = st.sidebar.multiselect(
     options=sorted(list(all_sales['year'].unique())),
     default=sorted(list(all_sales['year'].unique()))
 )
-segment = st.sidebar.multiselect(
-    label='Market Segment',
-    options=np.array(all_sales['market_segment'].unique()),
-    default=np.array(all_sales['market_segment'].unique()),
-)
 sale_origin = st.sidebar.multiselect(
     label = 'Direct or Dot',
     options=np.array(all_sales['sale_origin'].unique()),
     default=np.array(all_sales['sale_origin'].unique()),
+)
+segment = st.sidebar.multiselect(
+    label='Market Segment',
+    options=np.array(all_sales['market_segment'].unique()),
+    default=np.array(all_sales['market_segment'].unique()),
 )
 
 market_segment_color = {
@@ -121,22 +121,13 @@ fig_seg_sales = px.pie(
     hole=.33,
     hover_data = ['market_segment'],
     color='market_segment',
-    color_discrete_map=market_segment_color).update_layout(showlegend=False, autosize=True, width=500,height=500)
+    color_discrete_map=market_segment_color).update_layout(showlegend=False, autosize=True, width=375,height=375)
 fig_seg_sales.update_traces(textposition='inside', textinfo='percent+label', texttemplate='%{label}<br>%{percent:.0%}')
 
-col1, col2 = st.columns([1,2])
-with col1:
-    st.markdown("####") 
-    st.markdown("####")
-    st.markdown("####")
-    st.markdown("####")
-    st.caption("showing...")
-    st.markdown(f"<h1>${millify(df_selection.usd.sum(),precision=1)}</h1>", unsafe_allow_html=True)
-    st.markdown("####")
-    st.markdown(f"<h4>{customer_count:,} customers</h4>", unsafe_allow_html=True)
-    st.markdown(f'<h4>${millify(mean_sales)} / customer</h4>', unsafe_allow_html=True)
-with col2:
-    st.plotly_chart(fig_seg_sales, theme='streamlit', use_container_width=True)
+# st.sidebar.markdown(f"<h1>${millify(df_selection.usd.sum(),precision=1)}</h1>", unsafe_allow_html=True)
+# st.sidebar.markdown("####")
+# st.sidebar.markdown(f"<h4>{customer_count:,} customers</h4>", unsafe_allow_html=True)
+# st.sidebar.markdown(f'<h4>${millify(mean_sales)} / customer</h4>', unsafe_allow_html=True)
 
 ## monthly bar chart
 df_selection.index = pd.to_datetime(df_selection['date'],format = '%m/%y')
@@ -150,63 +141,14 @@ fig_mth_bar = px.bar(mth_sales.reset_index(),
         text='usd',
         opacity=.8,
         # hover_data=['usd'],
-        title='Monthly',
-        height=300,
-        ).update_coloraxes(showscale=False).update_traces(texttemplate='%{text:$,.2s}',textposition='outside')
+        # title='Monthly',
+        height=350,
+        ).update_coloraxes(showscale=False).update_traces(texttemplate='%{text:$,.2s}')#,textposition='outside')
 fig_mth_bar.update_traces(marker_color='#E09641')
 fig_mth_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m}<br>')
-fig_mth_bar.update_layout(title_x=0.5)
+# fig_mth_bar.update_layout(title_x=0.5)
 fig_mth_bar.update_xaxes(showgrid=False,gridcolor='gray',tickvals = mth_sales.index,ticktext=mth_sales.index.strftime('%Y-%m'),tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 fig_mth_bar.update_yaxes(showgrid=False,tick0=0,dtick=250000,showticklabels=False, tickcolor='darkgrey', gridcolor='darkgrey')   
-
-st.plotly_chart(fig_mth_bar, config=config,legend=None, use_container_width=True)
-
-# distributor bar chart
-top_custs = pd.DataFrame(df_selection.groupby(['customer','market_segment'],as_index=False)['usd'].sum().sort_values(by='usd',ascending=False)[:40])
-fig_dist_sales = px.bar(top_custs,
-       x = 'customer',
-       y = 'usd',
-    template = 'plotly_white',
-    labels={'customer':'',
-            'usd':' '},
-    opacity=.8,
-    height=450,
-    # width=1000,        
-    color = 'market_segment',
-    text = 'usd',
-    color_discrete_map=market_segment_color).update_layout(showlegend=False)
-fig_dist_sales.update_yaxes(tick0=0,dtick=500000)
-fig_dist_sales.update_yaxes(showgrid=True,showticklabels=True,gridcolor='darkgray',tickfont=dict(color='#5A5856', size=13),automargin=True) 
-fig_dist_sales.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=11),title_font=dict(color='#5A5856',size=15))#,tickangle=30)
-fig_dist_sales.update_traces(texttemplate='%{text:$,.2s}',textposition='outside',hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m}<br>')
-
-
-# parent distributor bar
-top_parents = pd.DataFrame(df_selection.groupby(['parent_customer','market_segment'],as_index=False)['usd'].sum().sort_values(by='usd',ascending=False)[:15])
-fig_parent_sales = px.bar(top_parents,
-                          x = 'parent_customer',
-                          y = 'usd',
-                          template = 'plotly_white',
-                          labels={'parent_customer':'',
-                                'usd':''},
-                          height=400,
-                          opacity = .8,
-                          color = 'market_segment',
-                          text = 'usd',
-                          color_discrete_map=market_segment_color).update_layout(showlegend=False)
-fig_parent_sales.update_yaxes(tick0=0,dtick=1000000)
-fig_parent_sales.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m}<br>')
-fig_parent_sales.update_yaxes(showgrid=True,showticklabels=True,gridcolor='darkgray',tickfont=dict(color='#5A5856', size=13),automargin=True) 
-fig_parent_sales.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
-fig_parent_sales.update_traces(texttemplate='%{text:$,.2s}',textposition='outside')
-
-tab1, tab2 = st.tabs(["by Parent", "by Customer"])
-with tab1:
-    st.plotly_chart(fig_parent_sales,config=config, use_container_width=True)
-with tab2:
-    st.plotly_chart(fig_dist_sales,config=config, use_container_width=True)
-
-st.markdown("---")
 
 # WEEKLY SCATTER CHART
 df_selection.index = pd.to_datetime(df_selection['date'],format = '%y/%m/%d')
@@ -222,9 +164,9 @@ fig_scatter_all = px.scatter(
     height=350,
     # size='usd',
     size_max=15,
-    # color='usd',
-    # color_continuous_scale=px.colors.sequential.Oranges,
-    title='8 Week Moving Avg',
+    color='usd',
+    color_continuous_scale=px.colors.sequential.Oranges,
+    # title='8 Week Moving Avg',
     trendline="rolling", trendline_options=dict(function="mean", window=8), trendline_scope="overall", trendline_color_override="grey"
 )
 fig_scatter_all.update_traces(name="",hovertemplate="Sales: <b>%{y:$,.0f}")
@@ -232,11 +174,67 @@ fig_scatter_all.update_traces(marker=dict(size=12,color='#E09641',opacity=.9,lin
 fig_scatter_all.update_coloraxes(showscale=False)
 fig_scatter_all.update_yaxes(showgrid=True,showticklabels=True,gridcolor='darkgray',tickfont=dict(color='#5A5856', size=13),automargin=True) 
 fig_scatter_all.update_layout(hovermode='x unified',showlegend=False)#,legend=dict(y=0.99, x=0.1,title='10-Wk Moving Avg'))
-fig_scatter_all.update_layout(hoverlabel=dict(font_size=15,font_family="Rockwell"),title_x=.5)
+fig_scatter_all.update_layout(hoverlabel=dict(font_size=15,font_family="Rockwell"))#,title_x=.5)
 fig_scatter_all.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
-fig_scatter_all.update_yaxes(tick0=0,dtick=250000)
+fig_scatter_all.update_yaxes(tick0=0,dtick=100000)
 
-st.plotly_chart(fig_scatter_all, config=config, theme = 'streamlit', use_container_width=True)
+st.subheader(f"{millify(df_selection.usd.sum(),precision=1)}")
+col1, col2 = st.columns([1.3,2])
+with col1:
+    st.caption("in view")
+    st.plotly_chart(fig_seg_sales,config=config,use_container_width=True)
+with col2:
+    tab1, tab2 = st.tabs(["Monthly", "Weekly"])
+    with tab1:
+        st.plotly_chart(fig_mth_bar, config=config,legend=None, use_container_width=True)
+    with tab2:
+        st.plotly_chart(fig_scatter_all, config=config,use_container_width=True)
+
+# distributor bar chart
+top_custs = pd.DataFrame(df_selection.groupby(['customer','market_segment'],as_index=False)['usd'].sum().sort_values(by='usd',ascending=False)[:40])
+fig_dist_sales = px.bar(top_custs,
+       x = 'customer',
+       y = 'usd',
+    template = 'plotly_white',
+    labels={'customer':'',
+            'usd':' '},
+    opacity=.8,
+    height=400,
+    # width=1000,        
+    color = 'market_segment',
+    text = 'usd',
+    color_discrete_map=market_segment_color).update_layout(showlegend=False)
+fig_dist_sales.update_yaxes(tick0=0,dtick=500000)
+fig_dist_sales.update_yaxes(showgrid=True,showticklabels=True,gridcolor='darkgray',tickfont=dict(color='#5A5856', size=13),automargin=True) 
+fig_dist_sales.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=11),title_font=dict(color='#5A5856',size=15))#,tickangle=30)
+fig_dist_sales.update_traces(texttemplate='%{text:$,.2s}',hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m}<br>')#,textposition='outside')
+
+
+# parent distributor bar
+top_parents = pd.DataFrame(df_selection.groupby(['parent_customer','market_segment'],as_index=False)['usd'].sum().sort_values(by='usd',ascending=False)[:15])
+fig_parent_sales = px.bar(top_parents,
+                          x = 'parent_customer',
+                          y = 'usd',
+                          template = 'plotly_white',
+                          labels={'parent_customer':'',
+                                'usd':''},
+                          height=350,
+                          opacity = .8,
+                          color = 'market_segment',
+                          text = 'usd',
+                          color_discrete_map=market_segment_color).update_layout(showlegend=False)
+fig_parent_sales.update_yaxes(tick0=0,dtick=1000000)
+fig_parent_sales.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m}<br>')
+fig_parent_sales.update_yaxes(showgrid=True,showticklabels=True,gridcolor='darkgray',tickfont=dict(color='#5A5856', size=13),automargin=True) 
+fig_parent_sales.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
+fig_parent_sales.update_traces(texttemplate='%{text:$,.2s}')#,textposition='outside')
+
+tab1, tab2 = st.tabs(["by Parent", "by Customer"])
+with tab1:
+    st.plotly_chart(fig_parent_sales,config=config, use_container_width=True)
+with tab2:
+    st.plotly_chart(fig_dist_sales,config=config, use_container_width=True)
+
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
