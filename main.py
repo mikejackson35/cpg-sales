@@ -372,7 +372,7 @@ st.markdown("<br><br><b>FEBRUARY</b> <small>Daily Sales</small>",unsafe_allow_ht
 
 tab0, tab1, tab2, tab3 = st.tabs(["L1 - All","L2 - All", "L2 - Source", "L2 - Market"])
 with tab0:
-    st.plotly_chart(level_1_bar)
+    st.plotly_chart(level_1_bar,config=config, use_container_width=True)
 with tab1:
     st.plotly_chart(bar_all,config=config, use_container_width=True)
 with tab2:
