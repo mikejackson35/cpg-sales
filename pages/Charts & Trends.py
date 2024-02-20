@@ -50,7 +50,7 @@ st.markdown("""
 @st.cache_data
 def get_connection():
     conn = st.connection('dot', type ="sql")
-    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2021-12-31'")
+    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2022-12-31'")
     return all_sales
 
 all_sales = get_connection()
@@ -108,7 +108,7 @@ df_selection = all_sales[
     ]
 
 with placeholder:
-    st.markdown(f"<h3><small>showing</small>&nbsp&nbsp${millify(df_selection.usd.sum(),precision=1)}</h3>",unsafe_allow_html=True)
+    st.markdown(f"<h2 style=text-align:right; <small>showing<br>${millify(df_selection.usd.sum(),precision=1)}</h2>",unsafe_allow_html=True)
 
 customer_count = int(df_selection.customer.nunique())
 sales = int(df_selection.usd.sum())
