@@ -16,7 +16,15 @@ st.set_page_config(page_title='Awake YTD',
 )
 
 alt.themes.enable("dark")
-st.sidebar.title("AWAKE")
+st.sidebar.markdown(f"<h3 style='text-align:center;'>AWAKE</h3>", unsafe_allow_html=True)
+st.sidebar.markdown("")
+st.sidebar.markdown(f'- DIRECT Sales - All sales directly through Unleashed.')
+st.sidebar.markdown("")
+st.sidebar.markdown(f'- TRUE Sales - same as Direct sales MINUS Dot Foods. Dot outbound sales to customers are then added in.')
+st.sidebar.markdown("")
+st.sidebar.markdown(f'- TRUE by Source - True sales colored by their source - Dot or Direct')
+st.sidebar.markdown("")
+st.sidebar.markdown(f'- TRUE by Market - True sales colored by the Market Segment of the purchasing Customer')
 
 st.markdown("""
 <style>
@@ -373,19 +381,10 @@ true_df1 = true_df.groupby(['date','parent_customer'],as_index=False)['usd'].sum
 true_df2 = true_df.groupby(['date','sale_origin'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 true_df3 = true_df.groupby(['date','market_segment'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 
-st.markdown("")
+st.markdown("##")
 st.markdown(f"<h5 style=text-align:center><br><b>February</b> - Daily</h5><br>", unsafe_allow_html=True)
 
-tabz, tab0, tab1, tab2, tab3 = st.tabs(["Legend","Direct","TRUE", "TRUE - Source", "TRUE - Market"])
-with tabz:
-    st.markdown("")
-    st.markdown(f'- DIRECT Sales  (or "Dot as One") - All sales directly through Unleashed.')
-    st.markdown("")
-    st.markdown(f'- TRUE Sales  ("Dot as Many") - same as Direct sales MINUS Dot Foods. Dot outbound sales to customers are then added in.')
-    st.markdown("")
-    st.markdown(f'- TRUE by Source - True sales colored by their source - Dot or Direct')
-    st.markdown("")
-    st.markdown(f'- TRUE by Market - True sales colored by the Market Segment of the purchasing Customer')
+tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
 with tab0:
     st.plotly_chart(level_1_bar,config=config, use_container_width=True)
     st.caption('supporting data')
