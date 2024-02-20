@@ -363,10 +363,15 @@ level_1_bar.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5
 level_1_bar.update_xaxes(tickmode='array',tickvals = l1_bar_df.index, ticktext=l1_bar_df.index.strftime('<b>%a<br>%d</b>'))
 level_1_bar.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"))
 
-l1_df = round(l1[l1.completed_date>'2024-01-31'][['completed_date','customer_name','product','usd']]).set_index('completed_date').sort_index(ascending=False)
-true_df1 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year'])).reset_index(drop=True).set_index('date')
-true_df2 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year'])).reset_index(drop=True).set_index('date')
-true_df3 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year'])).reset_index(drop=True).set_index('date')
+l1_df = pd.DataFrame(l1[(l1.customer_type != 'Samples') & (l1.completed_date>'2024-01-31')].groupby(['completed_date','customer_name'],as_index=False)['usd'].sum())
+l1_df = round(l1_df).reset_index(drop=True).set_index('completed_date').sort_index(ascending=False)
+
+true_df = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year']))#.reset_index(drop=True).set_index('date')
+true_df1 = true_df.groupby(['date','parent_customer'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
+true_df2 = true_df.groupby(['date','sale_origin'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
+true_df3 = true_df.groupby(['date','market_segment'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
+# true_df = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year'])).reset_index(drop=True).set_index('date')
+# true_df = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year'])).reset_index(drop=True).set_index('date')
 
 st.markdown("")
 st.markdown("<h5 style=text-align:left><br><b>February</b> - Daily</h5><br>", unsafe_allow_html=True)
@@ -374,20 +379,19 @@ st.markdown("<h5 style=text-align:left><br><b>February</b> - Daily</h5><br>", un
 tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
 with tab0:
     st.plotly_chart(level_1_bar,config=config, use_container_width=True)
-    st.caption('supporting data below')
+    st.caption('supporting data')
     st.data_editor(l1_df,column_config={'completed_date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},use_container_width=True)
 with tab1:
     st.plotly_chart(bar_all,config=config, use_container_width=True)
-    st.caption('supporting data below')
+    st.caption('supporting data')
     st.data_editor(true_df1,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='a',use_container_width=True)
 with tab2:
     st.plotly_chart(scatter_origin,config=config, use_container_width=True)
-    st.caption('supporting data below')
+    st.caption('supporting data')
     st.data_editor(true_df2,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='b',use_container_width=True)
 with tab3:
     st.plotly_chart(scatter_market,config=config, use_container_width=True)
-    st.caption('supporting data below')
-    "---"
+    st.caption('supporting data')
     st.data_editor(true_df3,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='c',use_container_width=True)
 
 

@@ -29,7 +29,7 @@ st.markdown("""
 @st.cache_data
 def get_connection():
     conn = st.connection('dot', type ="sql")
-    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2021-12-31'")
+    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2022-12-31'")
     return all_sales
 
 all_sales = get_connection()
