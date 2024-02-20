@@ -69,12 +69,12 @@ font-size: 20px;
 }
             
 [data-baseweb="tab-list"] {
-    gap: 6px;
+    gap: 4px;
 }
 
 [data-baseweb="tab"] {
     height: 25px;
-    width: 80px;
+    width: 90px;
     white-space: pre-wrap;
     background-color: #A29F99;
     border-radius: 4px 4px 0px 0px;
@@ -154,20 +154,20 @@ sales_24 = int(all_sales[(all_sales['date'] > '2023-12-31') & (all_sales['date']
 sales_23 = int(all_sales[(all_sales['date'] > '2022-12-31') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum())
 yoy_chg_perc = f"{(sales_24/sales_23-1)*100:.0f}%"
 
-
+#&nbsp
 col0, col1, col2, col3= st.columns([1,2.1,2,2])
 with col0:
     st.markdown("")
 with col1:
-    st.markdown(f"<h5>&nbsp&nbsp&nbspDirect</h5>", unsafe_allow_html=True)
+    st.markdown(f"<h5>Direct Sales<br><small>Dot as One</small></h5>", unsafe_allow_html=True)
     st.markdown(f"<h3><b>${l1_sales_24/1000000:.2f}</b>M</h3>", unsafe_allow_html=True)
     st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp+{l1_yoy_chg_perc}</h5>", unsafe_allow_html=True)
 with col2:
     st.image(r"assets/Nevil.png",width=65)
-    st.caption(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspytd</h5>", unsafe_allow_html=True)
+    st.caption(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspytd</h5>", unsafe_allow_html=True)
     # st.image(r"assets/Nevil.png",width=65)
 with col3:
-    st.markdown(f"<h5>&nbsp&nbsp&nbspLevel 2</h5>", unsafe_allow_html=True)
+    st.markdown(f"<h5>True Sales<br><small>Dot as Many</small></h5>", unsafe_allow_html=True)
     st.markdown(f"<h3><b>${sales_24/1000000:.2f}M</b></h3>", unsafe_allow_html=True)
     st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp+{yoy_chg_perc}</h5>", unsafe_allow_html=True)
 
@@ -352,8 +352,7 @@ bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),)
 # LEVEL 1 DAILY BAR
 l1['usd'] = l1['sub_total']*.75
 
-l1_bar_df = l1.groupby('completed_date')['usd'].sum().reset_index().set_index('completed_date')
-l1_bar_df =round(l1_bar_df[l1_bar_df.index>'2024-01-31']).sort_index()
+l1_bar_df = round(l1[l1.completed_date>'2024-01-31'].groupby('completed_date')['usd'].sum(),2).reset_index().set_index('completed_date')
 
 level_1_bar = px.bar(l1_bar_df,
                      y='usd',
@@ -363,26 +362,38 @@ level_1_bar = px.bar(l1_bar_df,
                      height=chart_height,
                      text_auto=",.2s")
 
-level_1_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
-level_1_bar.update_traces(marker_color='rgb(239, 83, 80)')
+level_1_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>',marker_color='rgb(239, 83, 80)')
 level_1_bar.update_coloraxes(showscale=False)
 level_1_bar.update_yaxes(showticklabels=False,showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14))
 level_1_bar.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 level_1_bar.update_xaxes(tickmode='array',tickvals = l1_bar_df.index, ticktext=l1_bar_df.index.strftime('<b>%a<br>%d</b>'))
 level_1_bar.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"))
 
-# st.markdown("")
-st.markdown("<h5 style=text-align:center;><br><b>&nbsp&nbsp&nbsp&nbsp&nbspFebruary</b><br>&nbsp&nbsp&nbsp<small>Daily Sales</small></h5><br>",unsafe_allow_html=True)
+l1_df = round(l1[l1.completed_date>'2024-01-31'][['completed_date','customer_name','product','usd']]).set_index('completed_date').sort_index(ascending=False)
+true_df1 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year'])).reset_index(drop=True).set_index('date')
+true_df2 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year'])).reset_index(drop=True).set_index('date')
+true_df3 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year'])).reset_index(drop=True).set_index('date')
 
-tab0, tab1, tab2, tab3 = st.tabs(["Direct","Level 2", "L2 - Source", "L2 - Market"])
+# st.markdown("")
+st.markdown("<h5 style=text-align:center;><br><b>&nbsp&nbsp&nbsp&nbsp&nbspFebruary</b><br>&nbsp&nbsp&nbsp<small>Daily</small></h5><br>",unsafe_allow_html=True)
+
+tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
 with tab0:
     st.plotly_chart(level_1_bar,config=config, use_container_width=True)
+    st.caption('supporting data below')
+    st.data_editor(l1_df,column_config={'completed_date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},use_container_width=True)
 with tab1:
     st.plotly_chart(bar_all,config=config, use_container_width=True)
+    st.caption('supporting data below')
+    st.data_editor(true_df1,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='a',use_container_width=True)
 with tab2:
     st.plotly_chart(scatter_origin,config=config, use_container_width=True)
+    st.caption('supporting data below')
+    st.data_editor(true_df2,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='b',use_container_width=True)
 with tab3:
     st.plotly_chart(scatter_market,config=config, use_container_width=True)
+    st.caption('supporting data below')
+    st.data_editor(true_df3,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='c',use_container_width=True)
 
 
 

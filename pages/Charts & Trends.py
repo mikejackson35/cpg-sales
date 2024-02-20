@@ -217,7 +217,7 @@ fig_parent_sales.update_traces(texttemplate='%{text:$,.2s}')#,textposition='outs
 
 
 # st.header(f"${round(df_selection.usd.sum())}")
-st.header(f"${millify(df_selection.usd.sum(),precision=1)}")
+st.markdown(f"<h5><small>showing</small>&nbsp&nbsp${millify(df_selection.usd.sum(),precision=1)}</h5>",unsafe_allow_html=True)
 col3, col2, col1 = st.columns([2,.25,1])
 with col1:
     st.plotly_chart(fig_seg_sales,config=config,use_container_width=True)
