@@ -47,7 +47,7 @@ font-weight: 900;
 }
             
 [data-testid="stMetricValue"] {
-font-size: 20px;
+font-size: 22px;
 }
 
 [data-testid="stMetricDeltaIcon-Up"] {
@@ -153,23 +153,23 @@ sales_24 = int(all_sales[(all_sales['date'] > '2023-12-31') & (all_sales['date']
 sales_23 = int(all_sales[(all_sales['date'] > '2022-12-31') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum())
 yoy_chg_perc = f"{(sales_24/sales_23-1)*100:.0f}%"
 
+
 #&nbsp
 col0, col1, col2, col3= st.columns([1,2.1,2,2])
 with col0:
     st.markdown("")
 with col1:
-    st.markdown(f"<h5>Direct Sales<br>&nbsp&nbsp&nbsp&nbsp<small>Dot as One</small></h5>", unsafe_allow_html=True)
+    st.markdown(f"<h5>Direct Sales</h5>", unsafe_allow_html=True)
     st.markdown(f"<h3><b>${l1_sales_24/1000000:.2f}</b>M<br>&nbsp&nbsp&nbsp&nbsp&nbsp<small>+{l1_yoy_chg_perc}</small></h3>", unsafe_allow_html=True)
-    # st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp+{l1_yoy_chg_perc}</h5>", unsafe_allow_html=True)
 with col2:
     st.image(r"assets/Nevil.png",width=65)
     st.caption(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspytd</h5>", unsafe_allow_html=True)
 with col3:
-    st.markdown(f"<h5>True Sales<br>&nbsp&nbsp<small>Dot as Many</small></h5>", unsafe_allow_html=True)
+    st.markdown(f"<h5>True Sales</h5>", unsafe_allow_html=True)
     st.markdown(f"<h3><b>${sales_24/1000000:.2f}M</b><br>&nbsp&nbsp&nbsp&nbsp&nbsp<small>+{yoy_chg_perc}</h3>", unsafe_allow_html=True)
-    # st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp+{yoy_chg_perc}</h5>", unsafe_allow_html=True)
 
 "---"
+
 
 ###################
 # METRICS BOXES
@@ -217,10 +217,7 @@ other_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_se
 yoy_other = int(other_23-other_22)
 yoy_other_perc = round(int(other_23-other_22) / other_22,2)
 
-
-
 # METRICS BOXES
-# st.markdown("#")
 col1, col2, col3, col4 = st.columns(4)
 col1.metric(label='Vending', value=f"${vending_23/1000:,.0f}K", delta = f"{yoy_vend_perc:.0%}")
 col2.metric(label='Online', value=f"${millify(online_23)}", delta = f"{yoy_online_perc:.0%}")
@@ -262,8 +259,7 @@ scatter_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"
                                           y=1,
                                           xanchor="center",
                                           x=.5,
-                                          title='')
-                                          )
+                                          title=''))
 
 # DAILY BY SALE CUSTOMER
 df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'parent_customer','market_segment']).usd.sum().reset_index().set_index('date')
@@ -373,7 +369,8 @@ true_df2 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.
 true_df3 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year'])).reset_index(drop=True).set_index('date')
 
 
-
+with st.expander("Market Segment Legend"):
+    st.text("Market Segment / Parent / Child Mapping Will Go Here")
 # st.markdown("")
 st.markdown("<h5 style=text-align:center><br><b>February</b> - Daily</h5><br>",unsafe_allow_html=True)
 

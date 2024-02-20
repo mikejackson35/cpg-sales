@@ -65,6 +65,8 @@ all_sales['date'] = pd.to_datetime(all_sales['date'])
 all_sales['date'] = all_sales['date'].dt.normalize()
 all_sales['date'] = all_sales['date'].dt.floor('D')
 
+placeholder=st.sidebar.empty()
+
 # --- FILTERS AND SIDEBAR ----
 year = st.sidebar.multiselect(
     label = 'Year',
@@ -105,13 +107,8 @@ df_selection = all_sales[
     (all_sales['sale_origin'].isin(sale_origin))
     ]
 
-# # top row
-# def plus_minus(delta):
-#     if delta > 0:
-#         symbol = "+"
-#     else:
-#         symbol = ""
-#     return symbol
+with placeholder:
+    st.markdown(f"<h3><small>showing</small>&nbsp&nbsp${millify(df_selection.usd.sum(),precision=1)}</h3>",unsafe_allow_html=True)
 
 customer_count = int(df_selection.customer.nunique())
 sales = int(df_selection.usd.sum())
@@ -215,9 +212,6 @@ fig_parent_sales.update_yaxes(showgrid=True,showticklabels=True,gridcolor='darkg
 fig_parent_sales.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 fig_parent_sales.update_traces(texttemplate='%{text:$,.2s}')#,textposition='outside')
 
-
-# st.header(f"${round(df_selection.usd.sum())}")
-st.markdown(f"<h5><small>showing</small>&nbsp&nbsp${millify(df_selection.usd.sum(),precision=1)}</h5>",unsafe_allow_html=True)
 col3, col2, col1 = st.columns([2,.25,1])
 with col1:
     st.plotly_chart(fig_seg_sales,config=config,use_container_width=True)
