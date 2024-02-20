@@ -55,6 +55,10 @@ def get_connection():
 
 all_sales = get_connection()
 all_sales = all_sales[all_sales.market_segment != 'Samples']
+origin_dict = {'unl':'Unleashed',
+               'dot':'Dot'}
+
+all_sales['sale_origin'] = all_sales['sale_origin'].map(origin_dict)
 
 # invoice date cleanup
 all_sales['date'] = pd.to_datetime(all_sales['date'])
@@ -88,6 +92,11 @@ market_segment_color = {
     'Convenience': 'rgb(233,81,46)',
     'Broadline Distributor': 'rgb(233,152,19)',
     'Samples': 'rgb(141,62,92)'}
+
+# sale_origin_dict = {
+#     'Dot': 'rgb(81, 121, 198)',
+#     'Unleashed': 'rgb(239, 83, 80)'
+# }
 
 # QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
 df_selection = all_sales[

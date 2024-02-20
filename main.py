@@ -44,6 +44,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 font-weight: 900;
+# font-size: 20px;
 }
             
 [data-testid="stMetricValue"] {
@@ -153,25 +154,24 @@ sales_24 = int(all_sales[(all_sales['date'] > '2023-12-31') & (all_sales['date']
 sales_23 = int(all_sales[(all_sales['date'] > '2022-12-31') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum())
 yoy_chg_perc = f"{(sales_24/sales_23-1)*100:.0f}%"
 
-col1, col2, col3, col4, col5= st.columns(5)
-with col1:
-    # st.markdown("")
-    st.subheader(f"${l1_sales_24/1000000:.2f}M")
-    st.write("Level 1")
-with col2:
-    st.subheader(f"+{l1_yoy_chg_perc}")
-    st.write("YoY")
-with col3:
-    st.markdown("")
-    st.image(r"assets/Nevil.png",width=65)
-with col4:
-    st.subheader(f"${sales_24/1000000:.2f}M")
-    st.write("Level 2")
-with col5:
-    st.subheader(f"+{yoy_chg_perc}")
-    st.write("YoY")
 
-st.markdown("#")
+col0, col1, col2, col3= st.columns([1,2.1,2,2])
+with col0:
+    st.markdown("")
+with col1:
+    st.markdown(f"<h5>&nbsp&nbsp&nbspDirect</h5>", unsafe_allow_html=True)
+    st.markdown(f"<h3><b>${l1_sales_24/1000000:.2f}</b>M</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp+{l1_yoy_chg_perc}</h5>", unsafe_allow_html=True)
+with col2:
+    st.image(r"assets/Nevil.png",width=65)
+    st.caption(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspytd</h5>", unsafe_allow_html=True)
+    # st.image(r"assets/Nevil.png",width=65)
+with col3:
+    st.markdown(f"<h5>&nbsp&nbsp&nbspLevel 2</h5>", unsafe_allow_html=True)
+    st.markdown(f"<h3><b>${sales_24/1000000:.2f}M</b></h3>", unsafe_allow_html=True)
+    st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp+{yoy_chg_perc}</h5>", unsafe_allow_html=True)
+
+"---"
 
 ###################
 # METRICS BOXES
@@ -223,13 +223,13 @@ yoy_other_perc = round(int(other_23-other_22) / other_22,2)
 
 # METRICS BOXES
 # st.markdown("#")
-col1, col2, col3, col4 = st.columns([2,2,2,2])
+col1, col2, col3, col4 = st.columns(4)
 col1.metric(label='Vending', value=f"${vending_23/1000:,.0f}K", delta = f"{yoy_vend_perc:.0%}")
 col2.metric(label='Online', value=f"${millify(online_23)}", delta = f"{yoy_online_perc:.0%}")
 col3.metric(label='Alternate Retail', value=f"${millify(alt_23)}", delta = f"{yoy_alt_perc:.0%}")
 col4.metric(label='Canada', value=f"${millify(canada_23)}", delta = f"{yoy_canada_perc:.0%}")
 
-col1, col2, col3, col4 = st.columns([2,2,2,2])
+col1, col2, col3, col4 = st.columns(4)
 col1.metric(label='Convenience', value=f"${millify(conv_23)}", delta = f"{yoy_conv_perc:.0%}")
 col2.metric(label='Grocery', value=f"${millify(grocery_23)}", delta = f"{yoy_grocery_perc:.0%}")
 col3.metric(label='Broadline', value=f"${millify(broadline_23)}", delta = f"{yoy_broadline_perc:.0%}")
@@ -238,6 +238,8 @@ col4.metric(label='Other', value=f"${millify(other_23)}", delta = f"{yoy_other_p
 # DAILY BY MARKET SEGMENT
 df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
 df = round(df[df.index>'2024-01-31']).sort_values(by='market_segment',ascending=False)#.sort_index())
+
+chart_height = 250
 config = {'displayModeBar': False}
 
 scatter_market = px.bar(
@@ -246,7 +248,7 @@ scatter_market = px.bar(
     template = 'plotly_white',
     labels={'date':'',
             'usd':''},
-    height=325,
+    height=chart_height,
     color='market_segment',
     color_discrete_map=market_segment_dict
 )
@@ -275,10 +277,11 @@ scatter_customer = px.scatter(
     y='usd',
     template = 'plotly_white',
     labels={'date':'','usd':''},
-    height=325,
+    height=chart_height,
     color='market_segment',
     color_discrete_map=market_segment_dict,
     log_y=True,
+    opacity=.75,
     hover_name='parent_customer',
     hover_data = {'market_segment':False,
                   'usd':':.2s',
@@ -302,10 +305,11 @@ scatter_origin = px.bar(
         template = 'plotly_white',
         labels={'date':'',
                 'usd':''},
-        height=325,
+        height=chart_height,
         color='sale_origin',
         color_discrete_map=sale_origin_dict,
-        text_auto='.2s'
+        text_auto='.2s',
+        opacity=.75
     )
 
 scatter_origin.update_traces(hovertemplate = 
@@ -334,7 +338,7 @@ bar_all = px.bar(
         template = 'plotly_white',
         labels={'date':'',
                 'usd':''},
-        height=325,
+        height=chart_height,
         text_auto='.2s',
     )
 bar_all.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
@@ -356,7 +360,7 @@ level_1_bar = px.bar(l1_bar_df,
                      template='plotly_white',
                      labels={'usd':'',
                              'completed_date':''},
-                     height=325,
+                     height=chart_height,
                      text_auto=",.2s")
 
 level_1_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
@@ -368,9 +372,9 @@ level_1_bar.update_xaxes(tickmode='array',tickvals = l1_bar_df.index, ticktext=l
 level_1_bar.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"))
 
 # st.markdown("")
-st.markdown("<br><br><b>FEBRUARY</b> <small>Daily Sales</small>",unsafe_allow_html=True)
+st.markdown("<h5 style=text-align:center;><br><b>&nbsp&nbsp&nbsp&nbsp&nbspFebruary</b><br>&nbsp&nbsp&nbsp<small>Daily Sales</small></h5><br>",unsafe_allow_html=True)
 
-tab0, tab1, tab2, tab3 = st.tabs(["L1 - All","L2 - All", "L2 - Source", "L2 - Market"])
+tab0, tab1, tab2, tab3 = st.tabs(["Direct","Level 2", "L2 - Source", "L2 - Market"])
 with tab0:
     st.plotly_chart(level_1_bar,config=config, use_container_width=True)
 with tab1:
@@ -388,7 +392,7 @@ hide_st_style = """
             <style>
             Main Menu {visibility: hidden;}
             footer {visibility: hidden;}
-            # header {visibility: hidden;}
+            header {visibility: hidden;}
             </style>
             """
             
