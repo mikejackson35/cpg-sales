@@ -44,7 +44,6 @@ display: flex;
 justify-content: center;
 align-items: center;
 font-weight: 900;
-# font-size: 20px;
 }
             
 [data-testid="stMetricValue"] {
@@ -159,17 +158,16 @@ col0, col1, col2, col3= st.columns([1,2.1,2,2])
 with col0:
     st.markdown("")
 with col1:
-    st.markdown(f"<h5>Direct Sales<br><small>Dot as One</small></h5>", unsafe_allow_html=True)
-    st.markdown(f"<h3><b>${l1_sales_24/1000000:.2f}</b>M</h3>", unsafe_allow_html=True)
-    st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp+{l1_yoy_chg_perc}</h5>", unsafe_allow_html=True)
+    st.markdown(f"<h5>Direct Sales<br>&nbsp&nbsp&nbsp&nbsp<small>Dot as One</small></h5>", unsafe_allow_html=True)
+    st.markdown(f"<h3><b>${l1_sales_24/1000000:.2f}</b>M<br>&nbsp&nbsp&nbsp&nbsp&nbsp<small>+{l1_yoy_chg_perc}</small></h3>", unsafe_allow_html=True)
+    # st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp+{l1_yoy_chg_perc}</h5>", unsafe_allow_html=True)
 with col2:
     st.image(r"assets/Nevil.png",width=65)
     st.caption(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspytd</h5>", unsafe_allow_html=True)
-    # st.image(r"assets/Nevil.png",width=65)
 with col3:
-    st.markdown(f"<h5>True Sales<br><small>Dot as Many</small></h5>", unsafe_allow_html=True)
-    st.markdown(f"<h3><b>${sales_24/1000000:.2f}M</b></h3>", unsafe_allow_html=True)
-    st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp+{yoy_chg_perc}</h5>", unsafe_allow_html=True)
+    st.markdown(f"<h5>True Sales<br>&nbsp&nbsp<small>Dot as Many</small></h5>", unsafe_allow_html=True)
+    st.markdown(f"<h3><b>${sales_24/1000000:.2f}M</b><br>&nbsp&nbsp&nbsp&nbsp&nbsp<small>+{yoy_chg_perc}</h3>", unsafe_allow_html=True)
+    # st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp+{yoy_chg_perc}</h5>", unsafe_allow_html=True)
 
 "---"
 
@@ -239,7 +237,7 @@ col4.metric(label='Other', value=f"${millify(other_23)}", delta = f"{yoy_other_p
 df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
 df = round(df[df.index>'2024-01-31']).sort_values(by='market_segment',ascending=False)#.sort_index())
 
-chart_height = 250
+chart_height = 235
 config = {'displayModeBar': False}
 
 scatter_market = px.bar(
@@ -374,8 +372,10 @@ true_df1 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.
 true_df2 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year'])).reset_index(drop=True).set_index('date')
 true_df3 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year'])).reset_index(drop=True).set_index('date')
 
+
+
 # st.markdown("")
-st.markdown("<h5 style=text-align:center;><br><b>&nbsp&nbsp&nbsp&nbsp&nbspFebruary</b><br>&nbsp&nbsp&nbsp<small>Daily</small></h5><br>",unsafe_allow_html=True)
+st.markdown("<h5 style=text-align:center><br><b>February</b> - Daily</h5><br>",unsafe_allow_html=True)
 
 tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
 with tab0:
