@@ -368,8 +368,8 @@ true_df1 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.
 true_df2 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year'])).reset_index(drop=True).set_index('date')
 true_df3 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year'])).reset_index(drop=True).set_index('date')
 
-# st.markdown("")
-st.markdown("<h5 style=text-align:center><br><b>February</b> - Daily</h5><br>",unsafe_allow_html=True)
+st.markdown("")
+st.markdown("<h5 style=text-align:left><br><b>February</b> - Daily</h5><br>", unsafe_allow_html=True)
 
 tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
 with tab0:
@@ -387,6 +387,7 @@ with tab2:
 with tab3:
     st.plotly_chart(scatter_market,config=config, use_container_width=True)
     st.caption('supporting data below')
+    "---"
     st.data_editor(true_df3,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='c',use_container_width=True)
 
 
