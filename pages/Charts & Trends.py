@@ -165,7 +165,7 @@ fig_scatter_all = px.scatter(
     trendline="rolling", trendline_options=dict(function="mean", window=10), trendline_scope="overall", trendline_color_override="grey"
 )
 fig_scatter_all.update_traces(name="",hovertemplate="Sales: <b>%{y:$,.0f}")
-fig_scatter_all.update_traces(marker=dict(size=10,color='#E09641',opacity=.9,line=dict(width=1,color='lightgrey')),selector=dict(mode='markers'))
+fig_scatter_all.update_traces(marker=dict(size=8,color='#E09641',opacity=.9,line=dict(width=1,color='lightgrey')),selector=dict(mode='markers'))
 fig_scatter_all.update_coloraxes(showscale=False)
 fig_scatter_all.update_yaxes(showgrid=True,showticklabels=True,gridcolor='darkgray',tickfont=dict(color='#5A5856', size=13),automargin=True) 
 fig_scatter_all.update_layout(hovermode='x unified',showlegend=False)#,legend=dict(y=0.99, x=0.1,title='10-Wk Moving Avg'))

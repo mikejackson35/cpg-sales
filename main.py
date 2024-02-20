@@ -368,9 +368,6 @@ true_df1 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.
 true_df2 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year'])).reset_index(drop=True).set_index('date')
 true_df3 = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year'])).reset_index(drop=True).set_index('date')
 
-
-with st.expander("Market Segment Legend"):
-    st.text("Market Segment / Parent / Child Mapping Will Go Here")
 # st.markdown("")
 st.markdown("<h5 style=text-align:center><br><b>February</b> - Daily</h5><br>",unsafe_allow_html=True)
 
