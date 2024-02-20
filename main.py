@@ -159,7 +159,7 @@ col0, col1, col2, col3= st.columns([1,2.1,2,2])
 with col0:
     st.markdown("")
 with col1:
-    st.markdown(f"<h5>Direct Sales</h5>", unsafe_allow_html=True)
+    st.markdown(f'<h5 style="color: #5A5856">Direct Sales</h5>', unsafe_allow_html=True)
     st.markdown(f"<h3><b>${l1_sales_24/1000000:.2f}</b>M<br>&nbsp&nbsp&nbsp&nbsp&nbsp<small>+{l1_yoy_chg_perc}</small></h3>", unsafe_allow_html=True)
 with col2:
     st.image(r"assets/Nevil.png",width=65)
@@ -334,6 +334,7 @@ bar_all = px.bar(
                 'usd':''},
         height=chart_height,
         text_auto='.2s',
+        opacity=.8
     )
 bar_all.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
 bar_all.update_traces(marker_color='#E09641')
@@ -354,9 +355,10 @@ level_1_bar = px.bar(l1_bar_df,
                      labels={'usd':'',
                              'completed_date':''},
                      height=chart_height,
-                     text_auto=",.2s")
+                     text_auto=",.2s",
+                     opacity=.8)
 
-level_1_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>',marker_color='rgb(239, 83, 80)')
+level_1_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>',marker_color="#5a5856")
 level_1_bar.update_coloraxes(showscale=False)
 level_1_bar.update_yaxes(showticklabels=False,showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14))
 level_1_bar.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
@@ -372,9 +374,18 @@ true_df2 = true_df.groupby(['date','sale_origin'],as_index=False)['usd'].sum().r
 true_df3 = true_df.groupby(['date','market_segment'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 
 st.markdown("")
-st.markdown("<h5 style=text-align:center><br><b>February</b> - Daily</h5><br>", unsafe_allow_html=True)
+st.markdown(f"<h5 style=text-align:center><br><b>February</b> - Daily</h5><br>", unsafe_allow_html=True)
 
-tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
+tabz, tab0, tab1, tab2, tab3 = st.tabs(["Legend","Direct","TRUE", "TRUE - Source", "TRUE - Market"])
+with tabz:
+    st.markdown("")
+    st.markdown(f'- DIRECT Sales  (or "Dot as One") - All sales directly through Unleashed.')
+    st.markdown("")
+    st.markdown(f'- TRUE Sales  ("Dot as Many") - same as Direct sales MINUS Dot Foods. Dot outbound sales to customers are then added in.')
+    st.markdown("")
+    st.markdown(f'- TRUE by Source - True sales colored by their source - Dot or Direct')
+    st.markdown("")
+    st.markdown(f'- TRUE by Market - True sales colored by the Market Segment of the purchasing Customer')
 with tab0:
     st.plotly_chart(level_1_bar,config=config, use_container_width=True)
     st.caption('supporting data')
