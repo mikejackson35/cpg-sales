@@ -8,6 +8,7 @@ import secrets
 import numpy as np
 from datetime import datetime
 from millify import millify
+import plotly.graph_objects as go
 
 
 st.set_page_config(page_title='Awake YTD',
@@ -18,13 +19,13 @@ st.set_page_config(page_title='Awake YTD',
 alt.themes.enable("dark")
 st.sidebar.markdown(f"<h3 style='text-align:center;'>AWAKE</h3>", unsafe_allow_html=True)
 st.sidebar.markdown("")
-st.sidebar.markdown(f'- DIRECT Sales - All sales directly through Unleashed.')
+st.sidebar.markdown(f'- DIRECT - all sales through Unleashed')
 st.sidebar.markdown("")
-st.sidebar.markdown(f'- TRUE Sales - same as Direct sales MINUS Dot Foods. Dot outbound sales to customers are then added in.')
-st.sidebar.markdown("")
-st.sidebar.markdown(f'- TRUE by Source - True sales colored by their source - Dot or Direct')
-st.sidebar.markdown("")
-st.sidebar.markdown(f'- TRUE by Market - True sales colored by the Market Segment of the purchasing Customer')
+st.sidebar.markdown(f'- TRUE - Direct Sales MINUS Dot purchases PLUS Dot outbounds')
+# st.sidebar.markdown("")
+# st.sidebar.markdown(f'- TRUE by Source - True sales colored by their source - Dot or Direct')
+# st.sidebar.markdown("")
+# st.sidebar.markdown(f'- TRUE by Market - True sales colored by the Market Segment of the purchasing Customer')
 
 st.markdown("""
 <style>
@@ -81,7 +82,7 @@ font-size: 22px;
 
 [data-baseweb="tab"] {
     height: 25px;
-    width: 90px;
+    width: 200px;
     white-space: pre-wrap;
     background-color: #A29F99;
     border-radius: 4px 4px 0px 0px;
@@ -145,6 +146,12 @@ sale_origin_dict = {
     'Unleashed': 'rgb(239, 83, 80)'
 }
 
+
+
+
+
+
+
 ###############
 # L1/L2 KPI'S
 week_ago = datetime.today().date() - pd.offsets.Day(10)
@@ -161,28 +168,69 @@ sales_24 = int(all_sales[(all_sales['date'] > '2023-12-31') & (all_sales['date']
 sales_23 = int(all_sales[(all_sales['date'] > '2022-12-31') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum())
 yoy_chg_perc = f"{(sales_24/sales_23-1)*100:.0f}%"
 
-
-#&nbsp
-col0, col1, col2, col3= st.columns([1,2.1,2,2])
-with col0:
-    st.markdown("")
-with col1:
-    st.markdown(f'<h5 style="color: #5A5856">Direct Sales</h5>', unsafe_allow_html=True)
-    st.markdown(f"<h3><b>${l1_sales_24/1000000:.2f}</b>M<br>&nbsp&nbsp&nbsp&nbsp&nbsp<small>+{l1_yoy_chg_perc}</small></h3>", unsafe_allow_html=True)
-with col2:
-    st.image(r"assets/Nevil.png",width=65)
-    st.caption(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspytd</h5>", unsafe_allow_html=True)
-with col3:
-    st.markdown(f"<h5>True Sales</h5>", unsafe_allow_html=True)
-    st.markdown(f"<h3><b>${sales_24/1000000:.2f}M</b><br>&nbsp&nbsp&nbsp&nbsp&nbsp<small>+{yoy_chg_perc}</h3>", unsafe_allow_html=True)
-
-"---"
+all_sales['date'] = pd.to_datetime(all_sales['date'])
 
 
 ###################
-# METRICS BOXES
+# MoM Bar
 
-all_sales['date'] = pd.to_datetime(all_sales['date'])
+def getYearMonth(s):
+  return (s.split("-")[0] + "-" + s.split("-")[1])
+
+all_sales['year'] = all_sales['date'].dt.year
+all_sales['month'] = all_sales['date'].dt.month_name()
+all_sales['YearMonth'] = all_sales['date'].astype('string').apply(lambda x: getYearMonth(x))
+
+# group by month year and add $0 sales to future months
+chart_df = round(all_sales.groupby(['year','YearMonth'],as_index=False)['usd'].sum())
+
+chart_df.loc[len(chart_df)] = [2024, '2024-03', 0]
+chart_df.loc[len(chart_df)] = [2024, '2024-04', 0]
+chart_df.loc[len(chart_df)] = [2024, '2024-05', 0]
+chart_df.loc[len(chart_df)] = [2024, '2024-06', 0]
+chart_df.loc[len(chart_df)] = [2024, '2024-07', 0]
+chart_df.loc[len(chart_df)] = [2024, '2024-08', 0]
+chart_df.loc[len(chart_df)] = [2024, '2024-09', 0]
+chart_df.loc[len(chart_df)] = [2024, '2024-10', 0]
+chart_df.loc[len(chart_df)] = [2024, '2024-11', 0]
+chart_df.loc[len(chart_df)] = [2024, '2024-12', 0]
+
+# chart = chart_df.copy()
+
+# variables for calcs, hovers, etc
+
+sales_22_ = chart_df[chart_df.year==2022].usd
+sales_23_ = chart_df[chart_df.year==2023].usd
+sales_24_ = chart_df[chart_df.year==2024].usd
+
+goal = sales_23_ * 1.5
+
+months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+color = chart_df.year.astype('category').unique()
+
+# Bar and scatter monthly
+
+fig = go.Figure(
+    data=[
+        go.Scatter(x=months, y=goal, name="Goal", mode='markers', marker_size=8, marker_line=dict(width=1,color='darkslategrey'),marker_color='orange',hovertemplate="<br>".join(["%{y:.2s}"])),
+        go.Bar(x=months, y=sales_23_, name="2023", marker_color="#5a5856", marker_opacity=.5,hovertemplate="<br>".join(["%{y:.2s}"])),
+        go.Bar(x=months, y=sales_24_, name="2024", marker_color='#E09641',hovertemplate="<br>".join(["%{y:.2s}"]))
+    ],
+    layout=dict(#title='2024', title_x=.45, 
+                height=350, barmode='group', template='plotly_white', 
+                hoverlabel=dict(font_size=18,font_family="Rockwell"),
+                legend=dict(x=0, y=1.1, orientation='h'),
+                bargap=0.15,bargroupgap=0.1)
+)
+
+fig.update_traces(texttemplate='%{y:.2s}')
+fig.update_xaxes(showticklabels=True,showgrid=False,gridcolor="#B1A999", tickfont=dict(color='#5A5856', size=14),title_font=dict(color='#5A5856',size=15))
+fig.update_yaxes(showticklabels=False,showgrid=True,gridcolor="#B1A999")
+
+# st.subheader("YTD")
+# st.plotly_chart(fig, use_container_width=True)
 
 # METRICS CALCS FOR THE 8 MARKET SEGMENTS
 vending_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Vending')].usd.sum()
@@ -225,24 +273,11 @@ other_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_se
 yoy_other = int(other_23-other_22)
 yoy_other_perc = round(int(other_23-other_22) / other_22,2)
 
-# METRICS BOXES
-col1, col2, col3, col4 = st.columns(4)
-col1.metric(label='Vending', value=f"${vending_23/1000:,.0f}K", delta = f"{yoy_vend_perc:.0%}")
-col2.metric(label='Online', value=f"${millify(online_23)}", delta = f"{yoy_online_perc:.0%}")
-col3.metric(label='Alternate Retail', value=f"${millify(alt_23)}", delta = f"{yoy_alt_perc:.0%}")
-col4.metric(label='Canada', value=f"${millify(canada_23)}", delta = f"{yoy_canada_perc:.0%}")
-
-col1, col2, col3, col4 = st.columns(4)
-col1.metric(label='Convenience', value=f"${millify(conv_23)}", delta = f"{yoy_conv_perc:.0%}")
-col2.metric(label='Grocery', value=f"${millify(grocery_23)}", delta = f"{yoy_grocery_perc:.0%}")
-col3.metric(label='Broadline', value=f"${millify(broadline_23)}", delta = f"{yoy_broadline_perc:.0%}")
-col4.metric(label='Other', value=f"${millify(other_23)}", delta = f"{yoy_other_perc:.0%}")
-
 # DAILY BY MARKET SEGMENT
 df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
 df = round(df[df.index>'2024-01-31']).sort_values(by='market_segment',ascending=False)#.sort_index())
 
-chart_height = 235
+chart_height = 250
 config = {'displayModeBar': False}
 
 scatter_market = px.bar(
@@ -381,26 +416,76 @@ true_df1 = true_df.groupby(['date','parent_customer'],as_index=False)['usd'].sum
 true_df2 = true_df.groupby(['date','sale_origin'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 true_df3 = true_df.groupby(['date','market_segment'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 
-st.markdown("##")
-st.markdown(f"<h5 style=text-align:center><br><b>February</b> - Daily</h5><br>", unsafe_allow_html=True)
+col0, col1, col2, col3= st.columns([1,2.1,2,2])
+with col0:
+    st.header("")
+with col1:
+    st.markdown(f'<h4 style="color: #5A5856">Direct<br><small>+{l1_yoy_chg_perc}&nbsp yoy</small></h4>', unsafe_allow_html=True)
+    st.markdown(f"<h2><b>${l1_sales_24/1000000:.2f}</b>M</h2>", unsafe_allow_html=True)
+with col2:
+    st.markdown("")
+    st.image(r"assets/Nevil.png",width=65)
+    st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp2024</h5>", unsafe_allow_html=True)
+with col3:
+    st.markdown(f"<h4>TRUE<br><small>+{yoy_chg_perc}&nbsp yoy</small></h4>", unsafe_allow_html=True)
+    st.markdown(f"<h2><b>${sales_24/1000000:.2f}M</h2>", unsafe_allow_html=True)
 
-tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
-with tab0:
-    st.plotly_chart(level_1_bar,config=config, use_container_width=True)
-    st.caption('supporting data')
-    st.data_editor(l1_df,column_config={'completed_date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},use_container_width=True)
-with tab1:
-    st.plotly_chart(bar_all,config=config, use_container_width=True)
-    st.caption('supporting data')
-    st.data_editor(true_df1,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='a',use_container_width=True)
-with tab2:
-    st.plotly_chart(scatter_origin,config=config, use_container_width=True)
-    st.caption('supporting data')
-    st.data_editor(true_df2,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='b',use_container_width=True)
-with tab3:
-    st.plotly_chart(scatter_market,config=config, use_container_width=True)
-    st.caption('supporting data')
-    st.data_editor(true_df3,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='c',use_container_width=True)
+# "---"
+st.plotly_chart(fig, use_container_width=True)
+
+with st.expander("Show February Daily Sales"):
+    tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
+    with tab0:
+        st.plotly_chart(level_1_bar,config=config, use_container_width=True)
+        # st.caption('supporting data')
+        # st.data_editor(l1_df,column_config={'completed_date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},use_container_width=True)
+    with tab1:
+        st.plotly_chart(bar_all,config=config, use_container_width=True)
+        # st.caption('supporting data')
+        # st.data_editor(true_df1,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='a',use_container_width=True)
+    with tab2:
+        st.plotly_chart(scatter_origin,config=config, use_container_width=True)
+        # st.caption('supporting data')
+        # st.data_editor(true_df2,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='b',use_container_width=True)
+    with tab3:
+        st.plotly_chart(scatter_market,config=config, use_container_width=True)
+        # st.caption('supporting data')
+        # st.data_editor(true_df3,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='c',use_container_width=True)
+
+st.markdown("#")
+        # METRICS BOXES
+col1, col2, col3, col4 = st.columns(4)
+col1.metric(label='Vending', value=f"${vending_23/1000:,.0f}K", delta = f"{yoy_vend_perc:.0%}")
+col2.metric(label='Online', value=f"${millify(online_23)}", delta = f"{yoy_online_perc:.0%}")
+col3.metric(label='Alternate Retail', value=f"${millify(alt_23)}", delta = f"{yoy_alt_perc:.0%}")
+col4.metric(label='Canada', value=f"${millify(canada_23)}", delta = f"{yoy_canada_perc:.0%}")
+
+col1, col2, col3, col4 = st.columns(4)
+col1.metric(label='Convenience', value=f"${millify(conv_23)}", delta = f"{yoy_conv_perc:.0%}")
+col2.metric(label='Grocery', value=f"${millify(grocery_23)}", delta = f"{yoy_grocery_perc:.0%}")
+col3.metric(label='Broadline', value=f"${millify(broadline_23)}", delta = f"{yoy_broadline_perc:.0%}")
+col4.metric(label='Other', value=f"${millify(other_23)}", delta = f"{yoy_other_perc:.0%}")
+
+df = all_sales[(all_sales.market_segment!='Samples') | (all_sales.market_segment!='Other')].groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
+df = df[df.index>'2023-02-28'].pivot(columns='market_segment', values='usd')
+
+area_market = px.area(df,
+              color='market_segment',
+              color_discrete_map=market_segment_dict, 
+              facet_col="market_segment",facet_col_wrap=2, facet_col_spacing=.1,
+              height=1000,
+              template = 'plotly_white',
+              labels={'value':"",'market_segment':""}
+             )
+
+area_market.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>',fill='tonexty')
+area_market.update_yaxes(showticklabels=True,showgrid=True,gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=14),matches=None)
+area_market.update_xaxes(tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
+area_market.update_xaxes(showticklabels=True, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
+area_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),legend=dict(x=0, y=1.2, orientation='h',title=None),showlegend=False)
+
+with st.expander("Show Market Segment Trends"):
+    st.plotly_chart(area_market,config=config, use_container_width=True)
 
 
 
