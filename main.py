@@ -428,28 +428,7 @@ true_df1 = true_df.groupby(['date','parent_customer'],as_index=False)['usd'].sum
 true_df2 = true_df.groupby(['date','sale_origin'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 true_df3 = true_df.groupby(['date','market_segment'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 
-# col0, col1, col2, col3= st.columns([1,2.1,2,2])
-# with col0:
-#     st.header("")
-# with col1:
-#     st.markdown(f'<h4 style="color: #5A5856">Direct<br><small>+{l1_yoy_chg_perc}&nbsp yoy</small></h4>', unsafe_allow_html=True)
-#     st.markdown(f"<h2><b>${l1_sales_24/1000000:.2f}</b>M</h2>", unsafe_allow_html=True)
-# with col2:
-#     st.markdown("")
-#     st.image(r"assets/Nevil.png",width=65)
-#     st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp2024</h5>", unsafe_allow_html=True)
-# with col3:
-#     st.markdown(f"<h4>TRUE<br><small>+{yoy_chg_perc}&nbsp yoy</small></h4>", unsafe_allow_html=True)
-#     st.markdown(f"<h2><b>${sales_24/1000000:.2f}M</h2>", unsafe_allow_html=True)
-
-# st.markdown("#")
-# # "---"
-# tab1, tab2 = st.tabs(['Direct', 'TRUE'])
-# with tab1:
-#     st.plotly_chart(l1_fig,config=config, use_container_width=True)
-# with tab2:
-#     st.plotly_chart(l2_fig, config=config, use_container_width=True)
-
+st.markdown("")
 with st.expander("Show Current Month Detail"):
     tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
     with tab0:
