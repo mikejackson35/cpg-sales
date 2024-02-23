@@ -427,8 +427,7 @@ true_df = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.d
 true_df1 = true_df.groupby(['date','parent_customer'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 true_df2 = true_df.groupby(['date','sale_origin'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 true_df3 = true_df.groupby(['date','market_segment'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
-
-# st.subheader("")
+st.markdown("")
 with st.expander("Show Current Month Detail"):
     tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
     with tab0:
@@ -454,13 +453,13 @@ with col3:
     st.markdown(f"<h4>TRUE<br><small>+{yoy_chg_perc}&nbsp yoy</small></h4>", unsafe_allow_html=True)
     st.markdown(f"<h2><b>${sales_24/1000000:.2f}M</h2>", unsafe_allow_html=True)
 
-# st.markdown("#")
 tab1, tab2 = st.tabs(['Direct', 'TRUE'])
 with tab1:
     st.plotly_chart(l1_fig,config=config, use_container_width=True)
 with tab2:
     st.plotly_chart(l2_fig, config=config, use_container_width=True)
 
+# market segment rolling-52's
 df = all_sales[(all_sales.market_segment!='Samples') & (all_sales.market_segment!='Other')].set_index('date').groupby([pd.Grouper(freq='SM'),'market_segment'])['usd'].sum().reset_index().set_index('date')
 df = df[df.index>'2023-02-28'].pivot(columns='market_segment', values='usd')
 
