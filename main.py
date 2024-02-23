@@ -49,7 +49,7 @@ st.markdown("""
 display: flex;
 justify-content: center;
 align-items: center;
-font-weight: 900;
+# font-weight: 900;
 }
             
 [data-testid="stMetricValue"] {
@@ -57,24 +57,29 @@ font-weight: 900;
 }
 
 [data-testid="stMetricDeltaIcon-Up"] {
-    color:  #009933;
+    color:  #5A5856;
     position: relative;
     left: 38%;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
+    display: none;
+    
 }
 
 [data-testid="stMetricDeltaIcon-Down"] {
+    color:  #5A5856;
     position: relative;
     left: 38%;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
+    font-size:  10px;
+    display: none;
 }
             
 [data-testid="stMetricDelta"] {
-    font-size:  15px;
+    font-size:  12px;
 }
             
 [data-baseweb="tab-list"] {
@@ -91,6 +96,7 @@ font-weight: 900;
     padding-top: 8px;
     padding-bottom: 8px;
 }
+            
 </style>
         """, unsafe_allow_html=True)
 
@@ -199,10 +205,10 @@ l1_fig = go.Figure(
         go.Bar(x=months, y=l1_24, name="2024", marker_color='#E09641',textfont=dict(color='white'),hovertemplate="<br>".join(["%{y:.2s}"]),textposition='outside')
     ],
     layout=dict(#title='2024', title_x=.45, 
-                height=350, 
+                height=300, 
                 barmode='group', template='plotly_white', 
                 hoverlabel=dict(font_size=18,font_family="Rockwell"),
-                legend=dict(x=0.02, y=1.25, orientation='h'),
+                legend=dict(x=0.02, y=1.5, orientation='h',font_color='#5A5856'),
                 bargap=0.15,bargroupgap=0.1)
 )
 
@@ -242,10 +248,10 @@ l2_fig = go.Figure(
         go.Bar(x=months, y=sales_24_, name="2024", marker_color='#E09641',textfont=dict(color='white'),hovertemplate="<br>".join(["%{y:.2s}"]),textposition='outside')
     ],
     layout=dict(#title='2024', title_x=.45, 
-                height=350, 
+                height=300, 
                 barmode='group', template='plotly_white', 
                 hoverlabel=dict(font_size=18,font_family="Rockwell"),
-                legend=dict(x=0.02, y=1.25, orientation='h'),
+                legend=dict(x=0.02, y=1.5, orientation='h',font_color='#5A5856'),
                 bargap=0.15,bargroupgap=0.1)
 )
 
@@ -303,6 +309,7 @@ chart_height = 300
 title = f"February - ${df.usd.sum():,.0f}"
 config = {'displayModeBar': False}
 
+#
 scatter_market = px.bar(
     df,
     y='usd',
@@ -316,9 +323,6 @@ scatter_market = px.bar(
 )
 
 scatter_market.for_each_trace(lambda t: t.update(name = market_legend_dict[t.name]))
-
-
-scatter_market.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
 scatter_market.update_coloraxes(showscale=False)
 scatter_market.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14),showticklabels=False)
 scatter_market.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
@@ -351,11 +355,7 @@ scatter_origin = px.bar(
         title=title
     )
 
-scatter_origin.update_traces(hovertemplate = 
-    '$%{y:.2s}'+
-    '<br>%{x:%Y-%m-%d}<br>')
-
-# scatter_origin.update_coloraxes(showscale=False)
+scatter_origin.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
 scatter_origin.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14),showticklabels=False)
 scatter_origin.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
 scatter_origin.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
@@ -428,26 +428,18 @@ true_df1 = true_df.groupby(['date','parent_customer'],as_index=False)['usd'].sum
 true_df2 = true_df.groupby(['date','sale_origin'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 true_df3 = true_df.groupby(['date','market_segment'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 
-"---"
-st.subheader("")
+# st.subheader("")
 with st.expander("Show Current Month Detail"):
     tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
     with tab0:
         st.plotly_chart(level_1_bar,config=config, use_container_width=True)
-        # st.caption('supporting data')
-        # st.data_editor(l1_df,column_config={'completed_date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},use_container_width=True)
     with tab1:
         st.plotly_chart(bar_all,config=config, use_container_width=True)
-        # st.caption('supporting data')
-        # st.data_editor(true_df1,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='a',use_container_width=True)
     with tab2:
         st.plotly_chart(scatter_origin,config=config, use_container_width=True)
-        # st.caption('supporting data')
-        # st.data_editor(true_df2,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='b',use_container_width=True)
     with tab3:
         st.plotly_chart(scatter_market,config=config, use_container_width=True)
-        # st.caption('supporting data')
-        # st.data_editor(true_df3,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='c',use_container_width=True)
+
 col0, col1, col2, col3= st.columns([1,2.1,2,2])
 with col0:
     st.header("")
@@ -469,14 +461,14 @@ with tab1:
 with tab2:
     st.plotly_chart(l2_fig, config=config, use_container_width=True)
 
-df = all_sales[(all_sales.market_segment!='Samples') | (all_sales.market_segment!='Other')].groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
+df = all_sales[(all_sales.market_segment!='Samples') & (all_sales.market_segment!='Other')].set_index('date').groupby([pd.Grouper(freq='SM'),'market_segment'])['usd'].sum().reset_index().set_index('date')
 df = df[df.index>'2023-02-28'].pivot(columns='market_segment', values='usd')
 
 area_market = px.area(df,
               color='market_segment',
               color_discrete_map=market_segment_dict, 
-              facet_col="market_segment",facet_col_wrap=2, facet_col_spacing=.1,
-              height=1000,
+              facet_col="market_segment",facet_col_wrap=2, facet_col_spacing=.1, facet_row_spacing=.15,
+              height=650,
               template = 'plotly_white',
               labels={'value':"",'market_segment':""}
              )
@@ -487,10 +479,10 @@ area_market.update_xaxes(tickfont=dict(color='#5A5856', size=13),title_font=dict
 area_market.update_xaxes(showticklabels=True, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 area_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),legend=dict(x=0, y=1.2, orientation='h',title=None),showlegend=False)
 
-with st.expander("Show Market Segment Trends"):
-    st.plotly_chart(area_market,config=config, use_container_width=True)
-# st.markdown("#")
-        # METRICS BOXES
+# with st.expander("Show 52-Week Market Segment Trends"):
+#     st.plotly_chart(area_market,config=config, use_container_width=True)
+
+# MARKET SEGMENT BOXES
 col1, col2, col3, col4 = st.columns(4)
 col1.metric(label='Vending', value=f"${vending_23/1000:,.0f}K", delta = f"{yoy_vend_perc:.0%}")
 col2.metric(label='Online', value=f"${millify(online_23)}", delta = f"{yoy_online_perc:.0%}")
@@ -503,26 +495,26 @@ col2.metric(label='Grocery', value=f"${millify(grocery_23)}", delta = f"{yoy_gro
 col3.metric(label='Broadline', value=f"${millify(broadline_23)}", delta = f"{yoy_broadline_perc:.0%}")
 col4.metric(label='Other', value=f"${millify(other_23)}", delta = f"{yoy_other_perc:.0%}")
 
-df = all_sales[(all_sales.market_segment!='Samples') | (all_sales.market_segment!='Other')].groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
-df = df[df.index>'2023-02-28'].pivot(columns='market_segment', values='usd')
+with st.expander("Show 52-Week Market Segment Trends"):
+    st.plotly_chart(area_market,config=config, use_container_width=True)
 
-area_market = px.area(df,
-              color='market_segment',
-              color_discrete_map=market_segment_dict, 
-              facet_col="market_segment",facet_col_wrap=2, facet_col_spacing=.1,
-              height=1000,
-              template = 'plotly_white',
-              labels={'value':"",'market_segment':""}
-             )
+import streamlit.components.v1 as components
+def ColourWidgetText(wgt_txt, wch_colour = '#000000'):
+    htmlstr = """<script>var elements = window.parent.document.querySelectorAll('*'), i;
+                    for (i = 0; i < elements.length; ++i) { if (elements[i].innerText == |wgt_txt|) 
+                        elements[i].style.color = ' """ + wch_colour + """ '; } </script>  """
 
-area_market.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>',fill='tonexty')
-area_market.update_yaxes(showticklabels=True,showgrid=True,gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=14),matches=None)
-area_market.update_xaxes(tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
-area_market.update_xaxes(showticklabels=True, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
-area_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),legend=dict(x=0, y=1.2, orientation='h',title=None),showlegend=False)
+    htmlstr = htmlstr.replace('|wgt_txt|', "'" + wgt_txt + "'")
+    components.html(f"{htmlstr}", height=0, width=0)
 
-# with st.expander("Show Market Segment Trends"):
-#     st.plotly_chart(area_market,config=config, use_container_width=True)
+ColourWidgetText('Vending', '#389549')
+ColourWidgetText('Online', '#6A573F')
+ColourWidgetText('Alternate Retail', '#2E46A6')
+ColourWidgetText('Canada', '#90A4AE')
+ColourWidgetText('Convenience', '#E9512E')
+ColourWidgetText('Grocery', '#FF80AB')
+ColourWidgetText('Broadline', '#E99813')
+ColourWidgetText('Other', '#CCD0DD')
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
