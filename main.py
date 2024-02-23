@@ -18,11 +18,11 @@ st.set_page_config(page_title='Awake YTD',
 config = {'displayModeBar': False}
 
 alt.themes.enable("dark")
-st.sidebar.markdown(f"<h3 style='text-align:center;'>AWAKE</h3>", unsafe_allow_html=True)
 st.sidebar.markdown("")
-st.sidebar.markdown(f'- DIRECT - all sales through Unleashed')
-st.sidebar.markdown("")
-st.sidebar.markdown(f'- TRUE - Direct Sales MINUS Dot purchases PLUS Dot outbounds')
+st.sidebar.title('Direct')
+st.sidebar.markdown('Dot Sales Realized on Purchase From AWAKE')
+st.sidebar.title('TRUE')
+st.sidebar.markdown('Dot Sales Realized on Sale to Customer')
 
 st.markdown("""
 <style>
@@ -91,6 +91,7 @@ align-items: center;
     width: 500px;
     white-space: pre-wrap;
     background-color: #A29F99;
+    # background-color: #E8E6E3;
     border-radius: 4px 4px 0px 0px;
     gap: 1px;
     padding-top: 8px;
