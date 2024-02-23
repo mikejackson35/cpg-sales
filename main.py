@@ -18,7 +18,7 @@ st.set_page_config(page_title='Awake YTD',
 config = {'displayModeBar': False}
 
 alt.themes.enable("dark")
-st.write("#")
+st.subheader("")
 st.sidebar.markdown(f"<h3 style='text-align:center;'>AWAKE</h3>", unsafe_allow_html=True)
 st.sidebar.markdown("")
 st.sidebar.markdown(f'- DIRECT - all sales through Unleashed')
