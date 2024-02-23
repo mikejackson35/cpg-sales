@@ -15,6 +15,7 @@ st.set_page_config(page_title='Awake YTD',
                    page_icon='assets/Nevil.png',
                    layout='centered'
 )
+config = {'displayModeBar': False}
 
 alt.themes.enable("dark")
 st.sidebar.markdown(f"<h3 style='text-align:center;'>AWAKE</h3>", unsafe_allow_html=True)
@@ -22,10 +23,6 @@ st.sidebar.markdown("")
 st.sidebar.markdown(f'- DIRECT - all sales through Unleashed')
 st.sidebar.markdown("")
 st.sidebar.markdown(f'- TRUE - Direct Sales MINUS Dot purchases PLUS Dot outbounds')
-# st.sidebar.markdown("")
-# st.sidebar.markdown(f'- TRUE by Source - True sales colored by their source - Dot or Direct')
-# st.sidebar.markdown("")
-# st.sidebar.markdown(f'- TRUE by Market - True sales colored by the Market Segment of the purchasing Customer')
 
 st.markdown("""
 <style>
@@ -56,7 +53,7 @@ font-weight: 900;
 }
             
 [data-testid="stMetricValue"] {
-font-size: 22px;
+    font-size: 22px;
 }
 
 [data-testid="stMetricDeltaIcon-Up"] {
@@ -76,13 +73,17 @@ font-size: 22px;
     transform: translateX(-50%);
 }
             
+[data-testid="stMetricDelta"] {
+    font-size:  15px;
+}
+            
 [data-baseweb="tab-list"] {
     gap: 4px;
 }
 
 [data-baseweb="tab"] {
     height: 25px;
-    width: 200px;
+    width: 500px;
     white-space: pre-wrap;
     background-color: #A29F99;
     border-radius: 4px 4px 0px 0px;
@@ -90,11 +91,7 @@ font-size: 22px;
     padding-top: 8px;
     padding-bottom: 8px;
 }
-
-[aria-selected="true"] {
-    background-color: #A29F99;
-}
-        </style>
+</style>
         """, unsafe_allow_html=True)
 
 ###############
@@ -124,6 +121,7 @@ def get_connection2():
     return l1
 
 l1 = get_connection2()
+
 l1.completed_date = pd.to_datetime(l1.completed_date)
 l1['usd'] = l1['sub_total']*.75
 
@@ -139,18 +137,25 @@ market_segment_dict = {
     'Other': 'rgb(200,237,233)',
     'Convenience': 'rgb(233,81,46)',
     'Broadline Distributor': 'rgb(233,152,19)',
-    'Samples': 'rgb(141,62,92)'}
+    'Samples': 'rgb(141,62,92)'
+    }
 
 sale_origin_dict = {
     'Dot': 'rgb(81, 121, 198)',
     'Unleashed': 'rgb(239, 83, 80)'
 }
 
-
-
-
-
-
+market_legend_dict = {
+    'Vending': 'Vending',
+    'Grocery': 'Grocery',
+    'Alternate Retail': 'Alt Retail',
+    'Canada': 'Canada',
+    'Online': 'Online',
+    'Other': 'Other',
+    'Convenience': 'Convenience',
+    'Broadline Distributor': 'Broadline',
+    'Samples': 'Samples'
+    }
 
 ###############
 # L1/L2 KPI'S
@@ -170,10 +175,44 @@ yoy_chg_perc = f"{(sales_24/sales_23-1)*100:.0f}%"
 
 all_sales['date'] = pd.to_datetime(all_sales['date'])
 
+###################
+# L1 Main Bar
+l1_main_bar = l1[(l1.customer_type != 'Samples')][['completed_date','usd']].sort_values(by='completed_date',ascending=False)
+l1_main_bar['year'] = l1_main_bar['completed_date'].dt.year
+l1_main_bar['YearMonth'] = l1_main_bar['completed_date'].astype('string').apply(lambda x: x.split("-")[0] + "-" + x.split("-")[1])
+
+l1_main_bar = l1_main_bar.groupby(['year','YearMonth'],as_index=False)['usd'].sum()
+
+l1_23 = l1_main_bar[l1_main_bar.year==2023].usd
+l1_24 = l1_main_bar[l1_main_bar.year==2024].usd
+goal = l1_23 * 1.5
+
+months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+color = l1_main_bar.year.astype('category').unique()
+
+l1_fig = go.Figure(
+    data=[
+        go.Scatter(x=months, y=goal, name="Direct Goal", mode='markers', marker_symbol='line-ew',marker_size=10, marker_line=dict(width=1,color='#5A5856'),marker_color='orange',hovertemplate="<br>".join(["%{y:.2s}"])),
+        go.Bar(x=months, y=l1_23, name="2023", marker_color="#909497",textfont=dict(color='#D6D8CF'), marker_line_color="#909497", marker_opacity=.5,hovertemplate="<br>".join(["%{y:.2s}"]),textposition='outside'),
+        go.Bar(x=months, y=l1_24, name="2024", marker_color='#E09641',textfont=dict(color='white'),hovertemplate="<br>".join(["%{y:.2s}"]),textposition='outside')
+    ],
+    layout=dict(#title='2024', title_x=.45, 
+                height=350, 
+                barmode='group', template='plotly_white', 
+                hoverlabel=dict(font_size=18,font_family="Rockwell"),
+                legend=dict(x=0.02, y=1.25, orientation='h'),
+                bargap=0.15,bargroupgap=0.1)
+)
+
+l1_fig.update_traces(texttemplate='%{y:.2s}')
+l1_fig.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=15),title_font=dict(color='#5A5856',size=25))
+l1_fig.update_yaxes(showticklabels=False,showgrid=True,gridcolor="#B1A999")
+
 
 ###################
-# MoM Bar
-
+# L2 Main Bar
 def getYearMonth(s):
   return (s.split("-")[0] + "-" + s.split("-")[1])
 
@@ -183,21 +222,6 @@ all_sales['YearMonth'] = all_sales['date'].astype('string').apply(lambda x: getY
 
 # group by month year and add $0 sales to future months
 chart_df = round(all_sales.groupby(['year','YearMonth'],as_index=False)['usd'].sum())
-
-chart_df.loc[len(chart_df)] = [2024, '2024-03', 0]
-chart_df.loc[len(chart_df)] = [2024, '2024-04', 0]
-chart_df.loc[len(chart_df)] = [2024, '2024-05', 0]
-chart_df.loc[len(chart_df)] = [2024, '2024-06', 0]
-chart_df.loc[len(chart_df)] = [2024, '2024-07', 0]
-chart_df.loc[len(chart_df)] = [2024, '2024-08', 0]
-chart_df.loc[len(chart_df)] = [2024, '2024-09', 0]
-chart_df.loc[len(chart_df)] = [2024, '2024-10', 0]
-chart_df.loc[len(chart_df)] = [2024, '2024-11', 0]
-chart_df.loc[len(chart_df)] = [2024, '2024-12', 0]
-
-# chart = chart_df.copy()
-
-# variables for calcs, hovers, etc
 
 sales_22_ = chart_df[chart_df.year==2022].usd
 sales_23_ = chart_df[chart_df.year==2023].usd
@@ -211,26 +235,23 @@ months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
 color = chart_df.year.astype('category').unique()
 
 # Bar and scatter monthly
-
-fig = go.Figure(
+l2_fig = go.Figure(
     data=[
-        go.Scatter(x=months, y=goal, name="Goal", mode='markers', marker_size=8, marker_line=dict(width=1,color='darkslategrey'),marker_color='orange',hovertemplate="<br>".join(["%{y:.2s}"])),
-        go.Bar(x=months, y=sales_23_, name="2023", marker_color="#5a5856", marker_opacity=.5,hovertemplate="<br>".join(["%{y:.2s}"])),
-        go.Bar(x=months, y=sales_24_, name="2024", marker_color='#E09641',hovertemplate="<br>".join(["%{y:.2s}"]))
+        go.Scatter(x=months, y=goal, name="TRUE Goal", mode='markers', marker_symbol='line-ew',marker_size=10, marker_line=dict(width=1,color='#5A5856'),marker_color='orange',hovertemplate="<br>".join(["%{y:.2s}"])),
+        go.Bar(x=months, y=sales_23_, name="2023", marker_color="#909497",textfont=dict(color='#D6D8CF'), marker_line_color="#909497", marker_opacity=.5,hovertemplate="<br>".join(["%{y:.2s}"]),textposition='outside'),
+        go.Bar(x=months, y=sales_24_, name="2024", marker_color='#E09641',textfont=dict(color='white'),hovertemplate="<br>".join(["%{y:.2s}"]),textposition='outside')
     ],
     layout=dict(#title='2024', title_x=.45, 
-                height=350, barmode='group', template='plotly_white', 
+                height=350, 
+                barmode='group', template='plotly_white', 
                 hoverlabel=dict(font_size=18,font_family="Rockwell"),
-                legend=dict(x=0, y=1.1, orientation='h'),
+                legend=dict(x=0.02, y=1.25, orientation='h'),
                 bargap=0.15,bargroupgap=0.1)
 )
 
-fig.update_traces(texttemplate='%{y:.2s}')
-fig.update_xaxes(showticklabels=True,showgrid=False,gridcolor="#B1A999", tickfont=dict(color='#5A5856', size=14),title_font=dict(color='#5A5856',size=15))
-fig.update_yaxes(showticklabels=False,showgrid=True,gridcolor="#B1A999")
-
-# st.subheader("YTD")
-# st.plotly_chart(fig, use_container_width=True)
+l2_fig.update_traces(texttemplate='%{y:.2s}')
+l2_fig.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
+l2_fig.update_yaxes(showticklabels=False,showgrid=True,gridcolor="#B1A999")
 
 # METRICS CALCS FOR THE 8 MARKET SEGMENTS
 vending_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Vending')].usd.sum()
@@ -275,9 +296,11 @@ yoy_other_perc = round(int(other_23-other_22) / other_22,2)
 
 # DAILY BY MARKET SEGMENT
 df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
-df = round(df[df.index>'2024-01-31']).sort_values(by='market_segment',ascending=False)#.sort_index())
+df = round(df[df.index>'2024-01-31']).sort_values(by='market_segment',ascending=False)
 
-chart_height = 250
+# Current Month Bar Chart Constants
+chart_height = 300
+title = f"February - ${df.usd.sum():,.0f}"
 config = {'displayModeBar': False}
 
 scatter_market = px.bar(
@@ -288,49 +311,27 @@ scatter_market = px.bar(
             'usd':''},
     height=chart_height,
     color='market_segment',
-    color_discrete_map=market_segment_dict
+    color_discrete_map=market_segment_dict,
+    title=title
 )
+
+scatter_market.for_each_trace(lambda t: t.update(name = market_legend_dict[t.name]))
+
+
 scatter_market.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
 scatter_market.update_coloraxes(showscale=False)
 scatter_market.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14),showticklabels=False)
 scatter_market.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
 scatter_market.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 scatter_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
+                              title_x=.45,
                               showlegend=True,
                               legend=dict(orientation='h',
                                           yanchor="bottom",
-                                          y=1,
+                                          y=1.75,
                                           xanchor="center",
                                           x=.5,
                                           title=''))
-
-# DAILY BY SALE CUSTOMER
-df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'parent_customer','market_segment']).usd.sum().reset_index().set_index('date')
-df = round(df[df.index>'2024-01-31'].sort_index())
-
-scatter_customer = px.scatter(
-    df.reset_index(),
-    x='date',
-    y='usd',
-    template = 'plotly_white',
-    labels={'date':'','usd':''},
-    height=chart_height,
-    color='market_segment',
-    color_discrete_map=market_segment_dict,
-    log_y=True,
-    opacity=.75,
-    hover_name='parent_customer',
-    hover_data = {'market_segment':False,
-                  'usd':':.2s',
-                  'date':False
-                  }
-)
-scatter_customer.update_traces(marker=dict(size=14,opacity=.6,line=dict(width=1,color='lightgrey')),selector=dict(mode='markers'))
-scatter_customer.update_coloraxes(showscale=False)
-scatter_customer.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[100,1000,10000,100000,1000000],tickfont=dict(color='#5A5856', size=14),showticklabels=True)
-scatter_customer.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
-scatter_customer.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
-scatter_customer.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),showlegend=False,)
 
 # DAILY BY SALE ORIGIN
 df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'sale_origin']).usd.sum().reset_index().set_index('date')
@@ -346,23 +347,25 @@ scatter_origin = px.bar(
         color='sale_origin',
         color_discrete_map=sale_origin_dict,
         text_auto='.2s',
-        opacity=.75
+        opacity=.75,
+        title=title
     )
 
 scatter_origin.update_traces(hovertemplate = 
     '$%{y:.2s}'+
     '<br>%{x:%Y-%m-%d}<br>')
 
-scatter_origin.update_coloraxes(showscale=False)
+# scatter_origin.update_coloraxes(showscale=False)
 scatter_origin.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14),showticklabels=False)
 scatter_origin.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
 scatter_origin.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
-scatter_origin.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),showlegend=True,
+scatter_origin.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
+                             showlegend=True, title_x=.45,
                               legend=dict(orientation='h',
                                           yanchor="bottom",
-                                          y=1,
+                                          y=1.75,
                                           xanchor="right",
-                                          x=.5,
+                                          x=.65,
                                           title=''))
 
 # DAILY BY All (level 2)
@@ -377,20 +380,28 @@ bar_all = px.bar(
                 'usd':''},
         height=chart_height,
         text_auto='.2s',
-        opacity=.8
+        opacity=.8,
+        title=title
     )
 bar_all.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
 bar_all.update_traces(marker_color='#E09641')
-bar_all.update_coloraxes(showscale=False)
+# bar_all.update_coloraxes(showscale=False)
 bar_all.update_yaxes(showticklabels=False,showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14))
 bar_all.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 bar_all.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
-bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),)
+bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
+                                                    showlegend=True, title_x=.45,
+                                                    legend=dict(orientation='h',
+                                                    yanchor="bottom",
+                                                    y=1.75,
+                                                    xanchor="right",
+                                                    x=.65,
+                                                    title=''))
 
 # LEVEL 1 DAILY BAR
 l1['usd'] = l1['sub_total']*.75
-
 l1_bar_df = round(l1[l1.completed_date>'2024-01-31'].groupby('completed_date')['usd'].sum(),2).reset_index().set_index('completed_date')
+title_l1 = l1_bar_df.usd.sum()
 
 level_1_bar = px.bar(l1_bar_df,
                      y='usd',
@@ -399,14 +410,15 @@ level_1_bar = px.bar(l1_bar_df,
                              'completed_date':''},
                      height=chart_height,
                      text_auto=",.2s",
-                     opacity=.8)
+                     opacity=.8,
+                     title=f"February - ${l1_bar_df.usd.sum():,.0f}")
 
 level_1_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>',marker_color="#5a5856")
 level_1_bar.update_coloraxes(showscale=False)
 level_1_bar.update_yaxes(showticklabels=False,showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14))
 level_1_bar.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 level_1_bar.update_xaxes(tickmode='array',tickvals = l1_bar_df.index, ticktext=l1_bar_df.index.strftime('<b>%a<br>%d</b>'))
-level_1_bar.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"))
+level_1_bar.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"), title_x=.45)
 
 l1_df = pd.DataFrame(l1[(l1.customer_type != 'Samples') & (l1.completed_date>'2024-01-31')].groupby(['completed_date','customer_name'],as_index=False)['usd'].sum())
 l1_df = round(l1_df).reset_index(drop=True).set_index('completed_date').sort_index(ascending=False)
@@ -416,24 +428,29 @@ true_df1 = true_df.groupby(['date','parent_customer'],as_index=False)['usd'].sum
 true_df2 = true_df.groupby(['date','sale_origin'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 true_df3 = true_df.groupby(['date','market_segment'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 
-col0, col1, col2, col3= st.columns([1,2.1,2,2])
-with col0:
-    st.header("")
-with col1:
-    st.markdown(f'<h4 style="color: #5A5856">Direct<br><small>+{l1_yoy_chg_perc}&nbsp yoy</small></h4>', unsafe_allow_html=True)
-    st.markdown(f"<h2><b>${l1_sales_24/1000000:.2f}</b>M</h2>", unsafe_allow_html=True)
-with col2:
-    st.markdown("")
-    st.image(r"assets/Nevil.png",width=65)
-    st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp2024</h5>", unsafe_allow_html=True)
-with col3:
-    st.markdown(f"<h4>TRUE<br><small>+{yoy_chg_perc}&nbsp yoy</small></h4>", unsafe_allow_html=True)
-    st.markdown(f"<h2><b>${sales_24/1000000:.2f}M</h2>", unsafe_allow_html=True)
+# col0, col1, col2, col3= st.columns([1,2.1,2,2])
+# with col0:
+#     st.header("")
+# with col1:
+#     st.markdown(f'<h4 style="color: #5A5856">Direct<br><small>+{l1_yoy_chg_perc}&nbsp yoy</small></h4>', unsafe_allow_html=True)
+#     st.markdown(f"<h2><b>${l1_sales_24/1000000:.2f}</b>M</h2>", unsafe_allow_html=True)
+# with col2:
+#     st.markdown("")
+#     st.image(r"assets/Nevil.png",width=65)
+#     st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp2024</h5>", unsafe_allow_html=True)
+# with col3:
+#     st.markdown(f"<h4>TRUE<br><small>+{yoy_chg_perc}&nbsp yoy</small></h4>", unsafe_allow_html=True)
+#     st.markdown(f"<h2><b>${sales_24/1000000:.2f}M</h2>", unsafe_allow_html=True)
 
-# "---"
-st.plotly_chart(fig, use_container_width=True)
+# st.markdown("#")
+# # "---"
+# tab1, tab2 = st.tabs(['Direct', 'TRUE'])
+# with tab1:
+#     st.plotly_chart(l1_fig,config=config, use_container_width=True)
+# with tab2:
+#     st.plotly_chart(l2_fig, config=config, use_container_width=True)
 
-with st.expander("Show February Daily Sales"):
+with st.expander("Show Current Month Detail"):
     tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
     with tab0:
         st.plotly_chart(level_1_bar,config=config, use_container_width=True)
@@ -451,6 +468,28 @@ with st.expander("Show February Daily Sales"):
         st.plotly_chart(scatter_market,config=config, use_container_width=True)
         # st.caption('supporting data')
         # st.data_editor(true_df3,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='c',use_container_width=True)
+
+col0, col1, col2, col3= st.columns([1,2.1,2,2])
+with col0:
+    st.header("")
+with col1:
+    st.markdown(f'<h4 style="color: #5A5856">Direct<br><small>+{l1_yoy_chg_perc}&nbsp yoy</small></h4>', unsafe_allow_html=True)
+    st.markdown(f"<h2><b>${l1_sales_24/1000000:.2f}</b>M</h2>", unsafe_allow_html=True)
+with col2:
+    st.markdown("")
+    st.image(r"assets/Nevil.png",width=65)
+    st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp2024</h5>", unsafe_allow_html=True)
+with col3:
+    st.markdown(f"<h4>TRUE<br><small>+{yoy_chg_perc}&nbsp yoy</small></h4>", unsafe_allow_html=True)
+    st.markdown(f"<h2><b>${sales_24/1000000:.2f}M</h2>", unsafe_allow_html=True)
+
+# st.markdown("#")
+# "---"
+tab1, tab2 = st.tabs(['Direct', 'TRUE'])
+with tab1:
+    st.plotly_chart(l1_fig,config=config, use_container_width=True)
+with tab2:
+    st.plotly_chart(l2_fig, config=config, use_container_width=True)
 
 st.markdown("#")
         # METRICS BOXES
@@ -486,9 +525,6 @@ area_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),l
 
 with st.expander("Show Market Segment Trends"):
     st.plotly_chart(area_market,config=config, use_container_width=True)
-
-
-
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
