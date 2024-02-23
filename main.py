@@ -428,6 +428,7 @@ true_df1 = true_df.groupby(['date','parent_customer'],as_index=False)['usd'].sum
 true_df2 = true_df.groupby(['date','sale_origin'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 true_df3 = true_df.groupby(['date','market_segment'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 
+"---"
 st.subheader("")
 with st.expander("Show Current Month Detail"):
     tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
@@ -447,7 +448,6 @@ with st.expander("Show Current Month Detail"):
         st.plotly_chart(scatter_market,config=config, use_container_width=True)
         # st.caption('supporting data')
         # st.data_editor(true_df3,column_config={'date':st.column_config.DateColumn('date', format='MM.DD.YYYY',step=1 )},key='c',use_container_width=True)
-
 col0, col1, col2, col3= st.columns([1,2.1,2,2])
 with col0:
     st.header("")
@@ -463,7 +463,6 @@ with col3:
     st.markdown(f"<h2><b>${sales_24/1000000:.2f}M</h2>", unsafe_allow_html=True)
 
 # st.markdown("#")
-# "---"
 tab1, tab2 = st.tabs(['Direct', 'TRUE'])
 with tab1:
     st.plotly_chart(l1_fig,config=config, use_container_width=True)
@@ -530,7 +529,7 @@ hide_st_style = """
             <style>
             Main Menu {visibility: hidden;}
             footer {visibility: hidden;}
-            # header {visibility: hidden;}
+            header {visibility: hidden;}
             </style>
             """
             
