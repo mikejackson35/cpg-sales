@@ -491,7 +491,27 @@ with tab1:
 with tab2:
     st.plotly_chart(l2_fig, config=config, use_container_width=True)
 
-st.markdown("#")
+df = all_sales[(all_sales.market_segment!='Samples') | (all_sales.market_segment!='Other')].groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
+df = df[df.index>'2023-02-28'].pivot(columns='market_segment', values='usd')
+
+area_market = px.area(df,
+              color='market_segment',
+              color_discrete_map=market_segment_dict, 
+              facet_col="market_segment",facet_col_wrap=2, facet_col_spacing=.1,
+              height=1000,
+              template = 'plotly_white',
+              labels={'value':"",'market_segment':""}
+             )
+
+area_market.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>',fill='tonexty')
+area_market.update_yaxes(showticklabels=True,showgrid=True,gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=14),matches=None)
+area_market.update_xaxes(tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
+area_market.update_xaxes(showticklabels=True, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
+area_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),legend=dict(x=0, y=1.2, orientation='h',title=None),showlegend=False)
+
+with st.expander("Show Market Segment Trends"):
+    st.plotly_chart(area_market,config=config, use_container_width=True)
+# st.markdown("#")
         # METRICS BOXES
 col1, col2, col3, col4 = st.columns(4)
 col1.metric(label='Vending', value=f"${vending_23/1000:,.0f}K", delta = f"{yoy_vend_perc:.0%}")
@@ -523,8 +543,8 @@ area_market.update_xaxes(tickfont=dict(color='#5A5856', size=13),title_font=dict
 area_market.update_xaxes(showticklabels=True, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 area_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),legend=dict(x=0, y=1.2, orientation='h',title=None),showlegend=False)
 
-with st.expander("Show Market Segment Trends"):
-    st.plotly_chart(area_market,config=config, use_container_width=True)
+# with st.expander("Show Market Segment Trends"):
+#     st.plotly_chart(area_market,config=config, use_container_width=True)
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
