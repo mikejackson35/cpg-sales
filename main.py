@@ -427,7 +427,8 @@ true_df = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.d
 true_df1 = true_df.groupby(['date','parent_customer'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 true_df2 = true_df.groupby(['date','sale_origin'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 true_df3 = true_df.groupby(['date','market_segment'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
-st.markdown("")
+
+st.subheader("")
 with st.expander("Show Current Month Detail"):
     tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
     with tab0:
@@ -477,9 +478,6 @@ area_market.update_yaxes(showticklabels=True,showgrid=True,gridcolor="#B1A999",t
 area_market.update_xaxes(tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 area_market.update_xaxes(showticklabels=True, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 area_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),legend=dict(x=0, y=1.2, orientation='h',title=None),showlegend=False)
-
-# with st.expander("Show 52-Week Market Segment Trends"):
-#     st.plotly_chart(area_market,config=config, use_container_width=True)
 
 # MARKET SEGMENT BOXES
 col1, col2, col3, col4 = st.columns(4)
