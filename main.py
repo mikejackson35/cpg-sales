@@ -18,7 +18,6 @@ st.set_page_config(page_title='Awake YTD',
 config = {'displayModeBar': False}
 
 alt.themes.enable("dark")
-st.subheader("")
 st.sidebar.markdown(f"<h3 style='text-align:center;'>AWAKE</h3>", unsafe_allow_html=True)
 st.sidebar.markdown("")
 st.sidebar.markdown(f'- DIRECT - all sales through Unleashed')
@@ -429,6 +428,7 @@ true_df1 = true_df.groupby(['date','parent_customer'],as_index=False)['usd'].sum
 true_df2 = true_df.groupby(['date','sale_origin'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 true_df3 = true_df.groupby(['date','market_segment'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 
+st.subheader("hello")
 with st.expander("Show Current Month Detail"):
     tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
     with tab0:
