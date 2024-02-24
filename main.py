@@ -479,6 +479,7 @@ area_market.update_yaxes(showticklabels=True,showgrid=True,gridcolor="#B1A999",t
 area_market.update_xaxes(tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 area_market.update_xaxes(showticklabels=True, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 area_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),legend=dict(x=0, y=1.2, orientation='h',title=None),showlegend=False)
+area_market.for_each_annotation(lambda a: a.update(text=a.text.replace("=", "")))
 
 # MARKET SEGMENT BOXES
 col1, col2, col3, col4 = st.columns(4)
