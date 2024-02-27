@@ -19,6 +19,7 @@ config = {'displayModeBar': False}
 
 alt.themes.enable("dark")
 st.sidebar.markdown("")
+updated = st.sidebar.empty()
 st.sidebar.title('Direct')
 st.sidebar.markdown('Dot Sales Realized on Purchase From AWAKE')
 st.sidebar.title('TRUE')
@@ -46,36 +47,37 @@ st.markdown("""
 }
 
 [data-testid="stMetricLabel"] {
-display: flex;
-justify-content: center;
-align-items: center;
-# font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
             
 [data-testid="stMetricValue"] {
-    font-size: 22px;
+    font-size: 15px;
 }
 
 [data-testid="stMetricDeltaIcon-Up"] {
-    color:  #5A5856;
+    # color:  #5A5856;
+    font-size: 12px;
     position: relative;
     left: 38%;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
-    display: none;
+    # display: none;
     
 }
 
 [data-testid="stMetricDeltaIcon-Down"] {
-    color:  #5A5856;
+    # color:  #5A5856;
+    font-size: 12px;
     position: relative;
     left: 38%;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
     font-size:  10px;
-    display: none;
+    # display: none;
 }
             
 [data-testid="stMetricDelta"] {
@@ -166,6 +168,11 @@ market_legend_dict = {
 
 ###############
 # L1/L2 KPI'S
+
+st.sidebar.markdown("##")
+st.sidebar.markdown("##")
+st.sidebar.caption(f"updated thru:<br>{l1.completed_date.max().strftime('%a %B %d')}", unsafe_allow_html=True)
+
 week_ago = datetime.today().date() - pd.offsets.Day(10)
 recent_sales = all_sales[(all_sales.date>week_ago) & (all_sales.market_segment!='Samples')]
 current_date = datetime.today().strftime('%Y-%m-%d')
@@ -326,7 +333,7 @@ scatter_market = px.bar(
 scatter_market.for_each_trace(lambda t: t.update(name = market_legend_dict[t.name]))
 scatter_market.update_coloraxes(showscale=False)
 scatter_market.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14),showticklabels=False)
-scatter_market.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
+scatter_market.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=11),title_font=dict(color='#5A5856',size=25))
 scatter_market.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 scatter_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
                               title_x=.45,
@@ -358,7 +365,7 @@ scatter_origin = px.bar(
 
 scatter_origin.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
 scatter_origin.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14),showticklabels=False)
-scatter_origin.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
+scatter_origin.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=11),title_font=dict(color='#5A5856',size=25))
 scatter_origin.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 scatter_origin.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
                              showlegend=True, title_x=.45,
@@ -388,7 +395,7 @@ bar_all.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
 bar_all.update_traces(marker_color='#E09641')
 # bar_all.update_coloraxes(showscale=False)
 bar_all.update_yaxes(showticklabels=False,showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14))
-bar_all.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
+bar_all.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=11),title_font=dict(color='#5A5856',size=15))
 bar_all.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
                                                     showlegend=True, title_x=.45,
@@ -417,7 +424,7 @@ level_1_bar = px.bar(l1_bar_df,
 level_1_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>',marker_color="#5a5856")
 level_1_bar.update_coloraxes(showscale=False)
 level_1_bar.update_yaxes(showticklabels=False,showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14))
-level_1_bar.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
+level_1_bar.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=11),title_font=dict(color='#5A5856',size=15))
 level_1_bar.update_xaxes(tickmode='array',tickvals = l1_bar_df.index, ticktext=l1_bar_df.index.strftime('<b>%a<br>%d</b>'))
 level_1_bar.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"), title_x=.45)
 
