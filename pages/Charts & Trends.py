@@ -55,6 +55,7 @@ def get_connection():
 
 all_sales = get_connection()
 all_sales = all_sales[all_sales.market_segment != 'Samples']
+
 origin_dict = {'unl':'Unleashed',
                'dot':'Dot'}
 
@@ -65,14 +66,16 @@ all_sales['date'] = pd.to_datetime(all_sales['date'])
 all_sales['date'] = all_sales['date'].dt.normalize()
 all_sales['date'] = all_sales['date'].dt.floor('D')
 
-placeholder=st.sidebar.empty()
+import datetime
+today = all_sales.date.max()
+first_day = all_sales.date.min()
+
+date_range = st.sidebar.date_input("Chose Dates",(first_day,today),first_day, today,format="YYYY.MM.DD")
+
+start = date_range[0]
+end = date_range[1]
 
 # --- FILTERS AND SIDEBAR ----
-year = st.sidebar.multiselect(
-    label = 'Year',
-    options=sorted(list(all_sales['year'].unique())),
-    default=sorted(list(all_sales['year'].unique()))
-)
 sale_origin = st.sidebar.multiselect(
     label = 'Direct or Dot',
     options=np.array(all_sales['sale_origin'].unique()),
@@ -95,24 +98,19 @@ market_segment_color = {
     'Broadline Distributor': 'rgb(233,152,19)',
     'Samples': 'rgb(141,62,92)'}
 
-# sale_origin_dict = {
-#     'Dot': 'rgb(81, 121, 198)',
-#     'Unleashed': 'rgb(239, 83, 80)'
-# }
-
+all_sales['date'] = all_sales['date'].dt.date
 # QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
 df_selection = all_sales[
-    (all_sales['year'].isin(year)) &
+    (all_sales.date>start) &
+    (all_sales.date<end) &
     (all_sales['market_segment'].isin(segment)) &
     (all_sales['sale_origin'].isin(sale_origin))
     ]
 
-with placeholder:
-    st.markdown(f"<h2 style=text-align:right; <small>showing<br>${millify(df_selection.usd.sum(),precision=1)}</h2>",unsafe_allow_html=True)
-
 customer_count = int(df_selection.customer.nunique())
 sales = int(df_selection.usd.sum())
 mean_sales = int(sales/customer_count)
+
 
 config = {'displayModeBar': False}
 seg_sales = round(df_selection.groupby('market_segment',as_index=False)['usd'].sum()).sort_values(by='market_segment',ascending=False)
@@ -131,7 +129,7 @@ fig_seg_sales = px.pie(
 fig_seg_sales.update_traces(textposition='inside', textinfo='percent+label', texttemplate='%{label}<br>%{percent:.0%}')#,hovertemplate = '$%{values:.2s}'+'<br>%{x:%Y-%m}<br>')
 
 ## monthly bar chart
-df_selection.index = pd.to_datetime(df_selection['date'],format = '%m/%y')
+df_selection.index = pd.to_datetime(df_selection['date'])
 mth_sales = round(df_selection.groupby(pd.Grouper(freq='M'))['usd'].sum())
 
 fig_mth_bar = px.bar(mth_sales.reset_index(),
@@ -149,7 +147,7 @@ fig_mth_bar.update_xaxes(showgrid=False,gridcolor='gray',tickvals = mth_sales.in
 fig_mth_bar.update_yaxes(showgrid=False,tick0=0,dtick=250000,showticklabels=False, tickcolor='darkgrey', gridcolor='darkgrey')   
 
 # WEEKLY SCATTER CHART
-df_selection.index = pd.to_datetime(df_selection['date'],format = '%y/%m/%d')
+df_selection.index = pd.to_datetime(df_selection['date'])
 sales_per_week = df_selection.groupby(pd.Grouper(freq='W'))['usd'].sum()
 
 fig_scatter_all = px.scatter(
@@ -213,8 +211,8 @@ fig_parent_sales.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(colo
 fig_parent_sales.update_traces(texttemplate='%{text:$,.2s}')#,textposition='outside')
 
 st.markdown("")
-st.subheader("TRUE Sales")
-st.markdown("Charts & Trends Playground")
+st.subheader("TRUE Sales Playground")
+st.markdown(f"showing ${millify(df_selection.usd.sum(),precision=1)}")
 st.markdown("#")
 col3, col2, col1 = st.columns([2,.25,1])
 with col1:
