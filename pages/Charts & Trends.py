@@ -50,7 +50,7 @@ st.markdown("""
 @st.cache_data
 def get_connection():
     conn = st.connection('dot', type ="sql")
-    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2022-12-31'")
+    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2021-12-31'")
     return all_sales
 
 all_sales = get_connection()
@@ -212,6 +212,10 @@ fig_parent_sales.update_yaxes(showgrid=True,showticklabels=True,gridcolor='darkg
 fig_parent_sales.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 fig_parent_sales.update_traces(texttemplate='%{text:$,.2s}')#,textposition='outside')
 
+st.markdown("")
+st.subheader("TRUE Sales")
+st.markdown("Charts & Trends Playground")
+st.markdown("#")
 col3, col2, col1 = st.columns([2,.25,1])
 with col1:
     st.plotly_chart(fig_seg_sales,config=config,use_container_width=True)

@@ -20,10 +20,10 @@ config = {'displayModeBar': False}
 alt.themes.enable("dark")
 st.sidebar.markdown("")
 updated = st.sidebar.empty()
-st.sidebar.title('Direct')
-st.sidebar.markdown('Dot Sales Realized on Purchase From AWAKE')
-st.sidebar.title('TRUE')
-st.sidebar.markdown('Dot Sales Realized on Sale to Customer')
+st.sidebar.title('Direct Sales')
+st.sidebar.markdown('Dot Sales Realized upon Purchase From AWAKE')
+st.sidebar.title('TRUE Sales')
+st.sidebar.markdown('Dot Sales Realized upon Purchase From Dot')
 
 st.markdown("""
 <style>
@@ -169,9 +169,10 @@ market_legend_dict = {
 ###############
 # L1/L2 KPI'S
 
-st.sidebar.markdown("##")
-st.sidebar.markdown("##")
-st.sidebar.caption(f"updated thru:<br>{l1.completed_date.max().strftime('%a %B %d')}", unsafe_allow_html=True)
+# st.sidebar.markdown("##")
+# st.sidebar.markdown("##")
+with updated:
+    st.caption(f"sales thru:<br>{l1.completed_date.max().strftime('%a %B %d')}", unsafe_allow_html=True)
 
 week_ago = datetime.today().date() - pd.offsets.Day(10)
 recent_sales = all_sales[(all_sales.date>week_ago) & (all_sales.market_segment!='Samples')]
@@ -210,7 +211,7 @@ l1_fig = go.Figure(
     data=[
         go.Scatter(x=months, y=goal, name="Direct Goal", mode='markers', marker_symbol='line-ew',marker_size=10, marker_line=dict(width=1,color='#5A5856'),marker_color='orange',hovertemplate="<br>".join(["%{y:.2s}"])),
         go.Bar(x=months, y=l1_23, name="2023", marker_color="#909497",textfont=dict(color='#D6D8CF'), marker_line_color="#909497", marker_opacity=.5,hovertemplate="<br>".join(["%{y:.2s}"]),textposition='outside'),
-        go.Bar(x=months, y=l1_24, name="2024", marker_color='#E09641',textfont=dict(color='white'),hovertemplate="<br>".join(["%{y:.2s}"]),textposition='outside')
+        go.Bar(x=months, y=l1_24, name="2024", marker_color='#5A5856',textfont=dict(color='white'),hovertemplate="<br>".join(["%{y:.2s}"]),textposition='outside')
     ],
     layout=dict(#title='2024', title_x=.45, 
                 height=300, 
@@ -438,7 +439,7 @@ true_df3 = true_df.groupby(['date','market_segment'],as_index=False)['usd'].sum(
 
 st.subheader("")
 with st.expander("Show Current Month Detail"):
-    tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE - Source", "TRUE - Market"])
+    tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE_Source", "TRUE_Market"])
     with tab0:
         st.plotly_chart(level_1_bar,config=config, use_container_width=True)
     with tab1:
@@ -459,8 +460,8 @@ with col2:
     st.image(r"assets/Nevil.png",width=65)
     st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp2024</h5>", unsafe_allow_html=True)
 with col3:
-    st.markdown(f"<h4>TRUE<br><small>+{yoy_chg_perc}&nbsp yoy</small></h4>", unsafe_allow_html=True)
-    st.markdown(f"<h2><b>${sales_24/1000000:.2f}M</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color: #E09641; outline-color: #E09641;'>TRUE<br><small>+{yoy_chg_perc}&nbsp yoy</small></h4>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='color: #E09641; outline-color: #E09641;'><b>${sales_24/1000000:.2f}M</h2>", unsafe_allow_html=True)
 
 tab1, tab2 = st.tabs(['Direct', 'TRUE'])
 with tab1:
@@ -504,23 +505,23 @@ col4.metric(label='Other', value=f"${millify(other_23)}", delta = f"{yoy_other_p
 with st.expander("Show 52-Week Market Segment Trends"):
     st.plotly_chart(area_market,config=config, use_container_width=True)
 
-import streamlit.components.v1 as components
-def ColourWidgetText(wgt_txt, wch_colour = '#000000'):
-    htmlstr = """<script>var elements = window.parent.document.querySelectorAll('*'), i;
-                    for (i = 0; i < elements.length; ++i) { if (elements[i].innerText == |wgt_txt|) 
-                        elements[i].style.color = ' """ + wch_colour + """ '; } </script>  """
+# import streamlit.components.v1 as components
+# def ColourWidgetText(wgt_txt, wch_colour = '#000000'):
+#     htmlstr = """<script>var elements = window.parent.document.querySelectorAll('*'), i;
+#                     for (i = 0; i < elements.length; ++i) { if (elements[i].innerText == |wgt_txt|) 
+#                         elements[i].style.color = ' """ + wch_colour + """ '; } </script>  """
 
-    htmlstr = htmlstr.replace('|wgt_txt|', "'" + wgt_txt + "'")
-    components.html(f"{htmlstr}", height=0, width=0)
+#     htmlstr = htmlstr.replace('|wgt_txt|', "'" + wgt_txt + "'")
+#     components.html(f"{htmlstr}", height=0, width=0)
 
-ColourWidgetText('Vending', '#389549')
-ColourWidgetText('Online', '#6A573F')
-ColourWidgetText('Alternate Retail', '#2E46A6')
-ColourWidgetText('Canada', '#90A4AE')
-ColourWidgetText('Convenience', '#E9512E')
-ColourWidgetText('Grocery', '#FF80AB')
-ColourWidgetText('Broadline', '#E99813')
-ColourWidgetText('Other', '#CCD0DD')
+# ColourWidgetText('Vending', '#389549')
+# ColourWidgetText('Online', '#6A573F')
+# ColourWidgetText('Alternate Retail', '#2E46A6')
+# ColourWidgetText('Canada', '#90A4AE')
+# ColourWidgetText('Convenience', '#E9512E')
+# ColourWidgetText('Grocery', '#FF80AB')
+# ColourWidgetText('Broadline', '#E99813')
+# ColourWidgetText('Other', '#CCD0DD')
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
