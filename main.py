@@ -18,7 +18,7 @@ st.set_page_config(page_title='Awake YTD',
 config = {'displayModeBar': False}
 
 alt.themes.enable("dark")
-st.sidebar.markdown("")
+# st.sidebar.markdown("")
 updated = st.sidebar.empty()
 st.sidebar.title('Direct Sales')
 st.sidebar.markdown('Dot Sales Realized upon Purchase From AWAKE')
@@ -172,7 +172,7 @@ market_legend_dict = {
 # st.sidebar.markdown("##")
 # st.sidebar.markdown("##")
 with updated:
-    st.caption(f"sales thru:<br>{l1.completed_date.max().strftime('%a %B %d')}", unsafe_allow_html=True)
+    st.markdown(f"thru: {l1.completed_date.max().strftime('%a %B %d')}", unsafe_allow_html=True)
 
 week_ago = datetime.today().date() - pd.offsets.Day(10)
 recent_sales = all_sales[(all_sales.date>week_ago) & (all_sales.market_segment!='Samples')]
