@@ -208,12 +208,13 @@ fig_parent_sales.update_yaxes(tick0=0,dtick=1000000)
 fig_parent_sales.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m}<br>')
 fig_parent_sales.update_yaxes(showgrid=True,showticklabels=True,gridcolor='darkgray',tickfont=dict(color='#5A5856', size=13),automargin=True) 
 fig_parent_sales.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
-fig_parent_sales.update_traces(texttemplate='%{text:$,.2s}')#,textposition='outside')
+fig_parent_sales.update_traces(texttemplate='%{text:$,.2s}')
 
 st.markdown("")
 st.subheader("TRUE Sales Playground")
-st.markdown(f"showing <b>${millify(df_selection.usd.sum(),precision=1)}</b> from <b>{start}</b> thru <b>{end}</b>",unsafe_allow_html=True)
+st.markdown(f"<small>showing</small> <b>${millify(df_selection.usd.sum(),precision=1)}</b><br><b>{start}</b> <small>thru</small> <b>{end}</b>",unsafe_allow_html=True)
 st.markdown("#")
+
 col3, col2, col1 = st.columns([2,.25,1])
 with col1:
     st.plotly_chart(fig_seg_sales,config=config,use_container_width=True)
