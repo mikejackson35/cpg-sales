@@ -212,7 +212,7 @@ fig_parent_sales.update_traces(texttemplate='%{text:$,.2s}')#,textposition='outs
 
 st.markdown("")
 st.subheader("TRUE Sales Playground")
-st.markdown(f"showing ${millify(df_selection.usd.sum(),precision=1)}")
+st.markdown(f"showing <b>${millify(df_selection.usd.sum(),precision=1)}</b> from <b>{start}</b> thru <b>{end}</b>",unsafe_allow_html=True)
 st.markdown("#")
 col3, col2, col1 = st.columns([2,.25,1])
 with col1:
