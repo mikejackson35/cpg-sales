@@ -38,6 +38,9 @@ all_sales = get_connection()
 all_sales['date'] = pd.to_datetime(all_sales['date'])
 all_sales['date'] = all_sales['date'].dt.normalize()
 all_sales['date'] = all_sales['date'].dt.floor('D')
+
+all_sales.drop(columns=['year','month'],inplace=True)
+
 pyg_html = pyg.to_html(all_sales)
 
 components.html(pyg_html, height=1000, width=1700,scrolling=True)

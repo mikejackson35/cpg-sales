@@ -221,7 +221,7 @@ l1_fig = go.Figure(
                 bargap=0.15,bargroupgap=0.1)
 )
 
-l1_fig.update_traces(texttemplate='%{y:.2s}')
+l1_fig.update_traces(texttemplate='%{y:.3s}')
 l1_fig.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=15),title_font=dict(color='#5A5856',size=25))
 l1_fig.update_yaxes(showticklabels=False,showgrid=True,gridcolor="#B1A999")
 
@@ -264,7 +264,7 @@ l2_fig = go.Figure(
                 bargap=0.15,bargroupgap=0.1)
 )
 
-l2_fig.update_traces(texttemplate='%{y:.2s}')
+l2_fig.update_traces(texttemplate='%{y:.3s}')
 l2_fig.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
 l2_fig.update_yaxes(showticklabels=False,showgrid=True,gridcolor="#B1A999")
 
@@ -394,7 +394,6 @@ bar_all = px.bar(
     )
 bar_all.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
 bar_all.update_traces(marker_color='#E09641')
-# bar_all.update_coloraxes(showscale=False)
 bar_all.update_yaxes(showticklabels=False,showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14))
 bar_all.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=11),title_font=dict(color='#5A5856',size=15))
 bar_all.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
