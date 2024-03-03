@@ -311,11 +311,11 @@ yoy_other_perc = round(int(other_23-other_22) / other_22,2)
 
 # DAILY BY MARKET SEGMENT
 df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
-df = round(df[df.index>'2024-01-31']).sort_values(by='market_segment',ascending=False)
+df = round(df[df.index>'2024-02-31']).sort_values(by='market_segment',ascending=False)
 
 # Current Month Bar Chart Constants
 chart_height = 300
-title = f"February - ${df.usd.sum():,.0f}"
+title = f"March - ${df.usd.sum():,.0f}"
 config = {'displayModeBar': False}
 
 #
@@ -348,7 +348,7 @@ scatter_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"
 
 # DAILY BY SALE ORIGIN
 df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'sale_origin']).usd.sum().reset_index().set_index('date')
-df = round(df[df.index>'2024-01-31'].sort_index())
+df = round(df[df.index>'2024-02-31'].sort_index())
 
 scatter_origin = px.bar(
         df,
@@ -379,7 +379,7 @@ scatter_origin.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"
 
 # DAILY BY All (level 2)
 df = all_sales[all_sales.market_segment != 'Samples'].groupby(all_sales.date).usd.sum().reset_index().set_index('date')
-df = round(df[df.index>'2024-01-31'].sort_index())
+df = round(df[df.index>'2024-02-31'].sort_index())
 
 bar_all = px.bar(
         df,
@@ -408,7 +408,7 @@ bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
 
 # LEVEL 1 DAILY BAR
 l1['usd'] = l1['sub_total']*.75
-l1_bar_df = round(l1[l1.completed_date>'2024-01-31'].groupby('completed_date')['usd'].sum(),2).reset_index().set_index('completed_date')
+l1_bar_df = round(l1[l1.completed_date>'2024-02-31'].groupby('completed_date')['usd'].sum(),2).reset_index().set_index('completed_date')
 title_l1 = l1_bar_df.usd.sum()
 
 level_1_bar = px.bar(l1_bar_df,
@@ -419,7 +419,7 @@ level_1_bar = px.bar(l1_bar_df,
                      height=chart_height,
                      text_auto=",.2s",
                      opacity=.8,
-                     title=f"February - ${l1_bar_df.usd.sum():,.0f}")
+                     title=f"March - ${l1_bar_df.usd.sum():,.0f}")
 
 level_1_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>',marker_color="#5a5856")
 level_1_bar.update_coloraxes(showscale=False)
