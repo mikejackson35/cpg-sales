@@ -11,9 +11,9 @@ st.sidebar.markdown('Dot Sales Realized upon Purchase From Dot')
 
 tab1, tab2 = st.tabs([':red[Direct]', ':orange[TRUE]'])
 with tab1:
-    st.image("assets/direct_sales.png", use_column_width='auto')
+    st.image(r"./assets/direct_sales.png", use_column_width='auto')
 with tab2:
-    st.image("assets/TRUE_sales.png", use_column_width='auto')
+    st.image(r"./assets/TRUE_sales.png", use_column_width='auto')
 
 st.markdown("""
 <style>
