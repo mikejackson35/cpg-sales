@@ -20,10 +20,10 @@ config = {'displayModeBar': False}
 alt.themes.enable("dark")
 # st.sidebar.markdown("")
 updated = st.sidebar.empty()
-st.sidebar.title('Direct Sales')
-st.sidebar.markdown('Dot Sales Realized upon Purchase From AWAKE')
-st.sidebar.title('TRUE Sales')
-st.sidebar.markdown('Dot Sales Realized upon Purchase From Dot')
+# st.sidebar.title('Direct Sales')
+# st.sidebar.markdown('Dot Sales Realized upon Purchase From AWAKE')
+# st.sidebar.title('TRUE Sales')
+# st.sidebar.markdown('Dot Sales Realized upon Purchase From Dot')
 
 st.markdown("""
 <style>
@@ -169,8 +169,6 @@ market_legend_dict = {
 ###############
 # L1/L2 KPI'S
 
-# st.sidebar.markdown("##")
-# st.sidebar.markdown("##")
 with updated:
     st.markdown(f"thru: {l1.completed_date.max().strftime('%a %B %d')}", unsafe_allow_html=True)
 
@@ -428,10 +426,10 @@ level_1_bar.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5
 level_1_bar.update_xaxes(tickmode='array',tickvals = l1_bar_df.index, ticktext=l1_bar_df.index.strftime('<b>%a<br>%d</b>'))
 level_1_bar.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"), title_x=.45)
 
-l1_df = pd.DataFrame(l1[(l1.customer_type != 'Samples') & (l1.completed_date>'2024-01-31')].groupby(['completed_date','customer_name'],as_index=False)['usd'].sum())
+l1_df = pd.DataFrame(l1[(l1.customer_type != 'Samples') & (l1.completed_date>'2024-02-29')].groupby(['completed_date','customer_name'],as_index=False)['usd'].sum())
 l1_df = round(l1_df).reset_index(drop=True).set_index('completed_date').sort_index(ascending=False)
 
-true_df = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-01-31')].drop(columns=['item','customer','qty','cad','month','year']))#.reset_index(drop=True).set_index('date')
+true_df = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-02-29')].drop(columns=['item','customer','qty','cad','month','year']))#.reset_index(drop=True).set_index('date')
 true_df1 = true_df.groupby(['date','parent_customer'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 true_df2 = true_df.groupby(['date','sale_origin'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
 true_df3 = true_df.groupby(['date','market_segment'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)
