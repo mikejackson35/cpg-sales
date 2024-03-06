@@ -120,7 +120,7 @@ table_to_display = table_to_display[(table_to_display.date>start) & (table_to_di
 
 blank, table = st.columns([.1,.9])
 blank.markdown("##")
-table.dataframe(table_to_display.round(2), height=600, use_container_width=True)
+table.dataframe(table_to_display.round(2), hide_index=True, height=800, use_container_width=True)
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
