@@ -41,8 +41,6 @@ st.markdown("""
 [data-testid="stMarkdownContainer"] p {font-size:1.5rem;
     }
 
-</style></div></div></div></div></div></div></div>
-
 [data-baseweb="tab-list"] {
     gap: 4px;
 }
