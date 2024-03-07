@@ -18,12 +18,8 @@ st.set_page_config(page_title='Awake YTD',
 config = {'displayModeBar': False}
 
 alt.themes.enable("dark")
-# st.sidebar.markdown("")
+
 updated = st.sidebar.empty()
-# st.sidebar.title('Direct Sales')
-# st.sidebar.markdown('Dot Sales Realized upon Purchase From AWAKE')
-# st.sidebar.title('TRUE Sales')
-# st.sidebar.markdown('Dot Sales Realized upon Purchase From Dot')
 
 st.markdown("""
 <style>
@@ -313,7 +309,7 @@ df = round(df[df.index>'2024-02-29']).sort_values(by='market_segment',ascending=
 
 # Current Month Bar Chart Constants
 chart_height = 300
-title = f"March - ${df.usd.sum():,.0f}"
+title = f"{df.index.max().month_name()} - ${df.usd.sum():,.0f}"
 config = {'displayModeBar': False}
 
 #

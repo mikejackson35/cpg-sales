@@ -66,16 +66,12 @@ all_sales['date'] = pd.to_datetime(all_sales['date'])
 all_sales['date'] = all_sales['date'].dt.normalize()
 all_sales['date'] = all_sales['date'].dt.floor('D')
 
-import datetime
-today = all_sales.date.max()
-first_day = all_sales.date.min()
-
-date_range = st.sidebar.date_input("Chose Dates",(first_day,today),first_day, today,format="YYYY.MM.DD")
-
-start = date_range[0]
-end = date_range[1]
-
 # --- FILTERS AND SIDEBAR ----
+year = st.sidebar.multiselect(
+    label = 'Year',
+    options=np.array(all_sales['date'].dt.year.unique()),
+    default=np.array(all_sales['date'].dt.year.unique()),
+)
 sale_origin = st.sidebar.multiselect(
     label = 'Direct or Dot',
     options=np.array(all_sales['sale_origin'].unique()),
@@ -98,14 +94,15 @@ market_segment_color = {
     'Broadline Distributor': 'rgb(233,152,19)',
     'Samples': 'rgb(141,62,92)'}
 
-all_sales['date'] = all_sales['date'].dt.date
 # QUERY THE DATEFRAME BASED ON FILTER SELECTIONS
 df_selection = all_sales[
-    (all_sales.date>start) &
-    (all_sales.date<end) &
+    (all_sales['date'].dt.year.isin(year)) &
     (all_sales['market_segment'].isin(segment)) &
     (all_sales['sale_origin'].isin(sale_origin))
     ]
+
+start = df_selection.date.min().date()
+end = df_selection.date.max().date()
 
 customer_count = int(df_selection.customer.nunique())
 sales = int(df_selection.usd.sum())
