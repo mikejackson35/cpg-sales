@@ -166,7 +166,7 @@ market_legend_dict = {
 # L1/L2 KPI'S
 
 with updated:
-    st.markdown(f"thru: {l1.completed_date.max().strftime('%a %B %d')}", unsafe_allow_html=True)
+    st.markdown(f"thru: {all_sales.date.max().strftime('%a %B %d')}", unsafe_allow_html=True)
 
 week_ago = datetime.today().date() - pd.offsets.Day(10)
 recent_sales = all_sales[(all_sales.date>week_ago) & (all_sales.market_segment!='Samples')]
