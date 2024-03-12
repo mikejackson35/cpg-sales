@@ -27,84 +27,6 @@ config = {'displayModeBar': False}
 # 'placeholder for 'updated on:' sidebar
 updated = st.sidebar.empty()
 
-# st.markdown("""
-# <style>
-# [data-testid="block-container"] {
-#     padding-top: 1rem;
-#     padding-bottom: 0rem;
-#     margin-bottom: -7rem;
-# }
-
-# [data-testid="stVerticalBlock"] {
-#     # padding-left: 1rem;
-#     # padding-right: 5rem;
-# }
-
-# [data-testid="stMetric"] {
-#     border: 2px solid;
-#     border-radius: 10px;
-#     background-color: #e8e6e3;
-#     border-color: #B1A999;        
-#     text-align: center;
-# }
-
-# [data-testid="stMetricLabel"] {
-#     display: flex;
-#     justify-content: center;
-#     align-items: center;
-# }
-            
-# [data-testid="stMetricValue"] {
-#     font-size: 15px;
-# }
-
-# [data-testid="stMetricDeltaIcon-Up"] {
-#     # color:  #5A5856;
-#     font-size: 12px;
-#     position: relative;
-#     left: 38%;
-#     -webkit-transform: translateX(-50%);
-#     -ms-transform: translateX(-50%);
-#     transform: translateX(-50%);
-#     # display: none;
-    
-# }
-
-# [data-testid="stMetricDeltaIcon-Down"] {
-#     # color:  #5A5856;
-#     font-size: 12px;
-#     position: relative;
-#     left: 38%;
-#     -webkit-transform: translateX(-50%);
-#     -ms-transform: translateX(-50%);
-#     transform: translateX(-50%);
-#     font-size:  10px;
-#     # display: none;
-# }
-            
-# [data-testid="stMetricDelta"] {
-#     font-size:  12px;
-# }
-            
-# [data-baseweb="tab-list"] {
-#     gap: 4px;
-# }
-
-# [data-baseweb="tab"] {
-#     height: 25px;
-#     width: 500px;
-#     white-space: pre-wrap;
-#     background-color: #A29F99;
-#     # background-color: #E8E6E3;
-#     border-radius: 4px 4px 0px 0px;
-#     gap: 1px;
-#     padding-top: 8px;
-#     padding-bottom: 8px;
-# }
-            
-# </style>
-#         """, unsafe_allow_html=True)
-
 ###############
 # L2 CONNECTION
 @st.cache_data
@@ -461,6 +383,14 @@ with col2:
 with col3:
     st.markdown(f"<h4 style='color: #E09641; outline-color: #E09641;'>TRUE<br><small>+{yoy_chg_perc}&nbsp yoy</small></h4>", unsafe_allow_html=True)
     st.markdown(f"<h2 style='color: #E09641; outline-color: #E09641;'><b>${sales_24/1000000:.2f}M</h2>", unsafe_allow_html=True)
+
+# st.subheader("")
+# with st.expander("Direct v TRUE explained"):
+#     tab1, tab2 = st.tabs(['Direct', ':orange[TRUE]'])
+#     with tab1:
+#         st.image(r"./assets/direct_sales.png", use_column_width='auto')
+#     with tab2:
+#         st.image(r"./assets/TRUE_sales.png", use_column_width='auto')
 
 tab1, tab2 = st.tabs(['Direct', 'TRUE'])
 with tab1:
