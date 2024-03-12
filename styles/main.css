@@ -1,0 +1,76 @@
+[data-testid="block-container"] {
+    padding-top: 1rem;
+    padding-bottom: 0rem;
+    margin-bottom: -7rem;
+}
+
+[data-testid="stVerticalBlock"] {
+    # padding-left: 1rem;
+    # padding-right: 5rem;
+}
+
+[data-testid="stMetric"] {
+    border: 2px solid;
+    border-radius: 10px;
+    background-color: #e8e6e3;
+    border-color: #B1A999;        
+    text-align: center;
+}
+
+[data-testid="stMetricLabel"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+            
+[data-testid="stMetricValue"] {
+    font-size: 15px;
+}
+
+[data-testid="stMetricDeltaIcon-Up"] {
+    # color:  #5A5856;
+    font-size: 12px;
+    position: relative;
+    left: 38%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    # display: none;
+    
+}
+
+[data-testid="stMetricDeltaIcon-Down"] {
+    # color:  #5A5856;
+    font-size: 12px;
+    position: relative;
+    left: 38%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    font-size:  10px;
+    # display: none;
+}
+            
+[data-testid="stMetricDelta"] {
+    font-size:  12px;
+}
+            
+[data-baseweb="tab-list"] {
+    gap: 4px;
+}
+
+[data-baseweb="tab"] {
+    height: 25px;
+    width: 500px;
+    white-space: pre-wrap;
+    background-color: #A29F99;
+    # background-color: #E8E6E3;
+    border-radius: 4px 4px 0px 0px;
+    gap: 1px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
