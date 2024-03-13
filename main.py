@@ -190,47 +190,6 @@ l2_fig.update_traces(texttemplate='%{y:.3s}')
 l2_fig.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
 l2_fig.update_yaxes(showticklabels=False,showgrid=True,gridcolor="#B1A999")
 
-# METRICS CALCS FOR THE 8 MARKET SEGMENTS
-vending_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Vending')].usd.sum()
-vending_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Vending') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
-yoy_vend = int(vending_23-vending_22)
-yoy_vend_perc = round(int(vending_23-vending_22) / vending_22,2)
-
-online_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Online')].usd.sum()
-online_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Online') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
-yoy_online = int(online_23-online_22)
-yoy_online_perc = round(int(online_23-online_22) / online_22,2)
-
-alt_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Alternate Retail')].usd.sum()
-alt_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Alternate Retail') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
-yoy_alt = int(alt_23-alt_22)
-yoy_alt_perc = round(int(alt_23-alt_22) / alt_22,2)
-
-conv_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Convenience')].usd.sum()
-conv_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Convenience') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
-yoy_conv = int(conv_23-conv_22)
-yoy_conv_perc = round(int(conv_23-conv_22) / conv_22,2)
-
-canada_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Canada')].usd.sum()
-canada_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Canada') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
-yoy_canada = int(canada_23-canada_22)
-yoy_canada_perc = round(int(canada_23-canada_22) / (1 + canada_22),2)
-
-grocery_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Grocery')].usd.sum()
-grocery_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Grocery') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
-yoy_grocery = int(grocery_23-grocery_22)
-yoy_grocery_perc = round(int(grocery_23-grocery_22) / grocery_22,2)
-
-broadline_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Broadline Distributor')].usd.sum()
-broadline_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Broadline Distributor') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
-yoy_broadline = int(broadline_23-broadline_22)
-yoy_broadline_perc = round(int(broadline_23-broadline_22) / broadline_22,2)
-
-other_23 = all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == 'Other')].usd.sum()
-other_22 = all_sales[(all_sales['date'].dt.year == 2023) & (all_sales['market_segment'] == 'Other') & (all_sales['date'].dt.date < year_ago_today.date())].usd.sum()
-yoy_other = int(other_23-other_22)
-yoy_other_perc = round(int(other_23-other_22) / other_22,2)
-
 # DAILY BY MARKET SEGMENT
 df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
 df = round(df[df.index>'2024-02-29']).sort_values(by='market_segment',ascending=False)
@@ -240,7 +199,7 @@ chart_height = 300
 title = f"{df.index.max().month_name()} - ${df.usd.sum():,.0f}"
 config = {'displayModeBar': False}
 
-#
+# CURRENT MONTH BAR BY MARKET SEGMENT
 scatter_market = px.bar(
     df,
     y='usd',
@@ -384,14 +343,6 @@ with col3:
     st.markdown(f"<h4 style='color: #E09641; outline-color: #E09641;'>TRUE<br><small>+{yoy_chg_perc}&nbsp yoy</small></h4>", unsafe_allow_html=True)
     st.markdown(f"<h2 style='color: #E09641; outline-color: #E09641;'><b>${sales_24/1000000:.2f}M</h2>", unsafe_allow_html=True)
 
-# st.subheader("")
-# with st.expander("Direct v TRUE explained"):
-#     tab1, tab2 = st.tabs(['Direct', ':orange[TRUE]'])
-#     with tab1:
-#         st.image(r"./assets/direct_sales.png", use_column_width='auto')
-#     with tab2:
-#         st.image(r"./assets/TRUE_sales.png", use_column_width='auto')
-
 tab1, tab2 = st.tabs(['Direct', 'TRUE'])
 with tab1:
     st.plotly_chart(l1_fig,config=config, use_container_width=True)
@@ -400,7 +351,7 @@ with tab2:
 
 # market segment rolling-52's
 df = all_sales[(all_sales.market_segment!='Samples') & (all_sales.market_segment!='Other')].set_index('date').groupby([pd.Grouper(freq='SM'),'market_segment'])['usd'].sum().reset_index().set_index('date')
-df = df[df.index>'2023-02-28'].pivot(columns='market_segment', values='usd')
+df = df[df.index>'2023-03-12'].pivot(columns='market_segment', values='usd')
 
 area_market = px.area(df,
               color='market_segment',
@@ -419,38 +370,58 @@ area_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),l
 area_market.for_each_annotation(lambda a: a.update(text=a.text.replace("=", "")))
 
 # MARKET SEGMENT BOXES
-col1, col2, col3, col4 = st.columns(4)
-col1.metric(label='Vending', value=f"${vending_23/1000:,.0f}K", delta = f"{yoy_vend_perc:.0%}")
-col2.metric(label='Online', value=f"${millify(online_23)}", delta = f"{yoy_online_perc:.0%}")
-col3.metric(label='Alternate Retail', value=f"${millify(alt_23)}", delta = f"{yoy_alt_perc:.0%}")
-col4.metric(label='Canada', value=f"${millify(canada_23)}", delta = f"{yoy_canada_perc:.0%}")
+def calculate_yearly_sales_difference(all_sales, year, market_segment, year_ago_date):
+    """Calculate the difference in yearly sales and percentage change for a specific market segment."""
+    current_year_sales = all_sales[(all_sales['date'].dt.year == year) & (all_sales['market_segment'] == market_segment)].usd.sum()
+    previous_year_sales = all_sales[
+        (all_sales['date'].dt.year == year - 1) & 
+        (all_sales['market_segment'] == market_segment) & 
+        (all_sales['date'].dt.date < year_ago_date.date())
+    ].usd.sum()
+    
+    yoy_sales_difference = int(current_year_sales - previous_year_sales)
+    if previous_year_sales != 0:
+        yoy_sales_percentage = round(yoy_sales_difference / previous_year_sales, 2)
+    else:
+        yoy_sales_percentage = 0
+    
+    return yoy_sales_difference, yoy_sales_percentage
+
+market_segments = [
+    'Vending', 'Online', 'Alternate Retail', 'Convenience', 
+    'Canada', 'Grocery', 'Broadline Distributor', 'Other'
+]
+
+# Calculate yearly sales difference and percentage change for each market segment
+yoy_data = {}
+for segment in market_segments:
+    yoy_difference, yoy_percentage = calculate_yearly_sales_difference(all_sales, 2024, segment, year_ago_today)
+    yoy_data[segment] = {'difference': yoy_difference, 'percentage': yoy_percentage}
 
 col1, col2, col3, col4 = st.columns(4)
-col1.metric(label='Convenience', value=f"${millify(conv_23)}", delta = f"{yoy_conv_perc:.0%}")
-col2.metric(label='Grocery', value=f"${millify(grocery_23)}", delta = f"{yoy_grocery_perc:.0%}")
-col3.metric(label='Broadline', value=f"${millify(broadline_23)}", delta = f"{yoy_broadline_perc:.0%}")
-col4.metric(label='Other', value=f"${millify(other_23)}", delta = f"{yoy_other_perc:.0%}")
+
+for i, segment in enumerate(market_segments):
+    yoy_difference, yoy_percentage = calculate_yearly_sales_difference(all_sales, 2024, segment, year_ago_today)
+    value = f"${millify(all_sales[(all_sales['date'].dt.year == 2024) & (all_sales['market_segment'] == segment)].usd.sum())}"
+    
+    # Display metrics for the current market segment
+    if i < 2:
+        col = col1
+    elif i < 4:
+        col = col2
+    elif i < 6:
+        col = col3
+    else:
+        col = col4
+    
+    col.metric(
+        label=segment, 
+        value=value, 
+        delta=f"{yoy_percentage:.0%}"
+    )
 
 with st.expander("Show 52-Week Market Segment Trends"):
     st.plotly_chart(area_market,config=config, use_container_width=True)
-
-# import streamlit.components.v1 as components
-# def ColourWidgetText(wgt_txt, wch_colour = '#000000'):
-#     htmlstr = """<script>var elements = window.parent.document.querySelectorAll('*'), i;
-#                     for (i = 0; i < elements.length; ++i) { if (elements[i].innerText == |wgt_txt|) 
-#                         elements[i].style.color = ' """ + wch_colour + """ '; } </script>  """
-
-#     htmlstr = htmlstr.replace('|wgt_txt|', "'" + wgt_txt + "'")
-#     components.html(f"{htmlstr}", height=0, width=0)
-
-# ColourWidgetText('Vending', '#389549')
-# ColourWidgetText('Online', '#6A573F')
-# ColourWidgetText('Alternate Retail', '#2E46A6')
-# ColourWidgetText('Canada', '#90A4AE')
-# ColourWidgetText('Convenience', '#E9512E')
-# ColourWidgetText('Grocery', '#FF80AB')
-# ColourWidgetText('Broadline', '#E99813')
-# ColourWidgetText('Other', '#CCD0DD')
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
