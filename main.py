@@ -423,13 +423,13 @@ for i, segment in enumerate(market_segments):
 with st.expander("Show 52-Week Market Segment Trends"):
     st.plotly_chart(area_market,config=config, use_container_width=True)
 
-# ---- REMOVE UNWANTED STREAMLIT STYLING ----
-hide_st_style = """
-            <style>
-            Main Menu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            </style>
-            """
+# # ---- REMOVE UNWANTED STREAMLIT STYLING ----
+# hide_st_style = """
+#             <style>
+#             Main Menu {visibility: hidden;}
+#             footer {visibility: hidden;}
+#             header {visibility: hidden;}
+#             </style>
+#             """
             
-st.markdown(hide_st_style, unsafe_allow_html=True)
+# st.markdown(hide_st_style, unsafe_allow_html=True)
