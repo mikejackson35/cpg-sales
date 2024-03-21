@@ -319,7 +319,7 @@ true_df3 = true_df.groupby(['date','market_segment'],as_index=False)['usd'].sum(
 
 st.subheader("")
 with st.expander("Show Current Month Detail"):
-    tab0, tab1, tab2, tab3 = st.tabs(["Direct","TRUE", "TRUE_Source", "TRUE_Market"])
+    tab0, tab1, tab2, tab3 = st.tabs(["Direct","tRUE", "tSource", "tMarket"])
     with tab0:
         st.plotly_chart(level_1_bar,config=config, use_container_width=True)
     with tab1:
