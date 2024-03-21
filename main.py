@@ -333,7 +333,7 @@ col0, col1, col2, col3= st.columns([1,2.1,2,2])
 with col0:
     st.header("")
 with col1:
-    st.markdown(f'<h4 style="color: #5A5856">Direct<br><small>+{l1_yoy_chg_perc}&nbsp yoy</small></h4>', unsafe_allow_html=True)
+    st.markdown(f'<h4 style="color: #5A5856">Direct<br><small>{l1_yoy_chg_perc}&nbsp yoy</small></h4>', unsafe_allow_html=True)
     st.markdown(f"<h2><b>${l1_sales_24/1000000:.2f}</b>M</h2>", unsafe_allow_html=True)
 with col2:
     st.markdown("")
