@@ -340,7 +340,7 @@ with col2:
     st.image(r"assets/Nevil.png",width=65)
     st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp2024</h5>", unsafe_allow_html=True)
 with col3:
-    st.markdown(f"<h4 style='color: #E09641; outline-color: #E09641;'>TRUE<br><small>+{yoy_chg_perc}&nbsp yoy</small></h4>", unsafe_allow_html=True)
+    st.markdown(f"<h4 style='color: #E09641; outline-color: #E09641;'>tRUE<br><small>+{yoy_chg_perc}&nbsp yoy</small></h4>", unsafe_allow_html=True)
     st.markdown(f"<h2 style='color: #E09641; outline-color: #E09641;'><b>${sales_24/1000000:.2f}M</h2>", unsafe_allow_html=True)
 
 tab1, tab2 = st.tabs(['Direct', 'TRUE'])

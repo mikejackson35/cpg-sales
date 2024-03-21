@@ -35,7 +35,7 @@ st.sidebar.markdown('Dot Sales Realized upon Purchase From AWAKE')
 st.sidebar.title('TRUE Sales')
 st.sidebar.markdown('Dot Sales Realized upon Purchase From Dot')
 
-tab1, tab2 = st.tabs(['Direct', ':orange[TRUE]'])
+tab1, tab2 = st.tabs(['Direct', ':orange[tRUE]'])
 with tab1:
     st.image(r"./assets/direct_sales.png", use_column_width='auto')
 with tab2:
