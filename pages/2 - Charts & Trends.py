@@ -136,7 +136,7 @@ fig_mth_bar = px.bar(mth_sales.reset_index(),
         labels = {'date':' ','usd':''},
         text='usd',
         opacity=.8,
-        height=250
+        height=250,
         ).update_coloraxes(showscale=False).update_traces(texttemplate='%{text:$,.2s}')#,textposition='outside')
 fig_mth_bar.update_traces(marker_color='#E09641')
 fig_mth_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m}<br>')
