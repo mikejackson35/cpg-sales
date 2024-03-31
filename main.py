@@ -203,7 +203,7 @@ config = {'displayModeBar': False}
 scatter_market = px.bar(
     df,
     y='usd',
-    template = 'plotly_white',
+    template = 'plotly_dark',
     labels={'date':'',
             'usd':''},
     height=chart_height,
@@ -234,7 +234,7 @@ df = round(df[df.index>'2024-02-29'].sort_index())
 scatter_origin = px.bar(
         df,
         y='usd',
-        template = 'plotly_white',
+        template = 'plotly_dark',
         labels={'date':'',
                 'usd':''},
         height=chart_height,
@@ -265,7 +265,7 @@ df = round(df[df.index>'2024-02-29'].sort_index())
 bar_all = px.bar(
         df,
         y='usd',
-        template = 'plotly_white',
+        template = 'plotly_dark',
         labels={'date':'',
                 'usd':''},
         height=chart_height,
@@ -294,7 +294,7 @@ title_l1 = l1_bar_df.usd.sum()
 
 level_1_bar = px.bar(l1_bar_df,
                      y='usd',
-                     template='plotly_white',
+                     template='plotly_dark',
                      labels={'usd':'',
                              'completed_date':''},
                      height=chart_height,
@@ -358,7 +358,7 @@ area_market = px.area(df,
               color_discrete_map=market_segment_dict, 
               facet_col="market_segment",facet_col_wrap=2, facet_col_spacing=.1, facet_row_spacing=.15,
               height=650,
-              template = 'plotly_white',
+              template = 'plotly_dark',
               labels={'value':"",'market_segment':""}
              )
 
