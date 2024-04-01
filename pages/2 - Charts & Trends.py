@@ -7,7 +7,7 @@ import psycopg2
 import secrets
 import numpy as np
 from millify import millify
-
+import plotly.graph_objects as go
 
 st.set_page_config(page_title='Charts',
                    page_icon=":bar_chart:",
@@ -50,7 +50,7 @@ st.markdown("""
 @st.cache_data
 def get_connection():
     conn = st.connection('dot', type ="sql")
-    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2021-12-31'")
+    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2022-12-31'")
     return all_sales
 
 all_sales = get_connection()
@@ -66,6 +66,12 @@ all_sales['date'] = pd.to_datetime(all_sales['date'])
 all_sales['date'] = all_sales['date'].dt.normalize()
 all_sales['date'] = all_sales['date'].dt.floor('D')
 
+unique_parent_customers = list(all_sales.parent_customer.unique())
+unique_parent_customers_sorted = sorted(filter(None, unique_parent_customers))
+
+unique_market_segments = list(all_sales.market_segment.unique())
+unique_market_segments_sorted = sorted(filter(None, unique_market_segments))
+
 # --- FILTERS AND SIDEBAR ----
 year = st.sidebar.multiselect(
     label = 'Year',
@@ -79,8 +85,14 @@ sale_origin = st.sidebar.multiselect(
 )
 segment = st.sidebar.multiselect(
     label='Market Segment',
-    options=np.array(all_sales['market_segment'].unique()),
-    default=np.array(all_sales['market_segment'].unique()),
+    options=unique_market_segments_sorted,
+    default=unique_market_segments_sorted
+)
+
+parent = st.sidebar.multiselect(
+    label='Parent Customer',
+    options=unique_parent_customers_sorted,
+    default=unique_parent_customers_sorted,
 )
 
 market_segment_color = {
@@ -98,7 +110,8 @@ market_segment_color = {
 df_selection = all_sales[
     (all_sales['date'].dt.year.isin(year)) &
     (all_sales['market_segment'].isin(segment)) &
-    (all_sales['sale_origin'].isin(sale_origin))
+    (all_sales['sale_origin'].isin(sale_origin)) &
+    (all_sales['parent_customer'].isin(parent))
     ]
 
 start = df_selection.date.min().date()
@@ -116,30 +129,30 @@ fig_seg_sales = px.pie(
     seg_sales, 
     values='usd', 
     names='market_segment',
-    template = 'simple_white',
+    template = 'plotly_dark',
     title=' ',
     opacity = .8,
     hole=.33,
     hover_name='market_segment',
     color='market_segment',
     color_discrete_map=market_segment_color).update_layout(showlegend=False, autosize=True, width=450,height=450)
-fig_seg_sales.update_traces(textposition='inside', textinfo='percent+label', texttemplate='%{label}<br>%{percent:.0%}')#,hovertemplate = '$%{values:.2s}'+'<br>%{x:%Y-%m}<br>')
+
+fig_seg_sales.update_traces(textposition='inside', textinfo='percent+label', texttemplate='%{label}<br>%{percent:.0%}',hovertemplate = '%{label}<br>%{value:.2s}')
 
 ## monthly bar chart
 df_selection.index = pd.to_datetime(df_selection['date'])
-mth_sales = round(df_selection.groupby(pd.Grouper(freq='M'))['usd'].sum())
+mth_sales = round(df_selection.groupby(pd.Grouper(freq='M'))[['usd']].sum())
 
 fig_mth_bar = px.bar(mth_sales.reset_index(),
-        template='plotly_white',
+        template='plotly_dark',
         x= 'date',
         y='usd',
         labels = {'date':' ','usd':''},
         text='usd',
         opacity=.8,
         height=250,
-        ).update_coloraxes(showscale=False).update_traces(texttemplate='%{text:$,.2s}')#,textposition='outside')
-fig_mth_bar.update_traces(marker_color='#E09641')
-fig_mth_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m}<br>')
+        ).update_coloraxes(showscale=False)
+fig_mth_bar.update_traces(marker_color='#E09641',texttemplate='%{text:$,.2s}',hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m}<br>')
 fig_mth_bar.update_xaxes(showgrid=False,gridcolor='gray',tickvals = mth_sales.index,ticktext=mth_sales.index.strftime('%b-%y'),tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 fig_mth_bar.update_yaxes(showgrid=False,tick0=0,dtick=250000,showticklabels=False, tickcolor='darkgrey', gridcolor='darkgrey')   
 
@@ -151,7 +164,8 @@ fig_scatter_all = px.scatter(
     round(sales_per_week),
     x=sales_per_week.index,
     y='usd',
-    template = 'plotly_white',
+    title='10-Wk Moving Avg',
+    template = 'plotly_dark',
     labels={'date':'',
             'usd':''},
     height=260,
@@ -163,17 +177,57 @@ fig_scatter_all.update_traces(name="",hovertemplate="Sales: <b>%{y:$,.0f}")
 fig_scatter_all.update_traces(marker=dict(size=8,color='#E09641',opacity=.9,line=dict(width=1,color='lightgrey')),selector=dict(mode='markers'))
 fig_scatter_all.update_coloraxes(showscale=False)
 fig_scatter_all.update_yaxes(showgrid=True,showticklabels=True,gridcolor='darkgray',tickfont=dict(color='#5A5856', size=13),automargin=True) 
-fig_scatter_all.update_layout(hovermode='x unified',showlegend=False)#,legend=dict(y=0.99, x=0.1,title='10-Wk Moving Avg'))
+fig_scatter_all.update_layout(hovermode='x unified',showlegend=False,title_x=.4)#,legend=dict(y=0.99, x=0.1,title='10-Wk Moving Avg'))
 fig_scatter_all.update_layout(hoverlabel=dict(font_size=15,font_family="Rockwell"))
 fig_scatter_all.update_xaxes(showticklabels=True,showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=14),title_font=dict(color='#5A5856',size=15))
-fig_scatter_all.update_yaxes(tick0=0,dtick=100000)
+# fig_scatter_all.update_yaxes(tick0=0,dtick=250000)
+
+###################
+# tRUE YoY by Month Sales
+
+all_sales['year'] = all_sales['date'].dt.year
+all_sales['month'] = all_sales['date'].dt.month_name()
+all_sales['YearMonth'] = all_sales['date'].astype('string').apply(lambda x: x.split("-")[0] + "-" + x.split("-")[1])
+
+# group by month year and add $0 sales to future months
+chart_df = round(all_sales[(all_sales['sale_origin'].isin(sale_origin) &
+                            all_sales['market_segment'].isin(segment) &
+                            all_sales['parent_customer'].isin(parent))]
+                            .groupby(['year','YearMonth'],as_index=False)['usd'].sum()
+                            )
+
+sales_23_ = chart_df[(chart_df.year==2023)].usd
+sales_24_ = chart_df[chart_df.year==2024].usd
+
+months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+color = chart_df.year.astype('category').unique()
+
+# Bar and scatter monthly
+l2_fig = go.Figure(
+    data=[
+        go.Bar(x=months, y=sales_23_, name="2023", marker_color="#909497",textfont=dict(color='#D6D8CF'), marker_line_color="#909497", marker_opacity=.5,hovertemplate="<br>".join(["%{y:.2s}"])),#,textposition='outside'),
+        go.Bar(x=months, y=sales_24_, name="2024", marker_color='#E09641',textfont=dict(color='white',size=25), marker_line_color="#E09641",hovertemplate="<br>".join(["%{y:.2s}"])),#,textposition='outside')
+    ],
+    layout=dict(#title='2024', title_x=.45, 
+                height=260, 
+                barmode='group', template='plotly_dark', 
+                hoverlabel=dict(font_size=18,font_family="Rockwell"),
+                legend=dict(x=0.02, y=1.5, orientation='h',font_color='#5A5856'),
+                bargap=0.15,bargroupgap=0.1)
+)
+
+l2_fig.update_traces(texttemplate='$%{y:.3s}')
+l2_fig.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
+l2_fig.update_yaxes(showticklabels=False,showgrid=False,gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=13))
 
 # distributor bar chart
 top_custs = pd.DataFrame(df_selection.groupby(['customer','market_segment'],as_index=False)['usd'].sum().sort_values(by='usd',ascending=False)[:40])
 fig_dist_sales = px.bar(top_custs,
        x = 'customer',
        y = 'usd',
-    template = 'plotly_white',
+    template = 'plotly_dark',
     labels={'customer':'',
             'usd':' '},
     opacity=.8,
@@ -193,7 +247,7 @@ top_parents = pd.DataFrame(df_selection.groupby(['parent_customer','market_segme
 fig_parent_sales = px.bar(top_parents,
                           x = 'parent_customer',
                           y = 'usd',
-                          template = 'plotly_white',
+                          template = 'plotly_dark',
                           labels={'parent_customer':'',
                                 'usd':''},
                           height=350,
@@ -219,11 +273,13 @@ with col1:
 with col2:
     st.plotly_chart(fig_seg_sales,config=config,use_container_width=True)
 
-tab1, tab2 = st.tabs(["Monthly", "Weekly"])
+tab1, tab2, tab3 = st.tabs(["Monthly", "Weekly", "YoY"])
 with tab1:
     st.plotly_chart(fig_mth_bar, config=config,legend=None, use_container_width=True)
 with tab2:
     st.plotly_chart(fig_scatter_all, config=config,use_container_width=True)
+with tab3:
+    st.plotly_chart(l2_fig, config=config,use_container_width=True)
 
 tab1, tab2 = st.tabs(["by Parent", "by Customer"])
 with tab1:

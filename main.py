@@ -119,12 +119,12 @@ l1_fig.update_yaxes(showticklabels=False,showgrid=True,gridcolor="#B1A999")
 
 ###################
 # L2 Main Bar
-def getYearMonth(s):
-  return (s.split("-")[0] + "-" + s.split("-")[1])
+# def getYearMonth(s):
+#   return (s.split("-")[0] + "-" + s.split("-")[1])
 
 all_sales['year'] = all_sales['date'].dt.year
 all_sales['month'] = all_sales['date'].dt.month_name()
-all_sales['YearMonth'] = all_sales['date'].astype('string').apply(lambda x: getYearMonth(x))
+all_sales['YearMonth'] = all_sales['date'].astype('string').apply(lambda x: x.split("-")[0] + "-" + x.split("-")[1])
 
 # group by month year and add $0 sales to future months
 chart_df = round(all_sales.groupby(['year','YearMonth'],as_index=False)['usd'].sum())
@@ -156,7 +156,7 @@ l2_fig = go.Figure(
 )
 
 l2_fig.update_traces(texttemplate='%{y:.3s}')
-l2_fig.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=25))
+l2_fig.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=10),title_font=dict(color='#5A5856',size=25))
 l2_fig.update_yaxes(showticklabels=False,showgrid=True,gridcolor="#B1A999")
 
 # DAILY BY MARKET SEGMENT
@@ -183,8 +183,8 @@ scatter_market = px.bar(
 
 scatter_market.for_each_trace(lambda t: t.update(name = market_legend_dict[t.name]))
 scatter_market.update_coloraxes(showscale=False)
-scatter_market.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14),showticklabels=False)
-scatter_market.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=11),title_font=dict(color='#5A5856',size=25))
+scatter_market.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=14),showticklabels=True)
+scatter_market.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=10),title_font=dict(color='#5A5856',size=25))
 scatter_market.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 scatter_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
                               title_x=.45,
@@ -209,14 +209,14 @@ scatter_origin = px.bar(
         height=chart_height,
         color='sale_origin',
         color_discrete_map=sale_origin_dict,
-        text_auto='.2s',
+        # text_auto='.2s',
         opacity=.75,
         title=title
     )
 
 scatter_origin.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
-scatter_origin.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14),showticklabels=False)
-scatter_origin.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=11),title_font=dict(color='#5A5856',size=25))
+scatter_origin.update_yaxes(showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=14),showticklabels=True)
+scatter_origin.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=10),title_font=dict(color='#5A5856',size=25))
 scatter_origin.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 scatter_origin.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
                              showlegend=True, title_x=.45,
@@ -238,14 +238,14 @@ bar_all = px.bar(
         labels={'date':'',
                 'usd':''},
         height=chart_height,
-        text_auto='.2s',
+        # text_auto='.2s',
         opacity=.8,
         title=title
     )
 bar_all.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>')
 bar_all.update_traces(marker_color='#E09641')
-bar_all.update_yaxes(showticklabels=False,showgrid=True,tickprefix='$',gridcolor="#B1A999",tickvals=[0,25000,50000,75000,100000],tickfont=dict(color='#5A5856', size=14))
-bar_all.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=11),title_font=dict(color='#5A5856',size=15))
+bar_all.update_yaxes(showticklabels=True,showgrid=True,tickprefix='$',gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=14))
+bar_all.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=10),title_font=dict(color='#5A5856',size=15))
 bar_all.update_xaxes(tickmode='array',tickvals = df.index, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
                                                     showlegend=True, title_x=.45,
