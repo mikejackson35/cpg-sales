@@ -2,11 +2,10 @@ import numpy as np
 import streamlit as st
 import pandas as pd
 import datetime
-from sqlalchemy import create_engine
+# from sqlalchemy import create_engine
 
 
 # database connection
-
 engine = st.connection('dot', type ="sql")
 
 # FUNCTION TO READ NEW UNL DATA, FIX COLUMN NAMES, APPEND POSTGRES DB

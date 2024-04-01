@@ -9,6 +9,7 @@ import numpy as np
 from datetime import datetime
 from millify import millify
 import plotly.graph_objects as go
+from main_utils import market_segment_dict, sale_origin_dict, market_legend_dict
 
 
 st.set_page_config(page_title='Awake YTD',
@@ -58,38 +59,6 @@ l1 = get_connection2()
 l1.completed_date = pd.to_datetime(l1.completed_date)
 l1['usd'] = l1['sub_total']*.75
 
-
-###############
-# COLOR DICTIONARIES
-market_segment_dict = {
-    'Vending': 'rgb(56,149,73)',
-    'Grocery': 'rgb(248,184,230)',
-    'Alternate Retail': 'rgb(46,70,166)',
-    'Canada': 'rgb(204,208,221)',
-    'Online': 'rgb(106,87,63)',
-    'Other': 'rgb(200,237,233)',
-    'Convenience': 'rgb(233,81,46)',
-    'Broadline Distributor': 'rgb(233,152,19)',
-    'Samples': 'rgb(141,62,92)'
-    }
-
-sale_origin_dict = {
-    'Dot': 'rgb(81, 121, 198)',
-    'Unleashed': 'rgb(239, 83, 80)'
-}
-
-market_legend_dict = {
-    'Vending': 'Vending',
-    'Grocery': 'Grocery',
-    'Alternate Retail': 'Alt Retail',
-    'Canada': 'Canada',
-    'Online': 'Online',
-    'Other': 'Other',
-    'Convenience': 'Convenience',
-    'Broadline Distributor': 'Broadline',
-    'Samples': 'Samples'
-    }
-
 ###############
 # L1/L2 KPI'S
 
@@ -132,12 +101,12 @@ color = l1_main_bar.year.astype('category').unique()
 l1_fig = go.Figure(
     data=[
         go.Scatter(x=months, y=goal, name="Direct Goal", mode='markers', marker_symbol='line-ew',marker_size=10, marker_line=dict(width=1,color='#5A5856'),marker_color='orange',hovertemplate="<br>".join(["%{y:.2s}"])),
-        go.Bar(x=months, y=l1_23, name="2023", marker_color="#909497",textfont=dict(color='#D6D8CF'), marker_line_color="#909497", marker_opacity=.5,hovertemplate="<br>".join(["%{y:.2s}"]),textposition='outside'),
-        go.Bar(x=months, y=l1_24, name="2024", marker_color='#5A5856',textfont=dict(color='white'),hovertemplate="<br>".join(["%{y:.2s}"]),textposition='outside')
+        go.Bar(x=months, y=l1_23, name="2023", marker_color="#909497",textfont=dict(color='#D6D8CF'), marker_line_color="#909497", marker_opacity=.5,hovertemplate="<br>".join(["%{y:.3s}"]),textposition='outside'),
+        go.Bar(x=months, y=l1_24, name="2024", marker_color='#5A5856',textfont=dict(color='white'), marker_line_color="#5A5856",hovertemplate="<br>".join(["%{y:.3s}"]),textposition='outside')
     ],
     layout=dict(#title='2024', title_x=.45, 
                 height=300, 
-                barmode='group', template='plotly_white', 
+                barmode='group', template='plotly_dark', 
                 hoverlabel=dict(font_size=18,font_family="Rockwell"),
                 legend=dict(x=0.02, y=1.5, orientation='h',font_color='#5A5856'),
                 bargap=0.15,bargroupgap=0.1)
@@ -176,11 +145,11 @@ l2_fig = go.Figure(
     data=[
         go.Scatter(x=months, y=goal, name="TRUE Goal", mode='markers', marker_symbol='line-ew',marker_size=10, marker_line=dict(width=1,color='#5A5856'),marker_color='orange',hovertemplate="<br>".join(["%{y:.2s}"])),
         go.Bar(x=months, y=sales_23_, name="2023", marker_color="#909497",textfont=dict(color='#D6D8CF'), marker_line_color="#909497", marker_opacity=.5,hovertemplate="<br>".join(["%{y:.2s}"]),textposition='outside'),
-        go.Bar(x=months, y=sales_24_, name="2024", marker_color='#E09641',textfont=dict(color='white'),hovertemplate="<br>".join(["%{y:.2s}"]),textposition='outside')
+        go.Bar(x=months, y=sales_24_, name="2024", marker_color='#E09641',textfont=dict(color='white',size=25), marker_line_color="#E09641",hovertemplate="<br>".join(["%{y:.2s}"]),textposition='outside')
     ],
     layout=dict(#title='2024', title_x=.45, 
                 height=300, 
-                barmode='group', template='plotly_white', 
+                barmode='group', template='plotly_dark', 
                 hoverlabel=dict(font_size=18,font_family="Rockwell"),
                 legend=dict(x=0.02, y=1.5, orientation='h',font_color='#5A5856'),
                 bargap=0.15,bargroupgap=0.1)
