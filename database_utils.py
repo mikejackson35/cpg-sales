@@ -2,7 +2,15 @@ import numpy as np
 import streamlit as st
 import pandas as pd
 import datetime
-# from sqlalchemy import create_engine
+from sqlalchemy import create_engine
+
+# db_password = "UnitCircle42!"
+# db_user = "postgres"
+# db_name = "dot"
+# endpoint = "awakedb.cre3f7yk1unp.us-west-1.rds.amazonaws.com"
+
+# connection_string = f"postgresql://{db_user}:{db_password}@{endpoint}:5432/{db_name}"
+# engine = create_engine(connection_string)
 
 
 # database connection

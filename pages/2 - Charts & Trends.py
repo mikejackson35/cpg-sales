@@ -150,7 +150,7 @@ fig_mth_bar = px.bar(mth_sales.reset_index(),
         labels = {'date':' ','usd':''},
         text='usd',
         opacity=.8,
-        height=250,
+        height=260,
         ).update_coloraxes(showscale=False)
 fig_mth_bar.update_traces(marker_color='#E09641',texttemplate='%{text:$,.2s}',hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m}<br>')
 fig_mth_bar.update_xaxes(showgrid=False,gridcolor='gray',tickvals = mth_sales.index,ticktext=mth_sales.index.strftime('%b-%y'),tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))

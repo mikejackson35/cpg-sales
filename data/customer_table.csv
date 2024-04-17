@@ -1,94 +1,15 @@
 customer,parent_customer,market_segment
 1999,1999,Other
 A & R WHOLESALE DNU,A&R Wholesale,Broadline Distributor
+A.C.C. WHOLESALE,ACC Wholesale,Convenience
 A.E. WEASE INC.,A.E. Wease,Convenience
-HQ Army&Air Force Exchange Service (DDDC AAFES),AAFES,Convenience
-HQ Army&Air Force Exchange Service (WACO AAFES),AAFES,Convenience
-HQ Army&Air Force Exchange Service (WCDC AAFES),AAFES,Convenience
 Aamir Kadri,Aamir Kadri,Online
 Aaron Sun,Aaron Sun,Online
 Abigail Lowry,Abigail Lowry,Online
 ABL WHOLESALE,ABL Wholesale,Convenience
-A.C.C. WHOLESALE,ACC Wholesale,Convenience
 Accent Food Services,Accent Food Services,Vending
 ACE ENDICO CORP.,Ace Endico,Broadline Distributor
 ACME,ACME,Other
-Agile Distributors,Agile Distributors,Canada
-ALBANESE CONFECTIONERY,Albanese,Other
-Albertsons 195,Albertsons,Grocery
-Albertsons 199,Albertsons,Grocery
-ALL FRESH PRODUCTS,All Fresh Products,Broadline Distributor
-ALL ORIGINAL FOODS,All Original Foods,Broadline Distributor
-ALLEN BROTHERS,Allen Brothers,Online
-Amélie Jacques,Amélie Jacques,Online
-Amazon SC FBA Can,Amazon,Online
-Amazon FBM,Amazon,Online
-Amazon SC,Amazon,Online
-Amazon SC FBA,Amazon,Online
-Amazon.ca,Amazon,Online
-Amazon.com,Amazon,Online
-AMCON DIST/BISMARK DRY,Amcon,Convenience
-AMCON DIST/CROSSVILLE,Amcon,Convenience
-AMCON DIST/OMAHA,Amcon,Convenience
-AMCON DIST/QUINCY,Amcon,Convenience
-AMCON DIST/RAPID CITY,Amcon,Convenience
-AMCON DIST/SPRINGFIELD,Amcon,Convenience
-American Wholesale,American Wholesale,Other
-"AMG Global Distribution, Inc.",AMG Global Distribution,Other
-AMSTER KIRTZ DIV OF ABL,Amster Kirtz,Convenience
-ANDALUSIA DIST,Andalusia,Convenience
-"APP Wholesale, LLC",APP Wholesale,Other
-ASA H PRITCHARD/DRY/TROP,Asa Pritchard,Convenience
-Avenue C Canada,Avenue C Canada,Vending
-AVI FOODSYSTEMS INC,AVI Foodsystems,Vending
-Avid Gourmet Inc.,Avid Gourmet,Other
-AWG/KANSAS CITY,AWG,Grocery
-AWG/OKLAHOMA CITY,AWG,Grocery
-"BADGER WHOLESALE CO., INC",Badger Wholesale,Convenience
-BAR MART/BENEFIELD ENT.,Bar Mart,Alternate Retail
-BCM Direct LP,BCM Direct,Other
-BCS International Royal Food,BCS Int'l Royal Food,Canada
-BELL'S WHOLESALE GROCERY,Bells Wholesale,Convenience
-BEN E. KEITH/DFW,Ben E Keith,Broadline Distributor
-BEN E. KEITH/LITTLE R-DNU,Ben E Keith,Broadline Distributor
-BEN E. KEITH/SOUTHEAST,Ben E Keith,Broadline Distributor
-Bernick's,Bernick's,Other
-BLOOM WHOLESALE,Bloom Wholesale,Convenience
-Blue Elephant Productions,Blue Elephant Productions,Other
-BLUE MARKET INC,Blue Market Group,Alternate Retail
-BRAUN DISTRIBUTING,Braun Distributing,Convenience
-BTO GROUP-INDIANA,BTO,Convenience
-Bulk Barn Foods Ltd,Bulk Barn,Canada
-Burlington Merchandising Corp.,Burlington Merchandising,Other
-Burnham Benefits,Burnham Benefits,Other
-BUY BULK AMERICA,Buy Bulk America,Online
-C&S/HANSEN-HAWAII-OAHU,C&S,Broadline Distributor
-Canadian Consolidation Centre,Canadian Consolidation Centre,Canada
-Canteen of Canada,Canteen of Canada,Canada
-Capitol Distributing,Capitol,Vending
-Capitol Vending and Coffee Company,Capitol,Vending
-CAPITOL DISTRIBUTING,Capitol Distributing,Convenience
-CASH-WA DISTR. OF FARGO,Cash-WA,Broadline Distributor
-CASH-WA DISTR. OF KEARNEY,Cash-WA,Broadline Distributor
-"CCS, LLC",CCS,Other
-C.D. HARTNETT/WEATHERFORD,CD Hartnett,Convenience
-CENTURY DISTRIBUTORS,Century Distributors,Convenience
-CERTCO FOODS/DANIELS,Certco,Grocery
-CERTCO FOODS/FEMRITE,Certco,Grocery
-"Certco, Inc.",Certco,Grocery
-CHAMBERS AND OWEN,Chambers & Owen,Convenience
-CHARLES C. PARKS COMPANY,Charles C Parks Co,Convenience
-Charlyne Sénéchal,Charlyne Sénéchal,Online
-Charlyne Senechal,Charlyne Senechal,Online
-Chicago Pizza,Chicago Pizza,Other
-CJR Wholesale Grocers,CJR Wholesale,Other
-Clayton Kendrick Inc,Clayton & Kendrick,Online
-Cloth & Paper,Cloth & Paper,Other
-"CLW Distributors, Inc.",CLW Distributors,Other
-C.M. TANNER GROCERY CO.,CM Tanner Grocery,Broadline Distributor
-COAST BROTHERS,Coast Brothers,Other
-COFFEE & FILTERS DIRECT,Coffee & Filters,Online
-Collectibles and Edibles,Collectibles and Edibles,Other
 Adam Alexander,Consumer,Online
 Adam Goodman,Consumer,Online
 Adam Kovacs,Consumer,Online
@@ -96,11 +17,15 @@ Adrien Lacroix,Consumer,Online
 Adrienne Perlstein,Consumer,Online
 Aedan Card,Consumer,Online
 Afreen Aliya,Consumer,Online
+Agile Distributors,Agile Distributors,Canada
 Ahmad Hussain,Consumer,Online
 Ahmad Sadin Khan,Consumer,Online
 Alan Biller,Consumer,Online
 Alan Schwartztrauber,Consumer,Online
+ALBANESE CONFECTIONERY,Albanese,Other
 Alberto Sanchez colon,Consumer,Online
+Albertsons 195,Albertsons,Grocery
+Albertsons 199,Albertsons,Grocery
 Alessandro Kreslin,Consumer,Online
 Alex Smith,Consumer,Online
 Alexander Marteleira,Consumer,Online
@@ -111,11 +36,15 @@ Alfred Reid,Consumer,Online
 Ali Dussault,Consumer,Online
 Alice Colquhoun,Consumer,Online
 Alison Suarez,Consumer,Online
+ALL FRESH PRODUCTS,All Fresh Products,Broadline Distributor
+ALL ORIGINAL FOODS,All Original Foods,Broadline Distributor
 All Valley Sales,Consumer,Online
 Allan Klose,Consumer,Online
+ALLEN BROTHERS,Allen Brothers,Online
 Allen Zhang,Consumer,Online
 Alvin Akinmoladun,Consumer,Online
 Alysia Dodge,Consumer,Online
+Amélie Jacques,Amélie Jacques,Online
 Amanda Crozier,Consumer,Online
 Amanda Dulle,Consumer,Online
 Amanda Eisinger,Consumer,Online
@@ -123,14 +52,30 @@ Amanda Gao,Consumer,Online
 Amanda Lacey,Consumer,Online
 Amanda Linck,Consumer,Online
 Amanda Moore,Consumer,Online
+Amazon FBM,Amazon,Online
+Amazon SC,Amazon,Online
+Amazon SC FBA,Amazon,Online
+Amazon SC FBA Can,Amazon,Online
+Amazon.ca,Amazon,Online
+Amazon.com,Amazon,Online
+AMCON DIST/BISMARK DRY,Amcon,Convenience
+AMCON DIST/CROSSVILLE,Amcon,Convenience
+AMCON DIST/OMAHA,Amcon,Convenience
+AMCON DIST/QUINCY,Amcon,Convenience
+AMCON DIST/RAPID CITY,Amcon,Convenience
+AMCON DIST/SPRINGFIELD,Amcon,Convenience
 Amelie March,Consumer,Online
+American Wholesale,American Wholesale,Other
+"AMG Global Distribution, Inc.",AMG Global Distribution,Other
 Amie Kreppel,Consumer,Online
 Amie Shepherdson,Consumer,Online
 Amrita Pooni,Consumer,Online
+AMSTER KIRTZ DIV OF ABL,Amster Kirtz,Convenience
 Amy Mayhue,Consumer,Online
 Amy Todd,Consumer,Online
 Amy Wolinska,Consumer,Online
 Anastacia Blanchfield,Consumer,Online
+ANDALUSIA DIST,Andalusia,Convenience
 Andie Rexdiemer,Consumer,Online
 Andre Rivard,Consumer,Online
 Andrea Chan,Consumer,Online
@@ -153,23 +98,45 @@ Anna Turkel,Consumer,Online
 Anne Liota,Consumer,Online
 Anthony Cooney,Consumer,Online
 Anthony Zaremba,Consumer,Online
+"APP Wholesale, LLC",APP Wholesale,Other
 April Leasure,Consumer,Online
+Aramark - Wilfred Laurier University,Direct University,Convenience
 Areeba Awan,Consumer,Online
 Ariane Breton,Consumer,Online
+ASA H PRITCHARD/DRY/TROP,Asa Pritchard,Convenience
 Ashley Craddock,Consumer,Online
 Ashlynn Chen,Consumer,Online
 Audra Cochran,Consumer,Online
+Avenue C Canada,Avenue C Canada,Vending
+AVI FOODSYSTEMS INC,AVI Foodsystems,Vending
+Avid Gourmet Inc.,Avid Gourmet,Other
 Avie Josan,Consumer,Online
+AWAKE CHOC/ S.ABRAHAMS,S Abraham & Son,Alternate Retail
+AWG/KANSAS CITY,AWG,Grocery
+AWG/OKLAHOMA CITY,AWG,Grocery
+"BADGER WHOLESALE CO., INC",Badger Wholesale,Convenience
+BAR MART/BENEFIELD ENT.,Bar Mart,Alternate Retail
 Barbara Ann Crozier,Consumer,Online
 Barth Mandhan,Consumer,Online
+BCM Direct LP,BCM Direct,Other
+BCS International Royal Food,BCS Int'l Royal Food,Canada
 Becky Taylor,Consumer,Online
+BELL'S WHOLESALE GROCERY,Bells Wholesale,Convenience
+BEN E. KEITH/DFW,Ben E Keith,Broadline Distributor
+BEN E. KEITH/LITTLE R-DNU,Ben E Keith,Broadline Distributor
+BEN E. KEITH/SOUTHEAST,Ben E Keith,Broadline Distributor
 Ben Goldberg,Consumer,Online
 Ben Sereda,Consumer,Online
+Bernick's,Bernick's,Other
 Beth Mende,Consumer,Online
 Bianca Jiang,Consumer,Online
 Bianca Peynado,Consumer,Online
+BLOOM WHOLESALE,Bloom Wholesale,Convenience
+Blue Elephant Productions,Blue Elephant Productions,Other
+BLUE MARKET INC,Blue Market Group,Alternate Retail
 Bnita Kochhar,Consumer,Online
 Brady Toews,Consumer,Online
+BRAUN DISTRIBUTING,Braun Distributing,Convenience
 Brea Dearling,Consumer,Online
 Brent Duncan,Consumer,Online
 Brent Kelaher,Consumer,Online
@@ -180,10 +147,23 @@ Brian Lutes,Consumer,Online
 Brianna Champagne,Consumer,Online
 Brie Mitchell,Consumer,Online
 Brooke Schedlosky,Consumer,Online
+BTO GROUP-INDIANA,BTO,Convenience
+Bulk Barn Foods Ltd,Bulk Barn,Canada
+Burlington Merchandising Corp.,Burlington Merchandising,Other
+Burnham Benefits,Burnham Benefits,Other
+BUY BULK AMERICA,Buy Bulk America,Online
+C&S/HANSEN-HAWAII-OAHU,C&S,Broadline Distributor
+C.D. HARTNETT/WEATHERFORD,CD Hartnett,Convenience
+C.M. TANNER GROCERY CO.,CM Tanner Grocery,Broadline Distributor
 Caio Maluf,Consumer,Online
 Calvin Yzerman,Consumer,Online
 Camille Anunciacion,Consumer,Online
+Canadian Consolidation Centre,Canadian Consolidation Centre,Canada
 Candela Meza,Consumer,Online
+Canteen of Canada,Canteen of Canada,Canada
+Capitol Distributing,Capitol,Vending
+CAPITOL DISTRIBUTING,Capitol Distributing,Convenience
+Capitol Vending and Coffee Company,Capitol,Vending
 Carly Cowles,Consumer,Online
 Carol Di Lello,Consumer,Online
 Carol Mazza,Consumer,Online
@@ -191,6 +171,8 @@ Caroline Kwong,Consumer,Online
 Carolyn Martin,Consumer,Online
 Carson Hicks,Consumer,Online
 Carter Hutcherson,Consumer,Online
+CASH-WA DISTR. OF FARGO,Cash-WA,Broadline Distributor
+CASH-WA DISTR. OF KEARNEY,Cash-WA,Broadline Distributor
 Cassandra Cook,Consumer,Online
 Catherine Blais,Consumer,Online
 Catherine Guy,Consumer,Online
@@ -198,13 +180,37 @@ Catherine Pierce,Consumer,Online
 Catherine Robinson,Consumer,Online
 Catherine Thorlakson,Consumer,Online
 Cayleigh Rook,Consumer,Online
+"CCS, LLC",CCS,Other
+CDN.SAMPLES.ADAMD,Samples,Samples
+CDN.SAMPLES.DAN,Samples,Samples
+CDN.SAMPLES.FOX,Samples,Samples
+CDN.SAMPLES.GWEN,Samples,Samples
+CDN.SAMPLES.JESS,Samples,Samples
+CDN.SAMPLES.JORDAN,Samples,Samples
+CDN.SAMPLES.KENNEDY,Samples,Samples
+CDN.SAMPLES.MATT,Samples,Samples
+CDN.SAMPLES.RIONA,Samples,Samples
+CDN.SAMPLES.RON,Samples,Samples
+CDN.SAMPLES.RYAN,Samples,Samples
+CDN.SAMPLES.SARA,Samples,Samples
+Cedarville University,Direct University,Convenience
 Cedric Carluen,Consumer,Online
+CENTURY DISTRIBUTORS,Century Distributors,Convenience
+CERTCO FOODS/DANIELS,Certco,Grocery
+CERTCO FOODS/FEMRITE,Certco,Grocery
+"Certco, Inc.",Certco,Grocery
+CHAMBERS AND OWEN,Chambers & Owen,Convenience
 Chang Heng Mo,Consumer,Online
 Chantal Peng,Consumer,Online
+CHARLES C. PARKS COMPANY,Charles C Parks Co,Convenience
+Charlyne Sénéchal,Charlyne Sénéchal,Online
+Charlyne Senechal,Charlyne Senechal,Online
+Chartwells GWU,Direct University,Convenience
 Chelsea Bixler,Consumer,Online
 Chelsey Auger,Consumer,Online
 Chen,Consumer,Online
 Cheryl Fillion,Consumer,Online
+Chicago Pizza,Chicago Pizza,Other
 Chih-Hsuen Mei,Consumer,Online
 Chris Asselstine,Consumer,Online
 Chris Joshna,Consumer,Online
@@ -223,15 +229,79 @@ Chuchen Pan,Consumer,Online
 Cindy Esquiro,Consumer,Online
 Cindy Fitzpatrick,Consumer,Online
 Cindy Scott,Consumer,Online
+CJR Wholesale Grocers,CJR Wholesale,Other
+Clayton Kendrick Inc,Clayton & Kendrick,Online
 Cliff White,Consumer,Online
+Cloth & Paper,Cloth & Paper,Other
+"CLW Distributors, Inc.",CLW Distributors,Other
 Co Tang,Consumer,Online
+COAST BROTHERS,Coast Brothers,Other
 Cody Hodgson,Consumer,Online
+COFFEE & FILTERS DIRECT,Coffee & Filters,Online
+Collectibles and Edibles,Collectibles and Edibles,Other
 Colleen Santos,Consumer,Online
+Colorado State University,Direct University,Convenience
 Connor Baerg,Consumer,Online
+Coremark,Core-Mark Canada,Canada
+CORE-MARK/ALBQ WALMART,Core-Mark,Convenience
+CORE-MARK/ALBUQUERQUE,Core-Mark,Convenience
+CORE-MARK/ATLANTA/DRY,Core-Mark,Convenience
+CORE-MARK/BAKERSFIELD,Core-Mark,Convenience
+CORE-MARK/CAROLINA,Core-Mark,Convenience
+CORE-MARK/CLACKAMAS DRY,Core-Mark,Convenience
+CORE-MARK/CORONA,Core-Mark,Convenience
+CORE-MARK/CORONA WALMART,Core-Mark,Convenience
+CORE-MARK/DENVER/AURORA,Core-Mark,Convenience
+CORE-MARK/FORREST CITY,Core-Mark,Convenience
+CORE-MARK/FORT WORTH,Core-Mark,Convenience
+CORE-MARK/HAYWARD,Core-Mark,Convenience
+CORE-MARK/LAS VEGAS,Core-Mark,Convenience
+CORE-MARK/LAS VEGAS TWO,Core-Mark,Convenience
+CORE-MARK/LEITCHFIELD,Core-Mark,Convenience
+CORE-MARK/LOS ANGELES,Core-Mark,Convenience
+CORE-MARK/NEW ENGLAND,Core-Mark,Convenience
+CORE-MARK/NEW ENGLAND NOR,Core-Mark,Convenience
+CORE-MARK/OHIO,Core-Mark,Convenience
+CORE-MARK/PENNSYLVANIA,Core-Mark,Convenience
+CORE-MARK/PLYMOUTH,Core-Mark,Convenience
+CORE-MARK/SAC WALMART,Core-Mark,Convenience
+CORE-MARK/SACRAMENTO,Core-Mark,Convenience
+CORE-MARK/SALT LAKE,Core-Mark,Convenience
+CORE-MARK/SLT LKE WALMART,Core-Mark,Convenience
+CORE-MARK/SMYRNA,Core-Mark,Convenience
+CORE-MARK/SMYRNA/DRY,Core-Mark,Convenience
+CORE-MARK/SPOKANE,Core-Mark,Convenience
+CORE-MARK/TAMPA,Core-Mark,Convenience
 Cory Lebrun,Consumer,Online
+COSGROVE DISTRIBUTORSINC,Cosgrove,Broadline Distributor
+"Cost Plus Management Services, Inc.",Cost Plus Mgmt,Online
+Costco Canada,Costco Canada,Canada
+Costco Wholesale,Costco Canada,Canada
 Courtney Brown,Consumer,Online
 Courtney Dixon,Consumer,Online
+CP FOODS,CP Foods,Broadline Distributor
+Crossroads Sales,Crossroads Sales,Other
+Culinary Ventures Vending,Culinary Ventures Vending,Vending
+CVS PHARMACY/ BESSEMER,CVS,Convenience
+CVS PHARMACY/ ENNIS,CVS,Convenience
+CVS PHARMACY/ FREDERICKSB,CVS,Convenience
+CVS PHARMACY/ HOUSTON,CVS,Convenience
+CVS PHARMACY/ INDIANAPOLI,CVS,Convenience
+CVS PHARMACY/ KNOXVILLE,CVS,Convenience
+CVS PHARMACY/ LA HABRA,CVS,Convenience
+CVS PHARMACY/ LUMBERTON,CVS,Convenience
+CVS PHARMACY/ NORTH AUGUS,CVS,Convenience
+CVS PHARMACY/ NOVI,CVS,Convenience
+CVS PHARMACY/ ORLANDO,CVS,Convenience
+CVS PHARMACY/ SOMERSET,CVS,Convenience
+CVS PHARMACY/ VERO BEACH,CVS,Convenience
+CVS PHARMACY/ WOONSOCKET,CVS,Convenience
+CVS PHARMACY/KANSAS CITY,CVS,Convenience
+CVS PHARMACY/OTC CHEMUNG,CVS,Convenience
+CVS PHARMACY/PATTERSON,CVS,Convenience
+D & M DISTRIBUTING,D&M,Broadline Distributor
 D Stewart,Consumer,Online
+D&M FOOD SERVICE,D&M,Broadline Distributor
 Dan Anand,Consumer,Online
 Dana Anderson,Consumer,Online
 Dana Bell,Consumer,Online
@@ -256,8 +326,10 @@ David Welton,Consumer,Online
 David Wickers,Consumer,Online
 David Young,Consumer,Online
 Dayna Korkidakis,Consumer,Online
+DD's Discounts,DD Discounts,Other
 Declan Rowett,Consumer,Online
 Dee Gelbart,Consumer,Online
+DELPHOS RESTAURANT E&S,DELPHOS RESTAURANT E&S,Alternate Retail
 Denise Yagelnesky,Consumer,Online
 Derek Berens,Consumer,Online
 Devan Wiser,Consumer,Online
@@ -272,13 +344,32 @@ Dionne Lim,Consumer,Online
 Diyana Noory,Consumer,Online
 Dmitri Sotnikov,Consumer,Online
 Dmitrijs Bogojavlenskis,Consumer,Online
+DMS Pastoral Charge,DMS Pastoral Charge,Other
+"Dollar Tree Stores Canada, Inc.",Dollar Tree Canada,Canada
 Donna Romeyn,Consumer,Online
 Donnamarie Kissinger,Consumer,Online
 Dorothy Howard,Consumer,Online
+"DOT Foods Canada, Inc.",Dot Foods Canada,Canada
 Doug Hyland,Consumer,Online
 Doug Shi-Dong,Consumer,Online
+DOUGLAS CO./CONWAY,Douglas Co,Convenience
 Douglas Kennedy,Consumer,Online
+DOYLES WHOLESALE,Doyles,Convenience
+DP Distribution LLC,DP Distribution,Other
+DPI ROCKY MOUNTAIN,DPI,Grocery
+DPI WEST,DPI,Grocery
+DRIFTWOOD DAIRY,Driftwood,Convenience
 Duncan Alderdice,Consumer,Online
+EBY-BROWN/AURORA,Eby-Brown,Convenience
+EBY-BROWN/EAU CLAIRE,Eby-Brown,Convenience
+EBY-BROWN/GIBSONTON,Eby-Brown,Convenience
+EBY-BROWN/KNIGHTDALE,Eby-Brown,Convenience
+EBY-BROWN/MID-SOUTH,Eby-Brown,Convenience
+EBY-BROWN/PA LIBERTY,Eby-Brown,Convenience
+EBY-BROWN/PLAINFIELD,Eby-Brown,Convenience
+EBY-BROWN/ROCKMART,Eby-Brown,Convenience
+EBY-BROWN/SPRINGFIELD,Eby-Brown,Convenience
+EBY-BROWN/YPSILANTI,Eby-Brown,Convenience
 Elaine Lam,Consumer,Online
 Elena Chen,Consumer,Online
 Elizabeth Chen,Consumer,Online
@@ -295,54 +386,142 @@ Emma Brown,Consumer,Online
 Emma Dickinson,Consumer,Online
 Emma Surich,Consumer,Online
 Emma Weismann,Consumer,Online
+Entrepreneurs Unlimited,Entrepreneurs Unlimited,Other
 Ericka Cruz,Consumer,Online
 Erika Hudon-Kaide,Consumer,Online
 Erin Bell,Consumer,Online
 Erin Brown,Consumer,Online
 Erin Flynn,Consumer,Online
 Erynn Lehtonen,Consumer,Online
+E-TAILER DROP SHIP,E-Tailer,Online
+E-TAILER INC,E-Tailer,Online
+"E-TAILER, INC",E-Tailer,Online
+E-TAILER/FED EX OVERNIGHT,E-Tailer,Online
+E-TAILER/PA,E-Tailer,Online
+E-TAILER/RENO,E-Tailer,Online
+Eurocafe Imports,Eurocafe Imports,Vending
+EVCO WHOLESALE FOOD CORP.,Evco,Broadline Distributor
+F & T DISTRIBUTING,F&T Distributing,Convenience
+F. MCCONNELL & SONS INC.,F. McConnell & Sons,Convenience
+"F. MCCONNELL & SONS, INC.",F. McConnell & Sons,Convenience
+Fahad Alzuabi,Fahad Alzuabi,Other
 Faith Pinto,Consumer,Online
 Fang Xin Xu,Consumer,Online
+FARNER BOCKEN MIDCONTINEN,Farner Bocken,Convenience
 Faryl Robin,Consumer,Online
 Fawwaz Ali,Consumer,Online
 Felix Arden,Consumer,Online
+FIND IMPORTS,Find Imports,Online
+FOOD PRO (FPC),Food Pro,Broadline Distributor
+FOOD SERVICE DIRECT,Food Service Direct,Online
+Fortress Engineering Ltd.,Fortress,Other
+Frédérique Provost,Frédérique Provost,Other
 Fredrick Southern,Consumer,Online
+FRESHPOINT DALLAS,FRESHPOINT DALLAS,Broadline Distributor
+F-S-A-/FARGO-DNU,FSA,Broadline Distributor
+Fullscript Warehouse,Fullscript Warehouse,Other
+FUN CITY FOODS,Fun City,Broadline Distributor
 Gage Cooper,Consumer,Online
+GARBER BROTHERS INC.-OOB,Garber Brothers,Convenience
 Gary Alderson,Consumer,Online
 Gavin Wong,Consumer,Online
+Geneviève Lalonde,Geneviève Lalonde,Other
 Genevieve Renaud,Consumer,Online
 George Lewis,Consumer,Online
+GH WHOLESALE,GH Wholesale,Alternate Retail
+GIANT EAGLE/WASHINGTON,Giant Eagle,Grocery
+Giant Tiger Stores Ltd,Giant Tiger,Canada
+GINSBERG'S INC.,Ginsbergs,Broadline Distributor
 Giuseppe D'Onghia,Consumer,Online
 Glenda Greeson,Consumer,Online
 Glenn Baker,Consumer,Online
 Glenn Rogers,Consumer,Online
+GLIDEWELL DISTRIBUTING CO,Glidwell Distributing,Convenience
+Global Wholesale Inc.,Global Wholesale,Other
+Go Cups Inc,Go Cups,Other
+GoJava,Go Java,Other
+GOLD STAR-ONTARIO CA,Gold Star,Broadline Distributor
+GOLD STAR-THURSTON,Gold Star,Broadline Distributor
+Gordon Food Service Canada Ltd,Gordon,Canada
+GORDON FS/50TH STREET,Gordon,Broadline Distributor
+GORDON FS/EPO,Gordon,Broadline Distributor
+GORDON FS/FED EX ONLY,Gordon,Broadline Distributor
 Grace Duncan,Consumer,Online
+GRANITE CITY JOBBING,Granite City,Convenience
+GRAY'S WHOLESALE,Grays Wholesale,Convenience
+GREAT NORTH FOODS-OOB,Great North,Grocery
+GREEN RABBIT/BRAINTREE,Green Rabbit,Online
+GREEN RABBIT/BROWNSBURG,Green Rabbit,Online
+GREEN RABBIT/VISALIA,Green Rabbit,Online
 Greg Huxley,Consumer,Online
+Gregorys Coffee,Gregorys Coffee,Other
+Grocery Checkout,Grocery Checkout,Grocery
+GROCERY SUPPLY SOUTHEAST,Grocery Supply,Convenience
+GROCERY SUPPLY/SULPHUR SP,Grocery Supply,Convenience
+H.E.BUTT GROCERY,HE Butt Grocery,Grocery
+H.T. HACKNEY/CHARLESTON,HT Hackney,Convenience
+H.T. HACKNEY/GAHANNA,HT Hackney,Convenience
+H.T. HACKNEY/INDIANAPOLIS,HT Hackney,Convenience
+H.T. HACKNEY/LAKE CITY,HT Hackney,Convenience
+H.T. HACKNEY/MICHIGAN,HT Hackney,Convenience
+H.T. HACKNEY/PADUCAH,HT Hackney,Convenience
+HADCO/ONE-OCEAN CARGO,Hadco,Export
 Hailey Dukart,Consumer,Online
 Haiyan Zuo,Consumer,Online
 Halla Rafati,Consumer,Online
 Halyna Chumak,Consumer,Online
 Hamza Sami,Consumer,Online
 Hanwen Cao,Consumer,Online
+HARBOR WHOLESALE/PORTLAND,Harbor Wholesale,Convenience
+HAROLD LEVINSON & ASSOC,Harold Levinson & Assoc,Convenience
+Harold Levinson Associates,Harold Levinson & Assoc,Convenience
 Harrison Dacosta Desk Nibbles,Consumer,Online
 Harsha Somisetty,Consumer,Online
+HBC Service Company (Giant Eagle),Giant Eagle,Grocery
 He Qian Wang,Consumer,Online
 Heather Nowak,Consumer,Online
 Heather Rosing,Consumer,Online
+HEB Grocery,HEB Grocery,Grocery
 Heidi Crauder,Consumer,Online
 Heidi Schmidbauer,Consumer,Online
 Heidi Virtanen,Consumer,Online
 Henry Elliot,Consumer,Online
+HENRY'S FOODS INC.,Henrys Foods,Convenience
+HENRY'S FOODS-E&S/DOD,Henrys Foods,Convenience
+HIBBERT & MCGEE,Hibbert & McGee,Convenience
+HIGH MART INC.,High Mart,Online
+HILL & MARKES INC.,HILL & MARKES INC.,Other
+HILLCREST FOODSERVICE,Hillcrest,Broadline Distributor
+HOLIDAY WHOLESALE,Holiday Wholesale,Convenience
 Holly MacPhee,Consumer,Online
+Home Goods,Home Goods,Alternate Retail
+HomeGoods,Home Goods,Alternate Retail
+Homesense,Homesense,Canada
+HOTEL SUPPLY WAREHOUSE I,HOTEL SUPPLY WAREHOUSE I,Alternate Retail
+HQ Army&Air Force Exchange Service (DDDC AAFES),AAFES,Convenience
+HQ Army&Air Force Exchange Service (WACO AAFES),AAFES,Convenience
+HQ Army&Air Force Exchange Service (WCDC AAFES),AAFES,Convenience
 Hubert Cartier,Consumer,Online
+HUTSHOPS,Hutshops,Online
 Hyeonjae Hwang,Consumer,Online
+HY-VEE/LOMAR/SPECIALTY,Hy-Vee,Grocery
 Ian Brigham,Consumer,Online
 Ian Meir,Consumer,Online
+Imperial LLC Tulsa,Imperial,Other
+IMPERIAL TRADING,Imperial Trading,Convenience
+"Innovus Pharmaceuticals, Inc.",Innovus Pharm,Other
 Irene Pinon,Consumer,Online
 Irina Danileiko,Consumer,Online
 Isabella Jimenez,Consumer,Online
 Isabelle Vivian,Consumer,Online
+István File,István File,Other
+ISU - Rendezvous,Direct University,Other
+Itwal,Itwal,Canada
 Ivana Krunic,Consumer,Online
+J VAN HART PROVISIONS,J Van Hart,Broadline Distributor
+J. MILLS,J Mills,Convenience
+J. POLEP,J Polep,Convenience
+JAB Creations Clothing,JAB Creations,Other
 Jackie Robinson,Consumer,Online
 Jacky Zhuang,Consumer,Online
 Jaclyn Iannetta,Consumer,Online
@@ -393,6 +572,7 @@ Jerome Nantel,Consumer,Online
 Jessica Nguyen,Consumer,Online
 Jessica Sinn,Consumer,Online
 Jessie Barroway,Consumer,Online
+JET.COM/ NJ,Jet,Online
 Jeyakaushik Naicker,Consumer,Online
 Jia Shu Zhang,Consumer,Online
 Jikun Luo,Consumer,Online
@@ -408,6 +588,7 @@ Jody Core Douglas,Consumer,Online
 JOELLE FEENSTRA,Consumer,Online
 Joey Sidhu,Consumer,Online
 John Aloisio,Consumer,Online
+JOHN F. TROMPETER,John F Trompeter,Convenience
 John Kipfer,Consumer,Online
 John Parks,Consumer,Online
 Johnnies66,Consumer,Online
@@ -416,6 +597,7 @@ Jonathan Azzi,Consumer,Online
 Jonathan LEsperance,Consumer,Online
 Jordan Scott,Consumer,Online
 Jordan Snel,Consumer,Online
+JORDANO'S,Jordano's,Broadline Distributor
 Joseph TRYBALA,Consumer,Online
 Josh McIntyre,Consumer,Online
 Joshua Dimaapi,Consumer,Online
@@ -448,8 +630,12 @@ Katie Keirstead,Consumer,Online
 Katrina Birch Fikar,Consumer,Online
 Kayla Hynes,Consumer,Online
 Kaylin Terry,Consumer,Online
+KEEFE SUPPLY/BRIDGETON,Keefe,Alternate Retail
 Keenan Fawley,Consumer,Online
+KeHE Distributors,KeHe,Grocery
+KEILSON DAYTON CO.,Keilson,Convenience
 Keirsten Smith,Consumer,Online
+KELLI'S GIFT SHOP SUPPLIE,Kelli's Gift Shop Supplies,Alternate Retail
 Kelly Clark,Consumer,Online
 Kelly McClure,Consumer,Online
 Kelsey Kent,Consumer,Online
@@ -466,6 +652,7 @@ Kiet Quach,Consumer,Online
 Kim Galloway,Consumer,Online
 Kimberley Dopko,Consumer,Online
 Kimberly Sun,Consumer,Online
+KLOSTERMAN DISTRIBUTING C,Klosterman,Convenience
 Konstantinos Hnaris,Consumer,Online
 Krista Mather,Consumer,Online
 Krista Pontzer,Consumer,Online
@@ -474,11 +661,16 @@ Kristen Kelly,Consumer,Online
 Kristen Olfers,Consumer,Online
 Kristie Gibson,Consumer,Online
 Kristin Feterl,Consumer,Online
+KROGER/PEYTON/FOUNTAIN,Kroger,Grocery
+KROGER/PEYTON/PHOENIX,Kroger,Grocery
 Kurt Anderson,Consumer,Online
 Kyle Carberry,Consumer,Online
 Kyle Shoup,Consumer,Online
 Kyra Kujawa,Consumer,Online
+LABATT FOOD SERVICE/SAN A,Labbatt,Broadline Distributor
+Lamacar Inc.,Lamacar,Other
 Larissa Guelfi Soares,Consumer,Online
+LATINA BOULEVARD FOODS,Latina Blvd Foods,Broadline Distributor
 Laura Gaither,Consumer,Online
 Laura Schutten,Consumer,Online
 Laura Wyllie,Consumer,Online
@@ -487,12 +679,20 @@ Lauren Kochendorfer,Consumer,Online
 Lauren Miller,Consumer,Online
 Lawrence Bilstein,Consumer,Online
 Lawrence Deswiage,Consumer,Online
+Lecuyer,Lecuyer,Other
 Leena Muti,Consumer,Online
+LEENA MUTI,LEENA MUTI,Other
+Legacy Distributors Inc,Legacy Distributors,Canada
+LELAND PAPER,LELAND PAPER,Other
+Levzow Consulting LLC,Levzow,Other
 Lewis Co,Consumer,Online
 Lexie Moulton,Consumer,Online
 Li Yi,Consumer,Online
 Liam Callaghan,Consumer,Online
 Lian Feng,Consumer,Online
+LIBERTY DIST/CHANDLER,Liberty,Alternate Retail
+LIBERTY DIST/MECHANICSBUR,Liberty,Alternate Retail
+LIBERTY DIST/MEMPHIS-DNU,Liberty,Alternate Retail
 Lily Chu,Consumer,Online
 Lily Elliott,Consumer,Online
 Lily Markovski,Consumer,Online
@@ -510,7 +710,10 @@ Lisa Lindbloom,Consumer,Online
 Lisa Moore,Consumer,Online
 Lisa Park,Consumer,Online
 Lissa Hendrix,Consumer,Online
+Loblaws Inc,Loblaws,Online
 Lok Wong,Consumer,Online
+Lolli and Pops Inc,Lolli & Pops,Other
+LONG WHOLESALE/CORINTH,Long Wholesale,Convenience
 Lori Lisitza,Consumer,Online
 Lorna Lefler,Consumer,Online
 Louis-philippe Desrosiers,Consumer,Online
@@ -518,6 +721,7 @@ Lucille Cordick,Consumer,Online
 Lyane Giroux,Consumer,Online
 Lyle Craigie-Manson,Consumer,Online
 Lynn Wonchala,Consumer,Online
+M R WILLIAMS,MR Williams,Convenience
 M. O'Brien,Consumer,Online
 MacKenzie Gallant,Consumer,Online
 Madeleine Wootton,Consumer,Online
@@ -530,16 +734,22 @@ Maria Sakadakis,Consumer,Online
 Maria Sottile,Consumer,Online
 Marian Hartwick,Consumer,Online
 Marie Lacroix,Consumer,Online
+Marie O’Sullivan,Marie O’Sullivan,Other
 Marie-Noelle Lacroix,Consumer,Online
 Marilyn Meyer,Consumer,Online
 Marissa Michaels,Consumer,Online
 Mark Awad,Consumer,Online
 Mark Ellison,Consumer,Online
 Mark Kilam,Consumer,Online
+Mark Vend,MARK VEND COMPANY,Vending
+MARQUE'S FOOD DIST. INC.,Marques Food Dist,Broadline Distributor
 Marsha Stein,Consumer,Online
+Marshalls,Marshalls,Alternate Retail
+MARTIN BROTHERS/VIRTUAL S,Martin Brothers,Broadline Distributor
 Mary Koziol,Consumer,Online
 Mary Wojcicki,Consumer,Online
 Marzia Abdulla,Consumer,Online
+MASTER WHOLESALE/STL,Master Wholesale,Vending
 Matthew Drysdale,Consumer,Online
 Matthew Liszewski,Consumer,Online
 Matthew Orwitz,Consumer,Online
@@ -552,11 +762,36 @@ Maxim Moreau,Consumer,Online
 Mayra Ramirez,Consumer,Online
 McGee Guillaume,Consumer,Online
 McKenzie Edwards,Consumer,Online
+MCLANE/C-STR/CAROLINA,McLane,Convenience
+MCLANE/C-STR/CUMBERLAND,McLane,Convenience
+MCLANE/C-STR/DOTHAN,McLane,Convenience
+MCLANE/C-STR/HIGH PLAINS,McLane,Convenience
+MCLANE/C-STR/MID-ATLANTIC,McLane,Convenience
+MCLANE/C-STR/MIDWEST,McLane,Convenience
+MCLANE/C-STR/MINNESOTA,McLane,Convenience
+MCLANE/C-STR/N.EAST,McLane,Convenience
+MCLANE/C-STR/NE CONCORD,McLane,Convenience
+MCLANE/C-STR/NORTH TEXAS,McLane,Convenience
+MCLANE/C-STR/NORTHWST/DRY,McLane,Convenience
+MCLANE/C-STR/NORTHWST/FRZ,McLane,Convenience
+MCLANE/C-STR/OCALA,McLane,Convenience
+MCLANE/C-STR/OHIO,McLane,Convenience
+MCLANE/C-STR/OZARK,McLane,Convenience
+MCLANE/C-STR/PACIFIC,McLane,Convenience
+MCLANE/C-STR/PENNSYLVANIA,McLane,Convenience
+MCLANE/C-STR/SOUTHEAST,McLane,Convenience
+MCLANE/C-STR/SOUTHERN,McLane,Convenience
+MCLANE/C-STR/SOUTHERN CAL,McLane,Convenience
+MCLANE/C-STR/SOUTHWEST,McLane,Convenience
+MCLANE/C-STR/SUNEAST,McLane,Convenience
+MCLANE/C-STR/SUNWEST,McLane,Convenience
+MCLANE/C-STR/WESTERN,McLane,Convenience
 Meagan Fedele,Consumer,Online
 Meaghan Connors,Consumer,Online
 Megan Bryant,Consumer,Online
 Meghana Benoy,Consumer,Online
 Mehgan Brookins,Consumer,Online
+Meijer,Meijer,Grocery
 Melanie Allen,Consumer,Online
 Melanie Malkum,Consumer,Online
 Melanie Mitchell,Consumer,Online
@@ -570,6 +805,10 @@ Melissa Smith,Consumer,Online
 Melissa Whitney,Consumer,Online
 Melody Biette,Consumer,Online
 Mengfei Liu,Consumer,Online
+MERCHANTS FOODSERVICE MS,Merchants Foodservice,Broadline Distributor
+MERCHANTS GROCERY,Merchants Grocery,Convenience
+MERRILL DISTRIBUTING,Merrill Distributing,Convenience
+Metro 360,Metro 360,Vending
 Michael Drehs,Consumer,Online
 Michael Johnston,Consumer,Online
 MIchael Ondercin,Consumer,Online
@@ -578,31 +817,54 @@ Michael Thomson,Consumer,Online
 Michele Schoen,Consumer,Online
 Michelle Furtado,Consumer,Online
 Michelle Truman,Consumer,Online
+Micro Center,Micro Center,Other
+MID AMERICA FOOD COMPANY,Mid America,Broadline Distributor
+MIDWEST FOOD AND TOBACCO,Midwest Foods,Convenience
 Mike Danner,Consumer,Online
 Mike Law,Consumer,Online
 Mike Paulsen,Consumer,Online
+MILLER DISTRIBUTING,Miller Distributing,Convenience
+Minakho-Renée Morissette,Minakho-Renée Morissette,Other
+Mindful Snacks,Mindful Snacks,Canada
 Miriam Gauthier,Consumer,Online
 Miriam Van Hoeve,Consumer,Online
+MODERN DISTRIBUTORS INC.,Modern Disrtributors,Convenience
 Mohammad Sarraf,Consumer,Online
 Moneer Maarouf,Consumer,Online
 Monique Cheng,Consumer,Online
+Mood & Mind LLC,Mood & Mind,Other
 MORGAN HRYNYK,Consumer,Online
+Morphe Jewelry Inc.,Morphe,Other
 Morsel,Consumer,Online
 Mr.,Consumer,Online
 Mrs.,Consumer,Online
 Ms.,Consumer,Online
+MTC DISTRIBUTING,MTC Distributing,Convenience
+MTC Distributing,MTC Distributing,Other
 Muhammad Jivani,Consumer,Online
+MUNCHPAK,MunchPak,Online
+MunchPak LLC,MunchPak,Other
+MunchPak LLC (US),MunchPak,Other
+MYERS-COX CO.,Myers Cox,Convenience
+MYRTLE & BEAR,Myrtle,Online
+MYRTLE & BEAR/TX,Myrtel & Bear,Online
+N.A. BUFFEN CO INC,NA Buffen,Other
 na,Consumer,Online
 Nancy D'anjou,Consumer,Online
 Nancy Paiva,Consumer,Online
 Nancy Seely,Consumer,Online
 Nancy Wu,Consumer,Online
+Nassau Candy Distributors Inc,Nassau,Convenience
 Nathan Douglas,Consumer,Online
 Nathaniel Reid-Smith,Consumer,Online
 Natia DeMings,Consumer,Online
+Nature's Choice,Natures Choice,Other
 Neil Christopher,Consumer,Online
 Neil Pothier,Consumer,Online
+Nephron Pharmacy,Nephron Pharmacy,Other
+NETRITION,Netrition,Online
 Nic Savatteri,Consumer,Online
+NICHOLAS & COMPANY INC.,Nicholas,Broadline Distributor
 Nicholas Alexander,Consumer,Online
 Nick Hoffman,Consumer,Online
 Nick Maude,Consumer,Online
@@ -612,18 +874,31 @@ Nicole Leach,Consumer,Online
 Nicole Turpin,Consumer,Online
 Nicole Yeatman,Consumer,Online
 Nikhil Shah,Consumer,Online
+NY Company Food Natural Inc.,NY Food Natural,Other
 Oana Binder,Consumer,Online
 Odette Hawkes,Consumer,Online
+Office Grocery,Office Grocery,Other
+Office On Call,Office On Call,Other
 Oguz Bilgener,Consumer,Online
 Olivia Amatuzio,Consumer,Online
 Olivia Facchin,Consumer,Online
 Olivia Funderburk,Consumer,Online
 Olivier Martin,Consumer,Online
 Olufunmilayo Akande,Consumer,Online
+online seller,online seller,Other
+Open Market Place,Open Marketplace,Other
+Open Marketplace,Open Marketplace,Other
 Ornela Sproul,Consumer,Online
 Osman Ansari,Consumer,Online
+Overwaitea Food Group,Overwaitea Food Group,Other
 Paddy Granleese,Consumer,Online
 Paige Hlutke,Consumer,Online
+PALATIZE,Palatize,Online
+PALMER FOODSERVICE,Palmer Foodservice,Broadline Distributor
+PALO ALTO EGG,Palo Alto Foods,Broadline Distributor
+PAPER HOUSE CPU,Paper House,Online
+PAPER HOUSE-EXPEDITED ONL,Paper House,Online
+PAPER HOUSE-SHIPMENT ONLY,Paper House,Online
 Pasquale Di Salvo,Consumer,Online
 Pat Wolfe,Consumer,Online
 Patricia Kambic,Consumer,Online
@@ -633,15 +908,32 @@ Paul Somers,Consumer,Online
 Pauline VanDeWalle,Consumer,Online
 Pedro Medeiros,Consumer,Online
 Peggy Shaw,Consumer,Online
+PENN STATE UNIVERSITY,Direct University,Broadline Distributor
+Pennsylvania State University,Direct University,Convenience
+Pepsi Cola of Lincoln,Pepsi,Other
+PERRONE AND SONS INC,Perrone and Sons,Broadline Distributor
 Peter Ashley,Consumer,Online
 Peter Coxford,Consumer,Online
 Peter Schreier,Consumer,Online
 Peter Wen,Consumer,Online
+PFS/BATESVILLE,Performace Food Group,Broadline Distributor
+PFS/HALE,Performace Food Group,Broadline Distributor
+PFS/MISSOURI,Performace Food Group,Broadline Distributor
+PFS/NORTHCENTER,Performace Food Group,Broadline Distributor
+PFS/TPC,Performace Food Group,Broadline Distributor
 Phat Le,Consumer,Online
 Phil Barbosa,Consumer,Online
 Philippe Desmarais,Consumer,Online
+Picard,Picard,Other
+PROFORMANCE VEND USA,Proformance Vend,Vending
+PURE FUN,Pure Fun,Online
+Purity Life Health Products,Purity Life,Canada
+Quality Vending & Coffee Services,Quality Vending,Vending
 Quentin Cheung,Consumer,Online
+R.C. TAYLOR,RC Taylor,Convenience
+R.D.J. Distribution,RDJ Distribution,Other
 Rachel Marin,Consumer,Online
+RAM DBA M&M CASH & CARRY,M&M Cash & Carry,Convenience
 Ravi Tolani,Consumer,Online
 Raylene Browne,Consumer,Online
 Rayna Veleva,Consumer,Online
@@ -650,12 +942,20 @@ Rebecca Cope,Consumer,Online
 Rebecca Douglas,Consumer,Online
 Rebecca E MacKay,Consumer,Online
 Rebecca Shelton,Consumer,Online
+REBEL SMUGGLING FED EX,Rebel Smuggling,Online
+REDSTONE FOODS INC,Redstone Foods,Convenience
+"Redstone Foods, Inc.",Redstone Foods,Other
 Reece Young,Consumer,Online
 Remi Soare,Consumer,Online
 Renee Pindus,Consumer,Online
+RENEX NY CORP,Renex,Grocery
+RENZI BROTHERS,Renzi Brothers,Broadline Distributor
+RESNICK DISTRIBUTORS,Resnick,Convenience
+Revenue Generating Solutions LLC,Revenue Gen Solns,Other
 Reza Meymeh,Consumer,Online
 Richard Ayoub,Consumer,Online
 Rick Davies,Consumer,Online
+RIGHTSLEEVE,RightSleeve,Other
 Riley Adair,Consumer,Online
 Rob Duder,Consumer,Online
 Robert Fantasia,Consumer,Online
@@ -666,15 +966,23 @@ Roberta Evans,Consumer,Online
 Robie Oberoi,Consumer,Online
 Robyn Dobis,Consumer,Online
 Rodney Wilder,Consumer,Online
+"Ross Stores, Inc.",Ross Stores,Other
 Roy Chet,Consumer,Online
 Roy Martin,Consumer,Online
 Roze Campbell,Consumer,Online
 Ruth Elnekave,Consumer,Online
 Ryan Adams,Consumer,Online
 Ryan Bauman,Consumer,Online
+S Abraham & Sons Inc.,S Abraham & Son,Convenience
+S&O WHOLESALE CO,S&O Wholesale,Convenience
+S. ABRAHAMS & SONS,S Abraham & Son,Convenience
+"Sabbers & Associates, Inc.",Sabbers & Associates,Other
 Sabrina Conte,Consumer,Online
 Sabrina Faleschini,Consumer,Online
+SAGE Analytics Inc. SAGE,SAGE Analytics,Other
+SAGE REPUBLIC,Sage Republic,Alternate Retail
 Sai Vinay Varikooty,Consumer,Online
+SAINT JOE DISTRIBUTING,St Joe Distributing,Convenience
 Saleh Bakhit,Consumer,Online
 Salehuddin Shahriar,Consumer,Online
 Salima Punjani,Consumer,Online
@@ -685,6 +993,7 @@ Samantha Nazar,Consumer,Online
 Samples Room,Consumer,Online
 Samuel Fung,Consumer,Online
 Samuel Wornall,Consumer,Online
+SANDSTROMS,Sandstroms,Convenience
 Sangjin Kim,Consumer,Online
 Sanjot Boyal,Consumer,Online
 Sara Jackson,Consumer,Online
@@ -694,10 +1003,17 @@ Sarah Elias,Consumer,Online
 Sarah Lacasse,Consumer,Online
 Sarah Nicol,Consumer,Online
 Sarah Yusufyan,Consumer,Online
+SARNOW FOOD GROUP INC.,Sarnow,Vending
+"SARNOW FOOD GROUP, INC.",Sarnow,Vending
+SAUCIER ENT/ DBA BOSTON T,Saucier,Online
+SAVAL FOODS,Saval Foods,Broadline Distributor
 Savanagh Kobylak,Consumer,Online
+SCAVUZZO'S INC,SCAVUZZO'S INC,Broadline Distributor
+SCHIFFS FOOD SERVICE,Schiffs,Broadline Distributor
 Scott Vaughn,Consumer,Online
 Sean Leyland,Consumer,Online
 Sean Mckay,Consumer,Online
+Senneth Distribution,Senneth Distribution,Other
 Shangbing Jiang,Consumer,Online
 Shanil Shah,Consumer,Online
 Shannon C Snyder,Consumer,Online
@@ -706,24 +1022,51 @@ Sharon Jin,Consumer,Online
 Shawn Leon,Consumer,Online
 Shawn Magnus,Consumer,Online
 Shawna Henderson,Consumer,Online
+SHEEHAN MAJESTIC,Sheehan,Convenience
 Sheldon Morgan,Consumer,Online
 Shelley Banman,Consumer,Online
 Sherri Richardson,Consumer,Online
 Sheyanne Nicolai,Consumer,Online
 Shirley Arrotti,Consumer,Online
 Shiyu Cui,Consumer,Online
+Shopify - AWAKE Energy Canada,Shopify,Online
+Shopify AWAKE Energy Canada,Shopify,Online
+Shopify awake wholesalecda,Shopify,Online
+Shopify Customer - AWAKE Energy Canada,Shopify,Online
+Shopify Customer - AWAKE Energy USA,Shopify,Online
+Shopify Customer - AWAKE Wholesale,Shopify,Online
+Shopify Customer - awake-wholesalecda,Shopify,Online
+Shopify Customer - mello USA,Shopify,Online
+Shopify-USD AWAKE Energy USA,Shopify,Online
+SHOPKO/SPECTRUM OMAHA,Shopko,Grocery
+SHOPHERO,Shop Hero,Online
+Shoppers Drug Mart,Shoppers Drug Mart,Canada
 Shrikant Sridhar,Consumer,Online
+SIDARI'S ITALIAN FOODS,SIDARI'S ITALIAN FOODS,Broadline Distributor
+SIMPLY DELIVERED,Simply Delivered,Convenience
+SJSU - San Jose State University,Direct University,Convenience
 Skyler McMinn,Consumer,Online
+Snack Nation,Snack Nation,Online
+SNACK-BOX,Snack Box,Other
+SnackMagic,SnackMagic,Other
+SnackSack,Snack Sack,Other
+Sobeys Administration,Sobeys,Other
 Sonia Dosanjh,Consumer,Online
 Sonya Touesnard,Consumer,Online
 Soohyun Cho,Consumer,Online
 Sophia Capo,Consumer,Online
 Sophia Eristoff,Consumer,Online
 Soraya Boyce,Consumer,Online
+SOUTH SHORE DISTRIBUTION,South Shore Distribution,Convenience
 Spencer Bradley,Consumer,Online
 Spencer Hummell,Consumer,Online
+SPICY PRODUCTS LLC,Spicy Products,Online
+Splendid Holdings Group Americas Ltd,Splendid,Canada
 Sravya Seemakurti,Consumer,Online
 Srishti Mathur,Consumer,Online
+Stéphanie Aubin,Stéphanie Aubin,Other
+STANDARD DISTRIBUTING,Standard Distributing,Convenience
+STANLEY MARVEL CO.,Stanley Marvel,Broadline Distributor
 Stella Li,Consumer,Online
 Steph Blair,Consumer,Online
 Stephanie Ade,Consumer,Online
@@ -735,10 +1078,13 @@ Stephanie Nagl,Consumer,Online
 STEPHANIE PEREIRA,Consumer,Online
 Stephanie Strickland,Consumer,Online
 Stephen Shew,Consumer,Online
+STEPHENSON WHSLE CO. INC,Stephenson Wholesale,Convenience
+STOCK CLOSET,Stock Closet,Online
 Sue Lucas,Consumer,Online
 Sue Mann,Consumer,Online
 Sumer Brar,Consumer,Online
 Sunny Marling,Consumer,Online
+SUPERVALU/ST.LOUIS 01,SuperValu,Grocery
 Susan Albert,Consumer,Online
 Susan Bishop,Consumer,Online
 Susan Druck,Consumer,Online
@@ -747,458 +1093,9 @@ Susan McMichael,Consumer,Online
 Suvin Kanchi,Consumer,Online
 Suzanne Offner,Consumer,Online
 Svetlana Aleksic,Consumer,Online
-Tabitha Young,Consumer,Online
-Tammy Kluchka,Consumer,Online
-Tara Klingenbeck,Consumer,Online
-Tara Russell,Consumer,Online
-Taylor Bird,Consumer,Online
-Ted W Brown,Consumer,Online
-Teri Campbell,Consumer,Online
-Teri Leong,Consumer,Online
-Terri Pierce,Consumer,Online
-Terry Rohde,Consumer,Online
-Tessa Wells,Consumer,Online
-Thach Lam,Consumer,Online
-Theresa Murphy,Consumer,Online
-Thomas Belcher,Consumer,Online
-Thomas Kurland,Consumer,Online
-Thomas Siuda,Consumer,Online
-Thomas Zuiderveen,Consumer,Online
-Tiana Wilson,Consumer,Online
-Tiffany Wyville,Consumer,Online
-Tim Haynes,Consumer,Online
-Tim Jokela,Consumer,Online
-Tina Lam,Consumer,Online
-Tina M Williams,Consumer,Online
-Trent McPheron,Consumer,Online
-Tricia Power,Consumer,Online
-Tricia Power-Fardy,Consumer,Online
-Tyler Fernandes,Consumer,Online
-Tyler Tilson,Consumer,Online
-Ussama Ali,Consumer,Online
-Valerie Hernandez,Consumer,Online
-Valerie Malkum,Consumer,Online
-Vanessa Brown,Consumer,Online
-Vanessa Joie Rapanut,Consumer,Online
-Vanessa Le Bolloch,Consumer,Online
-Vanessa Mendoza,Consumer,Online
-VANESSA PRATT,Consumer,Online
-Vasilios Mardas,Consumer,Online
-Veronica Enair,Consumer,Online
-Veronica Opreff,Consumer,Online
-Victoria Frank,Consumer,Online
-Victoria Ouellette,Consumer,Online
-Victoria Thibert,Consumer,Online
-Vinashan Nallaratnam,Consumer,Online
-Vincent Gesuelli,Consumer,Online
-Vincent Seim,Consumer,Online
-Vinson Lee,Consumer,Online
-Vy Nguyen,Consumer,Online
-Wade Welygan,Consumer,Online
-Wendy James,Consumer,Online
-Will Cascone,Consumer,Online
-william apruzzese,Consumer,Online
-William Mak,Consumer,Online
-William Phillips,Consumer,Online
-Wong,Consumer,Online
-Wudi Fan,Consumer,Online
-Yassen B.,Consumer,Online
-Yazan Medanat,Consumer,Online
-Ying Yang,Consumer,Online
-Ying Ying Rong,Consumer,Online
-Young Shin,Consumer,Online
-Yuan Gao,Consumer,Online
-Yue Niu,Consumer,Online
-Yuxuan Wang,Consumer,Online
-Yuzhou Yao,Consumer,Online
-Zac Buwalda,Consumer,Online
-Zachariah Sereda,Consumer,Online
-Zahid Dawod,Consumer,Online
-Zahra Merali,Consumer,Online
-Zinaida Levichek,Consumer,Online
-CORE-MARK/ALBUQUERQUE,Core-Mark,Convenience
-CORE-MARK/BAKERSFIELD,Core-Mark,Convenience
-CORE-MARK/CAROLINA,Core-Mark,Convenience
-CORE-MARK/CLACKAMAS DRY,Core-Mark,Convenience
-CORE-MARK/CORONA,Core-Mark,Convenience
-CORE-MARK/DENVER/AURORA,Core-Mark,Convenience
-CORE-MARK/FORREST CITY,Core-Mark,Convenience
-CORE-MARK/FORT WORTH,Core-Mark,Convenience
-CORE-MARK/HAYWARD,Core-Mark,Convenience
-CORE-MARK/LAS VEGAS,Core-Mark,Convenience
-CORE-MARK/LAS VEGAS TWO,Core-Mark,Convenience
-CORE-MARK/LEITCHFIELD,Core-Mark,Convenience
-CORE-MARK/LOS ANGELES,Core-Mark,Convenience
-CORE-MARK/NEW ENGLAND,Core-Mark,Convenience
-CORE-MARK/NEW ENGLAND NOR,Core-Mark,Convenience
-CORE-MARK/OHIO,Core-Mark,Convenience
-CORE-MARK/PENNSYLVANIA,Core-Mark,Convenience
-CORE-MARK/PLYMOUTH,Core-Mark,Convenience
-CORE-MARK/SACRAMENTO,Core-Mark,Convenience
-CORE-MARK/SALT LAKE,Core-Mark,Convenience
-CORE-MARK/SMYRNA,Core-Mark,Convenience
-CORE-MARK/SPOKANE,Core-Mark,Convenience
-CORE-MARK/TAMPA,Core-Mark,Convenience
-CORE-MARK/ALBQ WALMART,Core-Mark,Convenience
-CORE-MARK/CORONA WALMART,Core-Mark,Convenience
-CORE-MARK/SAC WALMART,Core-Mark,Convenience
-CORE-MARK/SLT LKE WALMART,Core-Mark,Convenience
-CORE-MARK/SMYRNA/DRY,Core-Mark,Convenience
-Coremark,Core-Mark Canada,Canada
-COSGROVE DISTRIBUTORSINC,Cosgrove,Broadline Distributor
-"Cost Plus Management Services, Inc.",Cost Plus Mgmt,Online
-Costco Canada,Costco Canada,Canada
-Costco Wholesale,Costco Canada,Canada
-CP FOODS,CP Foods,Broadline Distributor
-Crossroads Sales,Crossroads Sales,Other
-Culinary Ventures Vending,Culinary Ventures Vending,Vending
-CVS PHARMACY/ BESSEMER,CVS,Convenience
-CVS PHARMACY/ ENNIS,CVS,Convenience
-CVS PHARMACY/ FREDERICKSB,CVS,Convenience
-CVS PHARMACY/ HOUSTON,CVS,Convenience
-CVS PHARMACY/ INDIANAPOLI,CVS,Convenience
-CVS PHARMACY/ KNOXVILLE,CVS,Convenience
-CVS PHARMACY/ LA HABRA,CVS,Convenience
-CVS PHARMACY/ LUMBERTON,CVS,Convenience
-CVS PHARMACY/ NORTH AUGUS,CVS,Convenience
-CVS PHARMACY/ NOVI,CVS,Convenience
-CVS PHARMACY/ ORLANDO,CVS,Convenience
-CVS PHARMACY/ SOMERSET,CVS,Convenience
-CVS PHARMACY/ VERO BEACH,CVS,Convenience
-CVS PHARMACY/ WOONSOCKET,CVS,Convenience
-CVS PHARMACY/KANSAS CITY,CVS,Convenience
-CVS PHARMACY/OTC CHEMUNG,CVS,Convenience
-CVS PHARMACY/PATTERSON,CVS,Convenience
-D & M DISTRIBUTING,D&M,Broadline Distributor
-D&M FOOD SERVICE,D&M,Broadline Distributor
-DD's Discounts,DD Discounts,Other
-DELPHOS RESTAURANT E&S,DELPHOS RESTAURANT E&S,Alternate Retail
-Aramark - Wilfred Laurier University,Direct University,Convenience
-Cedarville University,Direct University,Convenience
-Chartwells GWU,Direct University,Convenience
-Colorado State University,Direct University,Convenience
-ISU - Rendezvous,Direct University,Other
-PENN STATE UNIVERSITY,Direct University,Broadline Distributor
-Pennsylvania State University,Direct University,Convenience
-SJSU - San Jose State University,Direct University,Convenience
-UC Santa Cruz,Direct University,Convenience
-UCSC - Banana Joe's,Direct University,Convenience
-UCSC - College 8 Cafe,Direct University,Convenience
-UCSC - Cowell Coffee Shop,Direct University,Convenience
-UCSC - Oakes Cafe,Direct University,Convenience
-UCSC - Owl's Nest Cafe,Direct University,Convenience
-UCSC - Perk Coffee Carts,Direct University,Convenience
-UCSC - Stevenson Coffee House,Direct University,Convenience
-UCSC - Terra Fresca Coffee Shop,Direct University,Convenience
-University Co-Op - Main,Direct University,Convenience
-University of Mary - Bookstore,Direct University,Convenience
-University of Victoria Faculty Association,Direct University,Convenience
-DMS Pastoral Charge,DMS Pastoral Charge,Other
-"Dollar Tree Stores Canada, Inc.",Dollar Tree Canada,Canada
-"DOT Foods Canada, Inc.",Dot Foods Canada,Canada
-DOUGLAS CO./CONWAY,Douglas Co,Convenience
-DOYLES WHOLESALE,Doyles,Convenience
-DP Distribution LLC,DP Distribution,Other
-DPI ROCKY MOUNTAIN,DPI,Grocery
-DPI WEST,DPI,Grocery
-DRIFTWOOD DAIRY,Driftwood,Convenience
-EBY-BROWN/AURORA,Eby-Brown,Convenience
-EBY-BROWN/ROCKMART,Eby-Brown,Convenience
-EBY-BROWN/YPSILANTI,Eby-Brown,Convenience
-EBY-BROWN/EAU CLAIRE,Eby-Brown,Convenience
-EBY-BROWN/GIBSONTON,Eby-Brown,Convenience
-EBY-BROWN/KNIGHTDALE,Eby-Brown,Convenience
-EBY-BROWN/MID-SOUTH,Eby-Brown,Convenience
-EBY-BROWN/PA LIBERTY,Eby-Brown,Convenience
-EBY-BROWN/PLAINFIELD,Eby-Brown,Convenience
-EBY-BROWN/SPRINGFIELD,Eby-Brown,Convenience
-Entrepreneurs Unlimited,Entrepreneurs Unlimited,Other
-E-TAILER DROP SHIP,E-Tailer,Online
-E-TAILER INC,E-Tailer,Online
-"E-TAILER, INC",E-Tailer,Online
-E-TAILER/FED EX OVERNIGHT,E-Tailer,Online
-E-TAILER/PA,E-Tailer,Online
-E-TAILER/RENO,E-Tailer,Online
-Eurocafe Imports,Eurocafe Imports,Vending
-EVCO WHOLESALE FOOD CORP.,Evco,Broadline Distributor
-F & T DISTRIBUTING,F&T Distributing,Convenience
-F. MCCONNELL & SONS INC.,F. McConnell & Sons,Convenience
-"F. MCCONNELL & SONS, INC.",F. McConnell & Sons,Convenience
-Fahad Alzuabi,Fahad Alzuabi,Other
-FARNER BOCKEN MIDCONTINEN,Farner Bocken,Convenience
-FIND IMPORTS,Find Imports,Online
-FOOD PRO (FPC),Food Pro,Broadline Distributor
-FOOD SERVICE DIRECT,Food Service Direct,Online
-Fortress Engineering Ltd.,Fortress,Other
-Frédérique Provost,Frédérique Provost,Other
-FRESHPOINT DALLAS,FRESHPOINT DALLAS,Broadline Distributor
-F-S-A-/FARGO-DNU,FSA,Broadline Distributor
-Fullscript Warehouse,Fullscript Warehouse,Other
-FUN CITY FOODS,Fun City,Broadline Distributor
-GARBER BROTHERS INC.-OOB,Garber Brothers,Convenience
-Geneviève Lalonde,Geneviève Lalonde,Other
-GH WHOLESALE,GH Wholesale,Alternate Retail
-HBC Service Company (Giant Eagle),Giant Eagle,Grocery
-GIANT EAGLE/WASHINGTON,Giant Eagle,Grocery
-Giant Tiger Stores Ltd,Giant Tiger,Canada
-GINSBERG'S INC.,Ginsbergs,Broadline Distributor
-GLIDEWELL DISTRIBUTING CO,Glidwell Distributing,Convenience
-Global Wholesale Inc.,Global Wholesale,Other
-Go Cups Inc,Go Cups,Other
-GoJava,Go Java,Other
-GOLD STAR-ONTARIO CA,Gold Star,Broadline Distributor
-GOLD STAR-THURSTON,Gold Star,Broadline Distributor
-Gordon Food Service Canada Ltd,Gordon,Canada
-GORDON FS/50TH STREET,Gordon,Broadline Distributor
-GORDON FS/EPO,Gordon,Broadline Distributor
-GORDON FS/FED EX ONLY,Gordon,Broadline Distributor
-GRANITE CITY JOBBING,Granite City,Convenience
-GRAY'S WHOLESALE,Grays Wholesale,Convenience
-GREAT NORTH FOODS-OOB,Great North,Grocery
-GREEN RABBIT/BRAINTREE,Green Rabbit,Online
-GREEN RABBIT/BROWNSBURG,Green Rabbit,Online
-GREEN RABBIT/VISALIA,Green Rabbit,Online
-Gregorys Coffee,Gregorys Coffee,Other
-Grocery Checkout,Grocery Checkout,Grocery
-GROCERY SUPPLY/SULPHUR SP,Grocery Supply,Convenience
-GROCERY SUPPLY SOUTHEAST,Grocery Supply,Convenience
-HADCO/ONE-OCEAN CARGO,Hadco,Export
-HARBOR WHOLESALE/PORTLAND,Harbor Wholesale,Convenience
-HAROLD LEVINSON & ASSOC,Harold Levinson & Assoc,Convenience
-Harold Levinson Associates,Harold Levinson & Assoc,Convenience
-H.E.BUTT GROCERY,HE Butt Grocery,Grocery
-HEB Grocery,HEB Grocery,Grocery
-HENRY'S FOODS INC.,Henrys Foods,Convenience
-HENRY'S FOODS-E&S/DOD,Henrys Foods,Convenience
-HIBBERT & MCGEE,Hibbert & McGee,Convenience
-HIGH MART INC.,High Mart,Online
-HILL & MARKES INC.,HILL & MARKES INC.,Other
-HILLCREST FOODSERVICE,Hillcrest,Broadline Distributor
-HOLIDAY WHOLESALE,Holiday Wholesale,Convenience
-Home Goods,Home Goods,Alternate Retail
-HomeGoods,Home Goods,Alternate Retail
-Homesense,Homesense,Canada
-HOTEL SUPPLY WAREHOUSE I,HOTEL SUPPLY WAREHOUSE I,Alternate Retail
-H.T. HACKNEY/CHARLESTON,HT Hackney,Convenience
-H.T. HACKNEY/GAHANNA,HT Hackney,Convenience
-H.T. HACKNEY/INDIANAPOLIS,HT Hackney,Convenience
-H.T. HACKNEY/LAKE CITY,HT Hackney,Convenience
-H.T. HACKNEY/MICHIGAN,HT Hackney,Convenience
-H.T. HACKNEY/PADUCAH,HT Hackney,Convenience
-The H.T. Hackney Co.,HT Hackney,Other
-HUTSHOPS,Hutshops,Online
-HY-VEE/LOMAR/SPECIALTY,Hy-Vee,Grocery
-Imperial LLC Tulsa,Imperial,Other
-IMPERIAL TRADING,Imperial Trading,Convenience
-"Innovus Pharmaceuticals, Inc.",Innovus Pharm,Other
-István File,István File,Other
-Itwal,Itwal,Canada
-J. MILLS,J Mills,Convenience
-J. POLEP,J Polep,Convenience
-J VAN HART PROVISIONS,J Van Hart,Broadline Distributor
-JAB Creations Clothing,JAB Creations,Other
-JET.COM/ NJ,Jet,Online
-JOHN F. TROMPETER,John F Trompeter,Convenience
-JORDANO'S,Jordano's,Broadline Distributor
-KEEFE SUPPLY/BRIDGETON,Keefe,Alternate Retail
-KeHE Distributors,KeHe,Grocery
-KEILSON DAYTON CO.,Keilson,Convenience
-KELLI'S GIFT SHOP SUPPLIE,Kelli's Gift Shop Supplies,Alternate Retail
-KLOSTERMAN DISTRIBUTING C,Klosterman,Convenience
-KROGER/PEYTON/FOUNTAIN,Kroger,Grocery
-KROGER/PEYTON/PHOENIX,Kroger,Grocery
-LABATT FOOD SERVICE/SAN A,Labbatt,Broadline Distributor
-Lamacar Inc.,Lamacar,Other
-LATINA BOULEVARD FOODS,Latina Blvd Foods,Broadline Distributor
-Lecuyer,Lecuyer,Other
-LEENA MUTI,LEENA MUTI,Other
-Legacy Distributors Inc,Legacy Distributors,Canada
-LELAND PAPER,LELAND PAPER,Other
-Levzow Consulting LLC,Levzow,Other
-LIBERTY DIST/CHANDLER,Liberty,Alternate Retail
-LIBERTY DIST/MECHANICSBUR,Liberty,Alternate Retail
-LIBERTY DIST/MEMPHIS-DNU,Liberty,Alternate Retail
-Loblaws Inc,Loblaws,Online
-Lolli and Pops Inc,Lolli & Pops,Other
-LONG WHOLESALE/CORINTH,Long Wholesale,Convenience
-RAM DBA M&M CASH & CARRY,M&M Cash & Carry,Convenience
-Marie O’Sullivan,Marie O’Sullivan,Other
-Mark Vend,MARK VEND COMPANY,Vending
-MARQUE'S FOOD DIST. INC.,Marques Food Dist,Broadline Distributor
-Marshalls,Marshalls,Alternate Retail
-MARTIN BROTHERS/VIRTUAL S,Martin Brothers,Broadline Distributor
-MASTER WHOLESALE/STL,Master Wholesale,Vending
-MCLANE/C-STR/CAROLINA,McLane,Convenience
-MCLANE/C-STR/CUMBERLAND,McLane,Convenience
-MCLANE/C-STR/DOTHAN,McLane,Convenience
-MCLANE/C-STR/HIGH PLAINS,McLane,Convenience
-MCLANE/C-STR/MID-ATLANTIC,McLane,Convenience
-MCLANE/C-STR/MIDWEST,McLane,Convenience
-MCLANE/C-STR/MINNESOTA,McLane,Convenience
-MCLANE/C-STR/N.EAST,McLane,Convenience
-MCLANE/C-STR/NE CONCORD,McLane,Convenience
-MCLANE/C-STR/NORTHWST/DRY,McLane,Convenience
-MCLANE/C-STR/NORTHWST/FRZ,McLane,Convenience
-MCLANE/C-STR/OHIO,McLane,Convenience
-MCLANE/C-STR/OZARK,McLane,Convenience
-MCLANE/C-STR/PACIFIC,McLane,Convenience
-MCLANE/C-STR/PENNSYLVANIA,McLane,Convenience
-MCLANE/C-STR/SOUTHEAST,McLane,Convenience
-MCLANE/C-STR/SOUTHERN,McLane,Convenience
-MCLANE/C-STR/SOUTHERN CAL,McLane,Convenience
-MCLANE/C-STR/SOUTHWEST,McLane,Convenience
-MCLANE/C-STR/SUNEAST,McLane,Convenience
-MCLANE/C-STR/SUNWEST,McLane,Convenience
-MCLANE/C-STR/WESTERN,McLane,Convenience
-MCLANE/C-STR/NORTH TEXAS,McLane,Convenience
-MCLANE/C-STR/OCALA,McLane,Convenience
-Meijer,Meijer,Grocery
-MERCHANTS FOODSERVICE MS,Merchants Foodservice,Broadline Distributor
-MERCHANTS GROCERY,Merchants Grocery,Convenience
-MERRILL DISTRIBUTING,Merrill Distributing,Convenience
-Metro 360,Metro 360,Vending
-Micro Center,Micro Center,Other
-MID AMERICA FOOD COMPANY,Mid America,Broadline Distributor
-MIDWEST FOOD AND TOBACCO,Midwest Foods,Convenience
-MILLER DISTRIBUTING,Miller Distributing,Convenience
-Minakho-Renée Morissette,Minakho-Renée Morissette,Other
-Mindful Snacks,Mindful Snacks,Canada
-MODERN DISTRIBUTORS INC.,Modern Disrtributors,Convenience
-Mood & Mind LLC,Mood & Mind,Other
-Morphe Jewelry Inc.,Morphe,Other
-M R WILLIAMS,MR Williams,Convenience
-MTC DISTRIBUTING,MTC Distributing,Convenience
-MTC Distributing,MTC Distributing,Other
-MUNCHPAK,MunchPak,Online
-MunchPak LLC,MunchPak,Other
-MunchPak LLC (US),MunchPak,Other
-MYERS-COX CO.,Myers Cox,Convenience
-MYRTLE & BEAR/TX,Myrtel & Bear,Online
-MYRTLE & BEAR,Myrtle,Online
-N.A. BUFFEN CO INC,NA Buffen,Other
-Nassau Candy Distributors Inc,Nassau,Convenience
-Nature's Choice,Natures Choice,Other
-Nephron Pharmacy,Nephron Pharmacy,Other
-NETRITION,Netrition,Online
-NICHOLAS & COMPANY INC.,Nicholas,Broadline Distributor
-NY Company Food Natural Inc.,NY Food Natural,Other
-Office Grocery,Office Grocery,Other
-Office On Call,Office On Call,Other
-online seller,online seller,Other
-Open Market Place,Open Marketplace,Other
-Open Marketplace,Open Marketplace,Other
-Overwaitea Food Group,Overwaitea Food Group,Other
-PALATIZE,Palatize,Online
-PALMER FOODSERVICE,Palmer Foodservice,Broadline Distributor
-PALO ALTO EGG,Palo Alto Foods,Broadline Distributor
-PAPER HOUSE CPU,Paper House,Online
-PAPER HOUSE-EXPEDITED ONL,Paper House,Online
-PAPER HOUSE-SHIPMENT ONLY,Paper House,Online
-Pepsi Cola of Lincoln,Pepsi,Other
-PFS/MISSOURI,Performace Food Group,Broadline Distributor
-PFS/NORTHCENTER,Performace Food Group,Broadline Distributor
-PFS/TPC,Performace Food Group,Broadline Distributor
-PFS/BATESVILLE,Performace Food Group,Broadline Distributor
-PFS/HALE,Performace Food Group,Broadline Distributor
-PERRONE AND SONS INC,Perrone and Sons,Broadline Distributor
-Picard,Picard,Other
-PROFORMANCE VEND USA,Proformance Vend,Vending
-PURE FUN,Pure Fun,Online
-Purity Life Health Products,Purity Life,Canada
-Quality Vending & Coffee Services,Quality Vending,Vending
-R.C. TAYLOR,RC Taylor,Convenience
-R.D.J. Distribution,RDJ Distribution,Other
-REBEL SMUGGLING FED EX,Rebel Smuggling,Online
-REDSTONE FOODS INC,Redstone Foods,Convenience
-"Redstone Foods, Inc.",Redstone Foods,Other
-RENEX NY CORP,Renex,Grocery
-RENZI BROTHERS,Renzi Brothers,Broadline Distributor
-RESNICK DISTRIBUTORS,Resnick,Convenience
-Revenue Generating Solutions LLC,Revenue Gen Solns,Other
-RIGHTSLEEVE,RightSleeve,Other
-"Ross Stores, Inc.",Ross Stores,Other
-AWAKE CHOC/ S.ABRAHAMS,S Abraham & Son,Alternate Retail
-S Abraham & Sons Inc.,S Abraham & Son,Convenience
-S. ABRAHAMS & SONS,S Abraham & Son,Convenience
-S&O WHOLESALE CO,S&O Wholesale,Convenience
-"Sabbers & Associates, Inc.",Sabbers & Associates,Other
-SAGE Analytics Inc. SAGE,SAGE Analytics,Other
-SAGE REPUBLIC,Sage Republic,Alternate Retail
-CDN.SAMPLES.ADAMD,Samples,Samples
-CDN.SAMPLES.DAN,Samples,Samples
-CDN.SAMPLES.FOX,Samples,Samples
-CDN.SAMPLES.GWEN,Samples,Samples
-CDN.SAMPLES.JESS,Samples,Samples
-CDN.SAMPLES.JORDAN,Samples,Samples
-CDN.SAMPLES.KENNEDY,Samples,Samples
-CDN.SAMPLES.MATT,Samples,Samples
-CDN.SAMPLES.RIONA,Samples,Samples
-CDN.SAMPLES.RON,Samples,Samples
-CDN.SAMPLES.RYAN,Samples,Samples
-CDN.SAMPLES.SARA,Samples,Samples
-TS.AMCON (KANSAS),Samples,Samples
-TS.CTW Show,Samples,Samples
-TS.FARNER BOCKEN,Samples,Samples
-TS.HENRY'S FOODS,Samples,Samples
-TS.NACUFS NAT,Samples,Samples
-TS.OTHER - Campus Distributors,Samples,Samples
-TS.OTHER - Workplace Distributors,Samples,Samples
-TS.SAS,Samples,Samples
-USA.SAMPLES.ADAMD,Samples,Samples
-USA.SAMPLES.ANDY,Samples,Samples
-USA.SAMPLES.BILL,Samples,Samples
-USA.SAMPLES.CJ,Samples,Samples
-USA.SAMPLES.DAN,Samples,Samples
-USA.SAMPLES.FOX,Samples,Samples
-USA.SAMPLES.GWEN,Samples,Samples
-USA.SAMPLES.JOE,Samples,Samples
-USA.SAMPLES.JORDAN,Samples,Samples
-USA.SAMPLES.CHRISTINE,Samples,Samples
-USA.SAMPLES.KENNEDY,Samples,Samples
-USA.SAMPLES.MATT,Samples,Samples
-USA.SAMPLES.MJ,Samples,Samples
-USA.SAMPLES.RAJ,Samples,Samples
-USA.SAMPLES.RYAN,Samples,Samples
-USA.SAMPLES.SUTTER,Samples,Samples
-USA.SAMPLES.TS.FOX,Samples,Samples
-SANDSTROMS,Sandstroms,Convenience
-"SARNOW FOOD GROUP, INC.",Sarnow,Vending
-SARNOW FOOD GROUP INC.,Sarnow,Vending
-SAUCIER ENT/ DBA BOSTON T,Saucier,Online
-SAVAL FOODS,Saval Foods,Broadline Distributor
-SCAVUZZO'S INC,SCAVUZZO'S INC,Broadline Distributor
-SCHIFFS FOOD SERVICE,Schiffs,Broadline Distributor
-Senneth Distribution,Senneth Distribution,Other
-SHEEHAN MAJESTIC,Sheehan,Convenience
-Shopify - AWAKE Energy Canada,Shopify,Online
-Shopify AWAKE Energy Canada,Shopify,Online
-Shopify awake wholesalecda,Shopify,Online
-Shopify Customer - AWAKE Energy Canada,Shopify,Online
-Shopify Customer - AWAKE Energy USA,Shopify,Online
-Shopify Customer - AWAKE Wholesale,Shopify,Online
-Shopify Customer - awake-wholesalecda,Shopify,Online
-Shopify Customer - mello USA,Shopify,Online
-Shopify-USD AWAKE Energy USA,Shopify,Online
-SHOPKO/SPECTRUM OMAHA,Shopko,Grocery
-Shoppers Drug Mart,Shoppers Drug Mart,Canada
-SIDARI'S ITALIAN FOODS,SIDARI'S ITALIAN FOODS,Broadline Distributor
-SIMPLY DELIVERED,Simply Delivered,Convenience
-SNACK-BOX,Snack Box,Other
-Snack Nation,Snack Nation,Online
-SnackSack,Snack Sack,Other
-SnackMagic,SnackMagic,Other
-Sobeys Administration,Sobeys,Other
-SOUTH SHORE DISTRIBUTION,South Shore Distribution,Convenience
-SPICY PRODUCTS LLC,Spicy Products,Online
-Splendid Holdings Group Americas Ltd,Splendid,Canada
-SAINT JOE DISTRIBUTING,St Joe Distributing,Convenience
-Stéphanie Aubin,Stéphanie Aubin,Other
-STANDARD DISTRIBUTING,Standard Distributing,Convenience
-STANLEY MARVEL CO.,Stanley Marvel,Broadline Distributor
-STEPHENSON WHSLE CO. INC,Stephenson Wholesale,Convenience
-STOCK CLOSET,Stock Closet,Online
-SUPERVALU/ST.LOUIS 01,SuperValu,Grocery
 Sweetie Candy Company Inc.,Sweetie Candy,Other
+Sysco Cavan Monaghan,Sysco Canada,Canada
+Sysco Central Ontario,Sysco Canada,Canada
 SYSCO DOE/BARABOO,Sysco,Broadline Distributor
 SYSCO DOE/CENTRAL ILLINOI,Sysco,Broadline Distributor
 SYSCO DOE/EASTERN WI,Sysco,Broadline Distributor
@@ -1207,6 +1104,13 @@ SYSCO DOE/KANSAS CITY,Sysco,Broadline Distributor
 SYSCO DOE/LINCOLN,Sysco,Broadline Distributor
 SYSCO DOE/NASHVILLE,Sysco,Broadline Distributor
 SYSCO DOE/OKLAHOMA,Sysco,Broadline Distributor
+Sysco Edmonton,Sysco Canada,Canada
+Sysco Kelowna,Sysco Canada,Canada
+Sysco NS,Sysco Canada,Canada
+Sysco Quebec,Sysco Canada,Canada
+Sysco Southwestern Ontario,Sysco Canada,Canada
+Sysco Toronto,Sysco Canada,Canada
+Sysco Vancouver,Sysco Canada,Canada
 SYSCO/ALBANY,Sysco,Broadline Distributor
 SYSCO/ARIZONA,Sysco,Broadline Distributor
 SYSCO/ATLANTA,Sysco,Broadline Distributor
@@ -1269,34 +1173,52 @@ SYSCO/VENTURA,Sysco,Broadline Distributor
 SYSCO/VIRGINIA,Sysco,Broadline Distributor
 SYSCO/WEST COAST FLORIDA,Sysco,Broadline Distributor
 SYSCO/WEST TEXAS,Sysco,Broadline Distributor
-Sysco Cavan Monaghan,Sysco Canada,Canada
-Sysco Central Ontario,Sysco Canada,Canada
-Sysco Edmonton,Sysco Canada,Canada
-Sysco Kelowna,Sysco Canada,Canada
-Sysco NS,Sysco Canada,Canada
-Sysco Quebec,Sysco Canada,Canada
-Sysco Southwestern Ontario,Sysco Canada,Canada
-Sysco Toronto,Sysco Canada,Canada
-Sysco Vancouver,Sysco Canada,Canada
+T J Maxx,TJ Maxx,Alternate Retail
+Tabitha Young,Consumer,Online
 Taher Inc,Taher,Other
 TAJ PLAZA,Taj Plaza,Online
+Tammy Kluchka,Consumer,Online
+Tara Klingenbeck,Consumer,Online
+Tara Russell,Consumer,Online
 TARGET/LUGOFF/RDC,Target,Grocery
+Taylor Bird,Consumer,Online
+Ted W Brown,Consumer,Online
+Teri Campbell,Consumer,Online
+Teri Leong,Consumer,Online
+Terri Pierce,Consumer,Online
 TERRIFIC DEAL,Terrific Deal,Online
+Terry Rohde,Consumer,Online
+Tessa Wells,Consumer,Online
 Test Order,Test Order,Other
 TEXAS JASMINE WHOLESALE,Texas Wholesale,Convenience
 TEXAS WHOLESALE- DALLAS,Texas Wholesale,Convenience
+Thach Lam,Consumer,Online
 Thayer Distribution Services,Thayer,Vending
+The H.T. Hackney Co.,HT Hackney,Other
 The Lift Box,The Lift Box,Online
 The PMS Package,The PMS Package,Other
-T J Maxx,TJ Maxx,Alternate Retail
+Theresa Murphy,Consumer,Online
+Thomas Belcher,Consumer,Online
+Thomas Kurland,Consumer,Online
+Thomas Siuda,Consumer,Online
+Thomas Zuiderveen,Consumer,Online
+Tiana Wilson,Consumer,Online
+Tiffany Wyville,Consumer,Online
+Tim Haynes,Consumer,Online
+Tim Jokela,Consumer,Online
+Tina Lam,Consumer,Online
+Tina M Williams,Consumer,Online
 TOPICZ,Topicz,Convenience
 Toronto Women's Run Series,Toronto Run,Other
 TOTAL FOODS INC.,Total Foods,Vending
 "TOTAL FOODS, INC.",Total Foods,Vending
 TOTEM FOOD PRODUCTS,Totem,Convenience
 TPS United Way,TPS United Way,Other
+Trent McPheron,Consumer,Online
 TREPCO D.B.A KENNEDY WHOL,Trepco,Convenience
 TRIBECA NIK INC,Tribeka Nik,Convenience
+Tricia Power,Consumer,Online
+Tricia Power-Fardy,Consumer,Online
 "Tripifoods, Inc.",Tripifoods,Convenience
 TRIPLE J FIVE STAR/SAIPAN,Triple J,Export
 TROPICAL FOODS--DC,Tropical,Alternate Retail
@@ -1307,13 +1229,34 @@ TROPICAL FOODS--TN,Tropical,Alternate Retail
 TROPICAL FOODS--TX,Tropical,Alternate Retail
 Tropical Fruit & Nut Co.,Tropical,Alternate Retail
 TROPICAL NUT & FRUIT,Tropical,Alternate Retail
+TS.AMCON (KANSAS),Samples,Samples
+TS.CTW Show,Samples,Samples
+TS.FARNER BOCKEN,Samples,Samples
+TS.HENRY'S FOODS,Samples,Samples
+TS.NACUFS NAT,Samples,Samples
+TS.OTHER - Campus Distributors,Samples,Samples
+TS.OTHER - Workplace Distributors,Samples,Samples
+TS.SAS,Samples,Samples
 TYLER C-STORE WHOLESALE,Tyler C-Store,Convenience
+Tyler Fernandes,Consumer,Online
+Tyler Tilson,Consumer,Online
+U.R.M. STORES/RETAIL,URM Stores,Grocery
+UC Santa Cruz,Direct University,Convenience
+UCSC - Banana Joe's,Direct University,Convenience
+UCSC - College 8 Cafe,Direct University,Convenience
+UCSC - Cowell Coffee Shop,Direct University,Convenience
+UCSC - Oakes Cafe,Direct University,Convenience
+UCSC - Owl's Nest Cafe,Direct University,Convenience
+UCSC - Perk Coffee Carts,Direct University,Convenience
+UCSC - Stevenson Coffee House,Direct University,Convenience
+UCSC - Terra Fresca Coffee Shop,Direct University,Convenience
 UNFI,UNFI,Grocery
 "UNFI - Lancaster, TX",UNFI,Grocery
 "UNFI - Montgomery, NY",UNFI,Grocery
 "UNFI - Moreno Valley, CA",UNFI,Grocery
 "UNFI - Rocklin, CA",UNFI,Grocery
 "UNFI - York, PA",UNFI,Grocery
+UNFI/AURORA,UNFI,Grocery
 UNFI/SV/BILLINGS,UNFI,Grocery
 UNFI/SV/CHAMPAIGN/URBANA,UNFI,Grocery
 UNFI/SV/FTWAYNE/FZN,UNFI,Grocery
@@ -1321,10 +1264,28 @@ UNFI/SV/HOPKINS/GROC,UNFI,Grocery
 UNFI/SV/LANCASTER/DRY/REF,UNFI,Grocery
 UNFI/SV/SERF,UNFI,Grocery
 UNFI/SV/TAC/DRY/REF/CANDY,UNFI,Grocery
-UNFI/AURORA,UNFI,Grocery
 UNITED CUSTOM DIST-KALAMA,United Custom Distribution,Convenience
+University Co-Op - Main,Direct University,Convenience
+University of Mary - Bookstore,Direct University,Convenience
+University of Victoria Faculty Association,Direct University,Convenience
 UR ASIAN STORE,UR Asian,Online
-U.R.M. STORES/RETAIL,URM Stores,Grocery
+USA.SAMPLES.ADAMD,Samples,Samples
+USA.SAMPLES.ANDY,Samples,Samples
+USA.SAMPLES.BILL,Samples,Samples
+USA.SAMPLES.CHRISTINE,Samples,Samples
+USA.SAMPLES.CJ,Samples,Samples
+USA.SAMPLES.DAN,Samples,Samples
+USA.SAMPLES.FOX,Samples,Samples
+USA.SAMPLES.GWEN,Samples,Samples
+USA.SAMPLES.JOE,Samples,Samples
+USA.SAMPLES.JORDAN,Samples,Samples
+USA.SAMPLES.KENNEDY,Samples,Samples
+USA.SAMPLES.MATT,Samples,Samples
+USA.SAMPLES.MJ,Samples,Samples
+USA.SAMPLES.RAJ,Samples,Samples
+USA.SAMPLES.RYAN,Samples,Samples
+USA.SAMPLES.SUTTER,Samples,Samples
+USA.SAMPLES.TS.FOX,Samples,Samples
 USF/ALBANY,US Foods,Broadline Distributor
 USF/ALBANY-USF DIRECT,US Foods,Broadline Distributor
 USF/ALBUQUERQUE-USF DIREC,US Foods,Broadline Distributor
@@ -1402,9 +1363,28 @@ USF/SWEDESBORO-USF DIRECT,US Foods,Broadline Distributor
 USF/TAMPA-USF DIRECT,US Foods,Broadline Distributor
 USF/WEST VIRGINIA-USF DIR,US Foods,Broadline Distributor
 USF/WISCONSIN-USF DIRECT,US Foods,Broadline Distributor
+Ussama Ali,Consumer,Online
+Valerie Hernandez,Consumer,Online
+Valerie Malkum,Consumer,Online
+Vanessa Brown,Consumer,Online
+Vanessa Joie Rapanut,Consumer,Online
+Vanessa Le Bolloch,Consumer,Online
+Vanessa Mendoza,Consumer,Online
+VANESSA PRATT,Consumer,Online
+Vasilios Mardas,Consumer,Online
 VENDOR'S SUPPLY,Vendor's Supply,Vending
 Ventrex Vending,Ventrex Vending,Vending
 VERN'S & SON. INC.,Verns and Son,Broadline Distributor
+Veronica Enair,Consumer,Online
+Veronica Opreff,Consumer,Online
+Victoria Frank,Consumer,Online
+Victoria Ouellette,Consumer,Online
+Victoria Thibert,Consumer,Online
+Vinashan Nallaratnam,Consumer,Online
+Vincent Gesuelli,Consumer,Online
+Vincent Seim,Consumer,Online
+Vinson Lee,Consumer,Online
+Vistar/ VSA Corporate,Vistar Retail,Alternate Retail
 VISTAR-CAROLINA,Vistar,Vending
 VISTAR-FLORIDA,Vistar,Vending
 VISTAR-GEORGIA,Vistar,Vending
@@ -1423,24 +1403,46 @@ VISTAR-NORTHWEST,Vistar,Vending
 VISTAR-OHIO,Vistar,Vending
 VISTAR-ONTARIO,Vistar,Vending
 VISTAR-PHOENIX,Vistar,Vending
-VISTAR-ROCKY MOUNTAIN,Vistar,Vending
-VISTAR-TENNESSEE,Vistar,Vending
-VISTAR-WISCONSIN,Vistar,Vending
-Vistar/ VSA Corporate,Vistar Retail,Alternate Retail
 VISTAR-RETAIL CENTRAL,Vistar Retail,Alternate Retail
 VISTAR-RETAIL EAST,Vistar Retail,Alternate Retail
 VISTAR-RETAIL WEST,Vistar Retail,Alternate Retail
+VISTAR-ROCKY MOUNTAIN,Vistar,Vending
+VISTAR-TENNESSEE,Vistar,Vending
+VISTAR-WISCONSIN,Vistar,Vending
+Vy Nguyen,Consumer,Online
 W.A.DEHART INC.,WA Dehart,Convenience
+W.B. MASON- SOUTH BOSTON,WB Mason,Other
+W.B. MASON-CRANBURY2,WB Mason,Other
+Wade Welygan,Consumer,Online
 WALKENHORSTS-NV,Walkenhorsts,Alternate Retail
 WALKENHORSTS-OH,Walkenhorsts,Alternate Retail
 Walmart MTEP,Walmart,Grocery
 "Wal-Mart Stores, Inc.",Walmart,Grocery
-W.B. MASON- SOUTH BOSTON,WB Mason,Other
-W.B. MASON-CRANBURY2,WB Mason,Other
+Wendy James,Consumer,Online
+Will Cascone,Consumer,Online
+william apruzzese,Consumer,Online
+William Mak,Consumer,Online
+William Phillips,Consumer,Online
 WIN DEPOT INC,Win Depot,Convenience
 WINKLER WHOLESALE/DRY,Winkler,Grocery
 WNY FUNFOODS INC.,WNY FUNFOODS INC.,Broadline Distributor
+Wong,Consumer,Online
 World Pantry,World Pantry,Online
+Wudi Fan,Consumer,Online
 Y P Natural Inc.,YP Naturals,Other
+Yassen B.,Consumer,Online
+Yazan Medanat,Consumer,Online
+Ying Yang,Consumer,Online
+Ying Ying Rong,Consumer,Online
+Young Shin,Consumer,Online
 YP NATURAL INC,YP Naturals,Canada
+Yuan Gao,Consumer,Online
+Yue Niu,Consumer,Online
+Yuxuan Wang,Consumer,Online
+Yuzhou Yao,Consumer,Online
+Zac Buwalda,Consumer,Online
+Zachariah Sereda,Consumer,Online
+Zahid Dawod,Consumer,Online
+Zahra Merali,Consumer,Online
+Zinaida Levichek,Consumer,Online
 ZORO,Zoro,Online
