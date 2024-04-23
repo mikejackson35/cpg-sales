@@ -56,7 +56,7 @@ all_sales['sale_origin'] = all_sales['sale_origin'].map(origin_dict)
 #     return l1
 
 # l1 = get_connection2()
-l1 = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\level_1.csv")
+l1 = pd.read_csv(r"level_1.csv")
 
 l1.completed_date = pd.to_datetime(l1.completed_date)
 # l1['usd'] = l1['sub_total']*.75
