@@ -30,7 +30,7 @@ updated = st.sidebar.empty()
 
 ###############
 # L2 CONNECTION
-# @st.cache_data
+@st.cache_data
 # def get_connection():
 #     conn = st.connection('dot', type ="sql")
 #     all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2022-12-31'")
