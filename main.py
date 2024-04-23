@@ -30,13 +30,14 @@ updated = st.sidebar.empty()
 
 ###############
 # L2 CONNECTION
-@st.cache_data
-def get_connection():
-    conn = st.connection('dot', type ="sql")
-    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2022-12-31'")
-    return all_sales
+# @st.cache_data
+# def get_connection():
+#     conn = st.connection('dot', type ="sql")
+#     all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2022-12-31'")
+#     return all_sales
 
-all_sales = get_connection()
+# all_sales = get_connection()
+all_sales = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\level_2.csv")
 all_sales['date'] = pd.to_datetime(all_sales['date'])
 all_sales['date'] = all_sales['date'].dt.normalize()
 all_sales['date'] = all_sales['date'].dt.floor('D')
@@ -48,16 +49,17 @@ all_sales['sale_origin'] = all_sales['sale_origin'].map(origin_dict)
 
 ###############
 # L1 CONNECTION
-@st.cache_data
-def get_connection2():
-    conn2 = st.connection('dot', type ="sql")
-    l1 = conn2.query("SELECT * FROM unleashed_raw WHERE completed_date > '2022-12-31';")
-    return l1
+# @st.cache_data
+# def get_connection2():
+#     conn2 = st.connection('dot', type ="sql")
+#     l1 = conn2.query("SELECT * FROM unleashed_raw WHERE completed_date > '2022-12-31';")
+#     return l1
 
-l1 = get_connection2()
+# l1 = get_connection2()
+l1 = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\level_1.csv")
 
 l1.completed_date = pd.to_datetime(l1.completed_date)
-l1['usd'] = l1['sub_total']*.75
+# l1['usd'] = l1['sub_total']*.75
 
 ###############
 # L1/L2 KPI'S
@@ -161,7 +163,7 @@ l2_fig.update_yaxes(showticklabels=False,showgrid=True,gridcolor="#B1A999")
 
 # DAILY BY MARKET SEGMENT
 df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'market_segment']).usd.sum().reset_index().set_index('date')
-df = round(df[df.index>'2024-02-29']).sort_values(by='market_segment',ascending=False)
+df = round(df[df.index>'2024-03-31']).sort_values(by='market_segment',ascending=False)
 
 # Current Month Bar Chart Constants
 chart_height = 300
@@ -198,7 +200,7 @@ scatter_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"
 
 # DAILY BY SALE ORIGIN
 df = all_sales[all_sales.market_segment != 'Samples'].groupby([all_sales.date,'sale_origin']).usd.sum().reset_index().set_index('date')
-df = round(df[df.index>'2024-02-29'].sort_index())
+df = round(df[df.index>'2024-03-31'].sort_index())
 
 scatter_origin = px.bar(
         df,
@@ -228,8 +230,8 @@ scatter_origin.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"
                                           title=''))
 
 # DAILY BY All (level 2)
-df = all_sales[all_sales.market_segment != 'Samples'].groupby(all_sales.date).usd.sum().reset_index().set_index('date')
-df = round(df[df.index>'2024-02-29'].sort_index())
+df = all_sales[all_sales.market_segment != 'Samples'].groupby('date').usd.sum().reset_index().set_index('date')
+df = round(df[df.index>'2024-03-31'].sort_index())
 
 bar_all = px.bar(
         df,
@@ -258,7 +260,7 @@ bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
 
 # LEVEL 1 DAILY BAR
 l1['usd'] = l1['sub_total']*.75
-l1_bar_df = round(l1[l1.completed_date>'2024-02-29'].groupby('completed_date')['usd'].sum(),2).reset_index().set_index('completed_date')
+l1_bar_df = round(l1[l1.completed_date>'2024-03-31'].groupby('completed_date')['usd'].sum(),2).reset_index().set_index('completed_date')
 title_l1 = l1_bar_df.usd.sum()
 
 level_1_bar = px.bar(l1_bar_df,
@@ -269,7 +271,7 @@ level_1_bar = px.bar(l1_bar_df,
                      height=chart_height,
                      text_auto=",.2s",
                      opacity=.8,
-                     title=f"March - ${l1_bar_df.usd.sum():,.0f}")
+                     title=f"April - ${l1_bar_df.usd.sum():,.0f}")
 
 level_1_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>',marker_color="#5a5856")
 level_1_bar.update_coloraxes(showscale=False)
@@ -278,8 +280,8 @@ level_1_bar.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5
 level_1_bar.update_xaxes(tickmode='array',tickvals = l1_bar_df.index, ticktext=l1_bar_df.index.strftime('<b>%a<br>%d</b>'))
 level_1_bar.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"), title_x=.45)
 
-l1_df = pd.DataFrame(l1[(l1.customer_type != 'Samples') & (l1.completed_date>'2024-02-29')].groupby(['completed_date','customer_name'],as_index=False)['usd'].sum())
-l1_df = round(l1_df).reset_index(drop=True).set_index('completed_date').sort_index(ascending=False)
+# l1_df = pd.DataFrame(l1[(l1.customer_type != 'Samples') & (l1.completed_date>'2024-03-31')].groupby(['completed_date','customer_name'],as_index=False)['usd'].sum())
+# l1_df = round(l1_df).reset_index(drop=True).set_index('completed_date').sort_index(ascending=False)
 
 true_df = round(all_sales[(all_sales.market_segment != 'Samples') & (all_sales.date>'2024-02-29')].drop(columns=['item','customer','qty','cad','month','year']))#.reset_index(drop=True).set_index('date')
 true_df1 = true_df.groupby(['date','parent_customer'],as_index=False)['usd'].sum().reset_index(drop=True).set_index('date').sort_index(ascending=False)

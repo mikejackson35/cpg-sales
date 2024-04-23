@@ -47,14 +47,15 @@ st.markdown("""
         """, unsafe_allow_html=True)
 
 # ---- PULL IN DATA FROM POSTGRES DB ----
-@st.cache_data
-def get_connection():
-    conn = st.connection('dot', type ="sql")
-    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2022-12-31'")
-    return all_sales
+# @st.cache_data
+# def get_connection():
+#     conn = st.connection('dot', type ="sql")
+#     all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2022-12-31'")
+#     return all_sales
 
-all_sales = get_connection()
-all_sales = all_sales[all_sales.market_segment != 'Samples']
+# all_sales = get_connection()
+all_sales = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\level_2.csv")
+all_sales = all_sales[(all_sales.market_segment != 'Samples') & (all_sales.year > 2022)]
 
 origin_dict = {'unl':'Unleashed',
                'dot':'Dot'}
@@ -119,7 +120,7 @@ end = df_selection.date.max().date()
 
 customer_count = int(df_selection.customer.nunique())
 sales = int(df_selection.usd.sum())
-mean_sales = int(sales/customer_count)
+# mean_sales = int(sales/customer_count)
 
 
 config = {'displayModeBar': False}
