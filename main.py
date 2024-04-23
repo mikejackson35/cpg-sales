@@ -30,14 +30,14 @@ updated = st.sidebar.empty()
 
 ###############
 # L2 CONNECTION
-@st.cache_data
+# @st.cache_data
 # def get_connection():
 #     conn = st.connection('dot', type ="sql")
 #     all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2022-12-31'")
 #     return all_sales
 
 # all_sales = get_connection()
-all_sales = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\level_2.csv")
+all_sales = pd.read_csv(r"level_2.csv", encoding='utf-8')
 all_sales['date'] = pd.to_datetime(all_sales['date'])
 all_sales['date'] = all_sales['date'].dt.normalize()
 all_sales['date'] = all_sales['date'].dt.floor('D')
