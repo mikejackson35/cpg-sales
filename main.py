@@ -322,7 +322,7 @@ with tab2:
 
 # market segment rolling-52's
 df = all_sales[(all_sales.market_segment!='Samples') & (all_sales.market_segment!='Other')].set_index('date').groupby([pd.Grouper(freq='SM'),'market_segment'])['usd'].sum().reset_index().set_index('date')
-df = df[df.index>'2023-03-30'].pivot(columns='market_segment', values='usd')
+df = df[df.index>'2023-04-30'].pivot(columns='market_segment', values='usd')
 
 area_market = px.area(df,
               color='market_segment',
