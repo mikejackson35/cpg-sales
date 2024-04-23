@@ -54,7 +54,7 @@ st.markdown("""
 #     return all_sales
 
 # all_sales = get_connection()
-all_sales = pd.read_csv(r"level_2.csv", encoding='utf-8')
+all_sales = pd.read_csv(r"./level_2.csv", encoding='utf-8')
 all_sales = all_sales[(all_sales.market_segment != 'Samples') & (all_sales.year > 2022)]
 
 origin_dict = {'unl':'Unleashed',
