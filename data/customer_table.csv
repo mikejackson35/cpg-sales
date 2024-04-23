@@ -185,6 +185,7 @@ CDN.SAMPLES.ADAMD,Samples,Samples
 CDN.SAMPLES.DAN,Samples,Samples
 CDN.SAMPLES.FOX,Samples,Samples
 CDN.SAMPLES.GWEN,Samples,Samples
+CDN.SAMPLES.CHRISTINE,Samples,Samples
 CDN.SAMPLES.JESS,Samples,Samples
 CDN.SAMPLES.JORDAN,Samples,Samples
 CDN.SAMPLES.KENNEDY,Samples,Samples
@@ -273,6 +274,7 @@ CORE-MARK/SMYRNA/DRY,Core-Mark,Convenience
 CORE-MARK/SPOKANE,Core-Mark,Convenience
 CORE-MARK/TAMPA,Core-Mark,Convenience
 Cory Lebrun,Consumer,Online
+"COSGROVE DISTRIBUTORS,INC",Cosgrove,Broadline Distributor
 COSGROVE DISTRIBUTORSINC,Cosgrove,Broadline Distributor
 "Cost Plus Management Services, Inc.",Cost Plus Mgmt,Online
 Costco Canada,Costco Canada,Canada
@@ -428,6 +430,7 @@ Gavin Wong,Consumer,Online
 Geneviève Lalonde,Geneviève Lalonde,Other
 Genevieve Renaud,Consumer,Online
 George Lewis,Consumer,Online
+GH Wholesale,GH Wholesale,Alternate Retail
 GH WHOLESALE,GH Wholesale,Alternate Retail
 GIANT EAGLE/WASHINGTON,Giant Eagle,Grocery
 Giant Tiger Stores Ltd,Giant Tiger,Canada
@@ -741,7 +744,7 @@ Marissa Michaels,Consumer,Online
 Mark Awad,Consumer,Online
 Mark Ellison,Consumer,Online
 Mark Kilam,Consumer,Online
-Mark Vend,MARK VEND COMPANY,Vending
+MARK VEND COMPANY,Mark Vend,Vending
 MARQUE'S FOOD DIST. INC.,Marques Food Dist,Broadline Distributor
 Marsha Stein,Consumer,Online
 Marshalls,Marshalls,Alternate Retail
@@ -1079,6 +1082,7 @@ STEPHANIE PEREIRA,Consumer,Online
 Stephanie Strickland,Consumer,Online
 Stephen Shew,Consumer,Online
 STEPHENSON WHSLE CO. INC,Stephenson Wholesale,Convenience
+"STEPHENSON WHSLE CO., INC",Stephenson Wholesale,Convenience
 STOCK CLOSET,Stock Closet,Online
 Sue Lucas,Consumer,Online
 Sue Mann,Consumer,Online
@@ -1096,6 +1100,9 @@ Svetlana Aleksic,Consumer,Online
 Sweetie Candy Company Inc.,Sweetie Candy,Other
 Sysco Cavan Monaghan,Sysco Canada,Canada
 Sysco Central Ontario,Sysco Canada,Canada
+SYSCO DOE/CHICAGO,Sysco,Broadline Distributor
+SYSCO DOE/CENTRAL FLORIDA,Sysco,Broadline Distributor
+SYSCO DOE/LOS ANGELES,Sysco,Broadline Distributor
 SYSCO DOE/BARABOO,Sysco,Broadline Distributor
 SYSCO DOE/CENTRAL ILLINOI,Sysco,Broadline Distributor
 SYSCO DOE/EASTERN WI,Sysco,Broadline Distributor
@@ -1419,6 +1426,7 @@ WALKENHORSTS-OH,Walkenhorsts,Alternate Retail
 Walmart MTEP,Walmart,Grocery
 "Wal-Mart Stores, Inc.",Walmart,Grocery
 Wendy James,Consumer,Online
+WILLIAM GEORGE COMPANY,William George Co,Broadline Distributor
 Will Cascone,Consumer,Online
 william apruzzese,Consumer,Online
 William Mak,Consumer,Online

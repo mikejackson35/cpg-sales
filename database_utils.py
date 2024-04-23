@@ -4,17 +4,17 @@ import pandas as pd
 import datetime
 from sqlalchemy import create_engine
 
-# db_password = "UnitCircle42!"
-# db_user = "postgres"
-# db_name = "dot"
-# endpoint = "awakedb.cre3f7yk1unp.us-west-1.rds.amazonaws.com"
+db_password = "UnitCircle42!"
+db_user = "postgres"
+db_name = "dot"
+endpoint = "awakedb.cre3f7yk1unp.us-west-1.rds.amazonaws.com"
 
-# connection_string = f"postgresql://{db_user}:{db_password}@{endpoint}:5432/{db_name}"
-# engine = create_engine(connection_string)
+connection_string = f"postgresql://{db_user}:{db_password}@{endpoint}:5432/{db_name}"
+engine = create_engine(connection_string)
 
 
 # database connection
-engine = st.connection('dot', type ="sql")
+# engine = st.connection('dot', type ="sql")
 
 # FUNCTION TO READ NEW UNL DATA, FIX COLUMN NAMES, APPEND POSTGRES DB
 def add_new_unl(unl_download):
@@ -79,7 +79,7 @@ def clean_dot():
                             SELECT customer_name, invoice_date, item_full_desc, qty_received, dollars, segment_desc
                             FROM invoice_detail
                             ;""", 
-                            con = engine)
+                            engine)
 
     ## add canadian dollars column
     dot_raw['cad'] = round(dot_raw.dollars*1.33,2)
