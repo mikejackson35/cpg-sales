@@ -321,7 +321,7 @@ with tab2:
     st.plotly_chart(l2_fig, config=config, use_container_width=True)
 
 # market segment rolling-52's
-df = all_sales[(all_sales.market_segment!='Samples') & (all_sales.market_segment!='Other')].set_index('date').groupby([pd.Grouper(freq='SM'),'market_segment'])['usd'].sum().reset_index().set_index('date')
+df = all_sales[(all_sales.market_segment!='Samples') & (all_sales.market_segment!='Other')].set_index('date').groupby([pd.Grouper(freq='SME'),'market_segment'])['usd'].sum().reset_index().set_index('date')
 df = df[df.index>'2023-04-30'].pivot(columns='market_segment', values='usd')
 
 area_market = px.area(df,
