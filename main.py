@@ -395,7 +395,7 @@ with main_col_1:
 with main_col_2:
     st.write("#")
     st.markdown("<h5 style='text-align: center;'>Market Segments</h2>", unsafe_allow_html=True)
-    st.write("#")
+    # st.write("#")
 
     # MARKET SEGMENT BOXES
     def calculate_yearly_sales_difference(true_sales, year, cust_segment, year_ago_date):
