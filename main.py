@@ -368,7 +368,7 @@ with main_col_1:
         st.markdown(f"<h2 style='color: #FFFFFF'><b>${direct_sales_24/1000000:.2f}</b>M</h2>", unsafe_allow_html=True)
     with col2:
         st.markdown("")
-        st.image(r'assets\logo_wilde_chips.jpg', width=100)
+        st.write(r'assets\logo_wilde_chips.jpg', width=100)
         st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2024</h5>", unsafe_allow_html=True)
         st.markdown(f"<small>thru: {true_sales.date.max().strftime('%a %b %d')}", unsafe_allow_html=True)
     with col3:
