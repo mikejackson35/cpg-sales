@@ -239,6 +239,8 @@ fig_parent_sales.update_yaxes(showgrid=True,showticklabels=True,gridcolor='darkg
 fig_parent_sales.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 fig_parent_sales.update_traces(texttemplate='%{text:$,.2s}')
 
+st.markdown(f"<h1><b>${millify(df_selection.amount.sum(),precision=2)}</b></h1>",unsafe_allow_html=True)
+
 col1, col2 = st.columns(2)
 with col1:
     # st.markdown("###")
@@ -246,9 +248,9 @@ with col1:
     # st.markdown("###")
     # st.markdown("###")
     # st.markdown("###")
-    # st.markdown("###")
+    st.markdown("###")
     # st.markdown(f"<h3><b>${df_selection.amount.sum():,.0f}</b></h3><br><br><b>{start}</b> <br>thru<br><b>{end}</b>",unsafe_allow_html=True)
-    st.markdown(f"<h1><b>${millify(df_selection.amount.sum(),precision=2)}</b></h1><br><br><b>{start}</b> <br>thru<br><b>{end}</b>",unsafe_allow_html=True)
+    # st.markdown(f"<h1><b>${millify(df_selection.amount.sum(),precision=2)}</b></h1><br><br><b>{start}</b> <br>thru<br><b>{end}</b>",unsafe_allow_html=True)
 
     # st.markdown("#")
 with col2:
