@@ -28,7 +28,7 @@ config = {'displayModeBar': False}
 # DIRECT
 # @st.cache_data
 # def get_direct():
-direct_sales = pd.read_csv(r"data\direct_sales.csv")#, encoding='utf-8')
+direct_sales = pd.read_csv(r"data\direct_sales.csv", encoding='utf-8')
 direct_sales = direct_sales[direct_sales.status=='Closed']
     # return direct_sales
 # direct_sales = get_direct()
