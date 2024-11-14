@@ -26,7 +26,7 @@ config = {'displayModeBar': False}
 # GET DATA
 ###############
 # DIRECT
-@st.cache_data
+# @st.cache_data
 def get_direct():
     direct_sales = pd.read_csv(r"data/direct_sales.csv", encoding='utf-8')
     direct_sales = direct_sales[direct_sales.status=='Closed']
@@ -34,7 +34,7 @@ def get_direct():
 direct_sales = get_direct()
 
 # TRUE
-@st.cache_data
+# @st.cache_data
 def get_true():
     true_sales = pd.read_csv(r"data/true_sales.csv", encoding='utf-8')
     true_sales = true_sales[true_sales.status=='Closed']
