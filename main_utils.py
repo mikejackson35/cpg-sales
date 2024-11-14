@@ -6,20 +6,25 @@ import datetime
 ###############
 # COLOR DICTIONARIES
 market_segment_dict = {
-    'Vending': 'rgb(56,149,73)',
+    'Natural': 'rgb(56,149,73)',
     'Grocery': 'rgb(248,184,230)',
-    'Alternate Retail': 'rgb(46,70,166)',
-    'Canada': 'rgb(204,208,221)',
+    'Specialty Retail': 'rgb(46,70,166)',
+    'Club': 'rgb(46,70,166)',
+    'Mass': 'rgb(204,208,221)',
     'Online': 'rgb(106,87,63)',
-    'Other': 'rgb(200,237,233)',
+    'Off-Shore / Military': 'rgb(200,237,233)',
     'Convenience': 'rgb(233,81,46)',
-    'Broadline Distributor': 'rgb(233,152,19)',
-    'Samples': 'rgb(141,62,92)'
+    'Broadline': 'rgb(233,152,19)',
+    'Drug': 'rgb(141,62,92)',
+    'Outlet': 'rgb(200,237,233)',
+    'Fitness': 'rgb(233,81,46)',
+    'Export': 'rgb(233,152,19)',
+    'No Segment': 'rgb(141,62,92)'
     }
 
 sale_origin_dict = {
-    'Dot': 'rgb(81, 121, 198)',
-    'Unleashed': 'rgb(239, 83, 80)'
+    'dot': 'rgb(81, 121, 198)',
+    'direct': 'rgb(239, 83, 80)'
 }
 
 market_legend_dict = {
@@ -31,5 +36,6 @@ market_legend_dict = {
     'Other': 'Other',
     'Convenience': 'Convenience',
     'Broadline Distributor': 'Broadline',
-    'Samples': 'Samples'
+    'Samples': 'Samples',
+    'Spec Retail': 'Spec Retail'
     }

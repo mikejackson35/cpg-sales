@@ -2,8 +2,9 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import pygwalker as pyg
+from pygwalker.api.streamlit import StreamlitRenderer
 import streamlit.components.v1 as components
-from sqlalchemy import create_engine
+# from sqlalchemy import create_engine
 import psycopg2
 import secrets
 import numpy as np
@@ -25,25 +26,15 @@ st.markdown("""
         </style>
         """, unsafe_allow_html=True)
 
-# ---- PULL IN DATA FROM POSTGRES DB ----
-@st.cache_data
-def get_connection():
-    conn = st.connection('dot', type ="sql")
-    all_sales = conn.query("SELECT * FROM level_2 WHERE date > '2022-12-31'")
-    return all_sales
+# TRUE
+@st.cache_resource
+def get_true():
+    true_sales = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\true_sales.csv", encoding='utf-8')
+    true_sales = true_sales[true_sales.status=='Closed']
+    return StreamlitRenderer(true_sales)#, spec="./gw_config.json", spec_io_mode="rw")
 
-all_sales = get_connection()
-
-# date cleanup
-all_sales['date'] = pd.to_datetime(all_sales['date'])
-all_sales['date'] = all_sales['date'].dt.normalize()
-all_sales['date'] = all_sales['date'].dt.floor('D')
-
-all_sales.drop(columns=['year','month'],inplace=True)
-
-pyg_html = pyg.to_html(all_sales)
-
-components.html(pyg_html, height=1000, width=1700,scrolling=True)
+renderer = get_true()
+renderer.explorer()
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """

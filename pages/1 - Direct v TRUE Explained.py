@@ -4,6 +4,10 @@ st.set_page_config(page_title='Direct vs TRUE',
                    page_icon='assets/Nevil.png',
                    layout='wide')
 
+# CSS and PLOTLY CONFIGS
+with open(r"styles/main.css") as f:
+    st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
+
 st.markdown("""
 <style>
 
@@ -13,10 +17,10 @@ st.markdown("""
 
 [data-baseweb="tab"] {
     height: 50px;
-    width: 625px;
+    width: 655px;
     white-space: pre-wrap;
     background-color: #A29F99;
-    border-radius: 4px 4px 0px 0px;
+    # border-radius: 4px 4px 0px 0px;
     gap: 3px;
     padding-top: 8px;
     padding-bottom: 8px;
@@ -35,8 +39,9 @@ st.sidebar.markdown('Dot Sales Realized upon Purchase From AWAKE')
 st.sidebar.title('TRUE Sales')
 st.sidebar.markdown('Dot Sales Realized upon Purchase From Dot')
 
-tab1, tab2 = st.tabs(['Direct', ':orange[tRUE]'])
+st.write('#')
+tab1, tab2 = st.tabs(['Direct', ':black[True]'])
 with tab1:
-    st.image(r"./assets/direct_sales.png", use_column_width='auto')
+    st.image(r"./assets/direct.png", use_column_width='auto')
 with tab2:
-    st.image(r"./assets/TRUE_sales.png", use_column_width='auto')
+    st.image(r"./assets/true.png", use_column_width='auto')
