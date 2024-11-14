@@ -241,19 +241,17 @@ fig_parent_sales.update_traces(texttemplate='%{text:$,.2s}')
 
 col1, col2 = st.columns(2)
 with col1:
-    st.write('#')
-    # st.markdown("###")
-    # st.markdown("###")
-    # st.markdown("###")
-    # st.markdown("###")
-    # st.markdown("###")
-    # st.markdown("###")
+    st.markdown("###")
+    st.markdown("###")
+    st.markdown("###")
+    st.markdown("###")
+    st.markdown("###")
+    st.markdown("###")
     st.markdown(f"<h3><b>${df_selection.amount.sum():,.0f}</b></h3><br><br><b>{start}</b> <br>thru<br><b>{end}</b>",unsafe_allow_html=True)
     # st.markdown(f"<h1><b>${millify(df_selection.amount.sum(),precision=2)}</b></h1><br><br><b>{start}</b> <br>thru<br><b>{end}</b>",unsafe_allow_html=True)
 
     # st.markdown("#")
 with col2:
-    # st.header(" ")
     st.plotly_chart(fig_seg_sales,config=config,use_container_width=True)
 
 tab1, tab2, tab3 = st.tabs(["Monthly", "Weekly", "YoY"])
