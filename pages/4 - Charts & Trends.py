@@ -113,7 +113,7 @@ fig_seg_sales = px.pie(
     hole=.33,
     hover_name='cust_segment',
     color='cust_segment',
-    color_discrete_map=market_segment_dict).update_layout(showlegend=False, autosize=True, width=450,height=450)
+    color_discrete_map=market_segment_dict).update_layout(showlegend=False, autosize=True, width=500,height=500)
 
 fig_seg_sales.update_traces(textposition='inside', textinfo='percent+label', texttemplate='%{label}<br>%{percent:.0%}',hovertemplate = '%{label}<br>%{value:.2s}')
 
@@ -245,10 +245,14 @@ with col1:
     st.markdown("###")
     st.markdown("###")
     st.markdown("###")
-    st.header("True Sales")
-    st.markdown(f"<h4><b>${millify(df_selection.amount.sum(),precision=2)}</b><br><br><b>{start}</b> <br><small>thru</small><br><b>{end}</b>",unsafe_allow_html=True)
+    st.markdown("###")
+    st.markdown("###")
+    st.markdown(f"<h1><b>${df_selection.amount.sum():,.0f}</b></h1><br><br><b>{start}</b> <br>thru<br><b>{end}</b>",unsafe_allow_html=True)
+    # st.markdown(f"<h1><b>${millify(df_selection.amount.sum(),precision=2)}</b></h1><br><br><b>{start}</b> <br>thru<br><b>{end}</b>",unsafe_allow_html=True)
+
     # st.markdown("#")
 with col2:
+    # st.header(" ")
     st.plotly_chart(fig_seg_sales,config=config,use_container_width=True)
 
 tab1, tab2, tab3 = st.tabs(["Monthly", "Weekly", "YoY"])
