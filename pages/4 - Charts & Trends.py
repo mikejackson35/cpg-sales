@@ -248,7 +248,7 @@ with col1:
     # st.markdown("###")
     # st.markdown("###")
     # st.markdown("###")
-    st.markdown(f"<h1><b>${df_selection.amount.sum():,.0f}</b></h1><br><br><b>{start}</b> <br>thru<br><b>{end}</b>",unsafe_allow_html=True)
+    st.markdown(f"<h3><b>${df_selection.amount.sum():,.0f}</b></h3><br><br><b>{start}</b> <br>thru<br><b>{end}</b>",unsafe_allow_html=True)
     # st.markdown(f"<h1><b>${millify(df_selection.amount.sum(),precision=2)}</b></h1><br><br><b>{start}</b> <br>thru<br><b>{end}</b>",unsafe_allow_html=True)
 
     # st.markdown("#")
