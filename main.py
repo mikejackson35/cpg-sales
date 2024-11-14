@@ -347,17 +347,6 @@ area_market.for_each_annotation(lambda a: a.update(text=a.text.replace("=", ""))
 main_col_1, space, main_col_2 = st.columns([2.25,.25,1.5])
 
 with main_col_1:
-    st.subheader("")
-    with st.expander("Show Current Month Detail"):
-        tab0, tab1, tab2, tab3 = st.tabs(["Direct","True", "tSource", "tMarket"])
-        with tab0:
-            st.plotly_chart(direct_bar,config=config, use_container_width=True)
-        with tab1:
-            st.plotly_chart(bar_all,config=config, use_container_width=True)
-        with tab2:
-            st.plotly_chart(bar_origin,config=config, use_container_width=True)
-        with tab3:
-            st.plotly_chart(bar_market,config=config, use_container_width=True)
 
     st.write("#")        
     col0, col1, col2, col3= st.columns([1,2.1,2,2])
@@ -375,6 +364,18 @@ with main_col_1:
         st.markdown(f"<h4 style='color: #000000; outline-color: #000000;'>True<br><small>+{yoy_chg_perc}&nbsp yoy</small></h4>", unsafe_allow_html=True)
         st.markdown(f"<h2 style='color: #000000; outline-color: #000000;'><b>${true_sales_24/1000000:.2f}M</h2>", unsafe_allow_html=True)
 
+    st.subheader("")
+    with st.expander("Show Current Month Detail"):
+        tab0, tab1, tab2, tab3 = st.tabs(["Direct","True", "tSource", "tMarket"])
+        with tab0:
+            st.plotly_chart(direct_bar,config=config, use_container_width=True)
+        with tab1:
+            st.plotly_chart(bar_all,config=config, use_container_width=True)
+        with tab2:
+            st.plotly_chart(bar_origin,config=config, use_container_width=True)
+        with tab3:
+            st.plotly_chart(bar_market,config=config, use_container_width=True)
+
     tab1, tab2 = st.tabs(['Direct', 'TRUE'])
     with tab1:
         st.plotly_chart(dir_fig,config=config, use_container_width=True)
@@ -382,9 +383,9 @@ with main_col_1:
         st.plotly_chart(true_fig, config=config, use_container_width=True)
 
 with main_col_2:
-    st.subheader("")
-    with st.expander("Show 52-Week Market Segment Trends"):
-        st.plotly_chart(area_market,config=config, use_container_width=True)
+    # st.subheader("")
+    # with st.expander("Show 52-Week Market Segment Trends"):
+    #     st.plotly_chart(area_market,config=config, use_container_width=True)
 
     # MARKET SEGMENT BOXES
     def calculate_yearly_sales_difference(true_sales, year, cust_segment, year_ago_date):
@@ -430,6 +431,10 @@ with main_col_2:
             value=value, 
             delta=f"{yoy_percentage:.0%}",
         )
+
+    st.subheader("")
+    with st.expander("Show 52-Week Market Segment Trends"):
+        st.plotly_chart(area_market,config=config, use_container_width=True)
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
