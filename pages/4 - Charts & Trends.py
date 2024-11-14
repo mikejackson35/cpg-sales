@@ -16,50 +16,19 @@ st.set_page_config(page_title='Charts',
 
 alt.themes.enable("dark")
 
-# Remove whitespace from the top of the page and sidebar
-st.markdown("""
-<style>
-        .block-container {
-            padding-top: 0rem;
-            padding-bottom: 0rem;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-        [data-baseweb="tab-list"] {
-        gap: 6px;
-}
+# CSS and PLOTLY CONFIGS
+with open(r"styles/main.css") as f:
+    st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
 
-[data-baseweb="tab"] {
-    height: 25px;
-    width: 80px;
-    white-space: pre-wrap;
-    background-color: #A29F99;
-    border-radius: 4px 4px 0px 0px;
-    gap: 1px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
 
-[aria-selected="true"] {
-    background-color: #A29F99;
-}
-        </style>
-        """, unsafe_allow_html=True)
-
-# ---- PULL IN DATA FROM POSTGRES DB ----
-# @st.cache_data
-# def get_connection():
-#     conn = st.connection('dot', type ="sql")
-#     true_sales = conn.query("SELECT * FROM level_2 WHERE date > '2022-12-31'")
-#     return true_sales
 
 # TRUE
-@st.cache_data
-def get_true():
-    true_sales = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\true_sales.csv", encoding='utf-8')
-    true_sales = true_sales[true_sales.status=='Closed']
-    return true_sales
-true_sales = get_true()
+# @st.cache_data
+# def get_true():
+true_sales = pd.read_csv(r"data/true_sales.csv", encoding='utf-8')
+true_sales = true_sales[true_sales.status=='Closed']
+#     return true_sales
+# true_sales = get_true()
 
 
 # invoice date cleanup
@@ -161,7 +130,7 @@ fig_mth_bar = px.bar(mth_sales.reset_index(),
         opacity=.8,
         height=260,
         ).update_coloraxes(showscale=False)
-fig_mth_bar.update_traces(marker_color='#E09641',texttemplate='%{text:$,.2s}',hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m}<br>')
+fig_mth_bar.update_traces(marker_color='#000000',texttemplate='%{text:$,.2s}',hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m}<br>')
 fig_mth_bar.update_xaxes(showgrid=False,gridcolor='gray',tickvals = mth_sales.index,ticktext=mth_sales.index.strftime('%b-%y'),tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 fig_mth_bar.update_yaxes(showgrid=False,tick0=0,dtick=250000,showticklabels=False, tickcolor='darkgrey', gridcolor='darkgrey')   
 
@@ -183,7 +152,7 @@ fig_scatter_all = px.scatter(
     trendline="rolling", trendline_options=dict(function="mean", window=10), trendline_scope="overall", trendline_color_override="grey"
 )
 fig_scatter_all.update_traces(name="",hovertemplate="Sales: <b>%{y:$,.0f}")
-fig_scatter_all.update_traces(marker=dict(size=8,color='#E09641',opacity=.9,line=dict(width=1,color='lightgrey')),selector=dict(mode='markers'))
+fig_scatter_all.update_traces(marker=dict(size=8,color='#000000',opacity=.9,line=dict(width=1,color='lightgrey')),selector=dict(mode='markers'))
 fig_scatter_all.update_coloraxes(showscale=False)
 fig_scatter_all.update_yaxes(showgrid=True,showticklabels=True,gridcolor='darkgray',tickfont=dict(color='#5A5856', size=13),automargin=True) 
 fig_scatter_all.update_layout(hovermode='x unified',showlegend=False,legend_title_text='')#,title_x=.4,legend=dict(y=0.99, x=0.1,title='10-Wk Moving Avg'),legend_title_text='')
@@ -217,7 +186,7 @@ color = chart_df.year.astype('category').unique()
 l2_fig = go.Figure(
     data=[
         go.Bar(x=months, y=sales_23_, name="2023", marker_color="#909497",textfont=dict(color='#D6D8CF'), marker_line_color="#909497", marker_opacity=.5,hovertemplate="<br>".join(["%{y:.2s}"])),#,textposition='outside'),
-        go.Bar(x=months, y=sales_24_, name="2024", marker_color='#E09641',textfont=dict(color='white',size=25), marker_line_color="#E09641",hovertemplate="<br>".join(["%{y:.2s}"])),#,textposition='outside')
+        go.Bar(x=months, y=sales_24_, name="2024", marker_color='#000000',textfont=dict(color='white',size=25), marker_line_color="#E09641",hovertemplate="<br>".join(["%{y:.2s}"])),#,textposition='outside')
     ],
     layout=dict(#title='2024', title_x=.45, 
                 height=260, 
@@ -232,7 +201,7 @@ l2_fig.update_xaxes(showgrid=False,gridcolor='gray',tickfont=dict(color='#5A5856
 l2_fig.update_yaxes(showticklabels=False,showgrid=False,gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=13))
 
 # distributor bar chart
-top_custs = pd.DataFrame(df_selection.groupby(['cust_name','cust_segment'],as_index=False)['amount'].sum().sort_values(by='amount',ascending=False)[:40])
+top_custs = pd.DataFrame(df_selection.groupby(['cust_name','cust_segment'],as_index=False)['amount'].sum().sort_values(by='amount',ascending=False)[:25])
 fig_dist_sales = px.bar(top_custs,
        x = 'cust_name',
        y = 'amount',
@@ -276,8 +245,8 @@ with col1:
     st.markdown("###")
     st.markdown("###")
     st.markdown("###")
-    st.header("tRUE Sales")
-    st.markdown(f"<h4><b>${millify(df_selection.amount.sum(),precision=1)}</b><br><br><b>{start}</b> <br><small>thru</small><br><b>{end}</b>",unsafe_allow_html=True)
+    st.header("True Sales")
+    st.markdown(f"<h4><b>${millify(df_selection.amount.sum(),precision=2)}</b><br><br><b>{start}</b> <br><small>thru</small><br><b>{end}</b>",unsafe_allow_html=True)
     # st.markdown("#")
 with col2:
     st.plotly_chart(fig_seg_sales,config=config,use_container_width=True)
@@ -290,7 +259,7 @@ with tab2:
 with tab3:
     st.plotly_chart(l2_fig, config=config,use_container_width=True)
 
-tab1, tab2 = st.tabs(["by Parent", "by cust_name"])
+tab1, tab2 = st.tabs(["by Parent Customer", "by Customer"])
 with tab1:
     st.plotly_chart(fig_parent_sales,config=config, use_container_width=True)
 with tab2:
