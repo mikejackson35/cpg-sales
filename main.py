@@ -100,7 +100,7 @@ dir_fig = go.Figure(
             y=dir_24, 
             name="2024", 
             marker_color='#FFFFFF',
-            textfont=dict(color='white', size=22, family='Arial Black'),  # Adjust size and family as needed
+            textfont=dict(color='white', size=10, family='Arial Black'),  # Adjust size and family as needed
             marker_line_color="#5A5856",
             hovertemplate="<br>".join(["%{y:.2s}"]),
             textposition='outside'
@@ -334,15 +334,25 @@ area_market = px.area(df,
             facet_row="cust_segment",#facet_col_wrap=2, facet_col_spacing=.1, facet_row_spacing=.11,
             height=2000,
             template = 'plotly_dark',
-            labels={'date':"",'cust_segment':""}
+            labels={'date':"",'cust_segment':"",'value':""},
             )
 
 area_market.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>',fill='tonexty')
-area_market.update_yaxes(showticklabels=True,showgrid=True,gridcolor="#B1A999",tickfont=dict(color='#5A5856', size=14),matches=None)
+area_market.update_yaxes(showticklabels=True,showgrid=True,gridcolor="lightgrey",tickfont=dict(color='#5A5856', size=14),matches=None)
 area_market.update_xaxes(tickfont=dict(color='#5A5856', size=13),title_font=dict(color='#5A5856',size=15))
 area_market.update_xaxes(showticklabels=True, ticktext=df.index.strftime('<b>%a<br>%d</b>'))
 area_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),legend=dict(x=0, y=1.2, orientation='h',title=None),showlegend=False)
-area_market.for_each_annotation(lambda a: a.update(text=a.text.replace("=", "")))
+area_market.for_each_annotation(lambda a: a.update(
+    text=a.text.replace("=", ""),  # Remove '=' from the text
+    x=0.5,  # Center horizontally
+    xanchor='center',  # Center the text horizontally
+    yanchor='bottom',  # Anchor text at the bottom
+    y=a.y + 0.02,  # Adjust position higher (increase y value as needed)
+    textangle=0,  # Make the text horizontal (no rotation)
+    font=dict(color='darkslategrey', size=13, family='Arial Black')  # Set font color, size, and use a bold-style font family
+))
+
+
 
 main_col_1, space, main_col_2 = st.columns([2.25,.25,1.5])
 
@@ -353,7 +363,7 @@ with main_col_1:
     with col0:
         st.header("")
     with col1:
-        st.markdown(f'<h4 style="color: #FFFFFF">Direct<br><small>+{direct_yoy_chg_perc}&nbsp yoy</small></h4>', unsafe_allow_html=True)
+        st.markdown(f'<h2 style="color: #FFFFFF">Direct<br><small>+{direct_yoy_chg_perc}&nbsp yoy</small></h2>', unsafe_allow_html=True)
         st.markdown(f"<h2 style='color: #FFFFFF'><b>${direct_sales_24/1000000:.2f}</b>M</h2>", unsafe_allow_html=True)
     with col2:
         st.markdown("")
@@ -361,8 +371,14 @@ with main_col_1:
         st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2024</h5>", unsafe_allow_html=True)
         st.markdown(f"<small>thru: {true_sales.date.max().strftime('%a %b %d')}", unsafe_allow_html=True)
     with col3:
-        st.markdown(f"<h4 style='color: #000000; outline-color: #000000;'>True<br><small>+{yoy_chg_perc}&nbsp yoy</small></h4>", unsafe_allow_html=True)
+        st.markdown(f"<h2 style='color: #000000; outline-color: #000000;'>True<br><small>+{yoy_chg_perc}&nbsp yoy</small></h2>", unsafe_allow_html=True)
         st.markdown(f"<h2 style='color: #000000; outline-color: #000000;'><b>${true_sales_24/1000000:.2f}M</h2>", unsafe_allow_html=True)
+
+    tab1, tab2 = st.tabs(['Direct', 'TRUE'])
+    with tab1:
+        st.plotly_chart(dir_fig,config=config, use_container_width=True)
+    with tab2:
+        st.plotly_chart(true_fig, config=config, use_container_width=True)
 
     st.subheader("")
     with st.expander("Show Current Month Detail"):
@@ -376,16 +392,10 @@ with main_col_1:
         with tab3:
             st.plotly_chart(bar_market,config=config, use_container_width=True)
 
-    tab1, tab2 = st.tabs(['Direct', 'TRUE'])
-    with tab1:
-        st.plotly_chart(dir_fig,config=config, use_container_width=True)
-    with tab2:
-        st.plotly_chart(true_fig, config=config, use_container_width=True)
-
 with main_col_2:
-    # st.subheader("")
-    # with st.expander("Show 52-Week Market Segment Trends"):
-    #     st.plotly_chart(area_market,config=config, use_container_width=True)
+    st.write("#")
+    st.markdown("<h5 style='text-align: center;'>Market Segments</h2>", unsafe_allow_html=True)
+    st.write("#")
 
     # MARKET SEGMENT BOXES
     def calculate_yearly_sales_difference(true_sales, year, cust_segment, year_ago_date):
@@ -432,9 +442,9 @@ with main_col_2:
             delta=f"{yoy_percentage:.0%}",
         )
 
-        st.subheader("")
-        with st.expander("Show 52-Week Market Segment Trends"):
-            st.plotly_chart(area_market,config=config, use_container_width=True)
+    st.subheader("")
+    with st.expander("Show 52-Week Market Segment Trends"):
+        st.plotly_chart(area_market,config=config, use_container_width=True)
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
