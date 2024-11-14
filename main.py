@@ -432,9 +432,9 @@ with main_col_2:
             delta=f"{yoy_percentage:.0%}",
         )
 
-    st.subheader("")
-    with st.expander("Show 52-Week Market Segment Trends"):
-        st.plotly_chart(area_market,config=config, use_container_width=True)
+        st.subheader("")
+        with st.expander("Show 52-Week Market Segment Trends"):
+            st.plotly_chart(area_market,config=config, use_container_width=True)
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
 hide_st_style = """
