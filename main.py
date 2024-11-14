@@ -27,19 +27,19 @@ config = {'displayModeBar': False}
 ###############
 # DIRECT
 # @st.cache_data
-def get_direct():
-    direct_sales = pd.read_csv(r"data\direct_sales.csv")#, encoding='utf-8')
-    direct_sales = direct_sales[direct_sales.status=='Closed']
-    return direct_sales
-direct_sales = get_direct()
+# def get_direct():
+direct_sales = pd.read_csv(r"data\direct_sales.csv")#, encoding='utf-8')
+direct_sales = direct_sales[direct_sales.status=='Closed']
+    # return direct_sales
+# direct_sales = get_direct()
 
 # TRUE
 # @st.cache_data
-def get_true():
-    true_sales = pd.read_csv(r"data\true_sales.csv", encoding='utf-8')
-    true_sales = true_sales[true_sales.status=='Closed']
-    return true_sales
-true_sales = get_true()
+# def get_true():
+true_sales = pd.read_csv(r"data\true_sales.csv", encoding='utf-8')
+true_sales = true_sales[true_sales.status=='Closed']
+#     return true_sales
+# true_sales = get_true()
 
 # UPDATE TIMESTAMP
 direct_sales.date = pd.to_datetime(direct_sales.date, errors='coerce')
