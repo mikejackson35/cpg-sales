@@ -381,7 +381,7 @@ with main_col_1:
     with tab2:
         st.plotly_chart(true_fig, config=config, use_container_width=True)
 
-    st.subheader("")
+    # st.subheader("")
     with st.expander("Show Current Month Detail"):
         tab0, tab1, tab2, tab3 = st.tabs(["Direct","True", "tSource", "tMarket"])
         with tab0:
@@ -444,6 +444,7 @@ with main_col_2:
         )
 
     st.subheader("")
+    st.write("#")
     with st.expander("Segment Trends - 14 Day Mvg Avg"):
         st.plotly_chart(area_market,config=config, use_container_width=True)
 
