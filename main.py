@@ -444,7 +444,7 @@ with main_col_2:
         )
 
     st.subheader("")
-    with st.expander("Show 52-Week Market Segment Trends"):
+    with st.expander("Segment Trends - 14 Day Mvg Avg"):
         st.plotly_chart(area_market,config=config, use_container_width=True)
 
 # ---- REMOVE UNWANTED STREAMLIT STYLING ----
