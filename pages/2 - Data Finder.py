@@ -29,12 +29,12 @@ st.markdown("""
 ###############
 
 # TRUE
-# @st.cache_data
-# def get_true():sktop\cpg-sales\d
-true_sales = pd.read_csv(r"data/true_sales.csv", encoding='utf-8',low_memory=False)
-true_sales = true_sales[true_sales.status=='Closed']
-#     return true_sales
-# true_sales = get_true()
+@st.cache_data
+def get_true():
+    true_sales = pd.read_csv(r"data\true_ppg_sales.csv", encoding='utf-8',low_memory=False)
+    true_sales = true_sales[true_sales.status=='Closed']
+    return true_sales
+true_sales = get_true()
 
 
 # date cleanup
@@ -126,9 +126,12 @@ blank, num_rows_text = st.columns([.1,.9])
 blank.markdown("##")
 num_rows_text.markdown(f"raw data  -  {len(df_selection)} rows")
 
-table_to_display = df_selection[['date', 'source', 'cust_segment', 'cust_parent_name', 'cust_name','amount']].sort_values(by='date',ascending=False).reset_index(drop=True)
+table_to_display = df_selection[
+    ['date', 'source', 'cust_channel','cust_segment', 'cust_parent_name', 'cust_name','ppg','sku_desc','qty','amount']
+    ].sort_values(by='date',ascending=False).reset_index(drop=True)
 
 table_to_display = table_to_display[(table_to_display.date>start) & (table_to_display.date<end)]
+table_to_display.columns = ['Date', 'Source', 'Channel','Segment', 'Parent Customer', 'Customer','PPG','SKU Description','Qty','Amount']
 
 blank, table = st.columns([.1,.9])
 blank.markdown("##")
