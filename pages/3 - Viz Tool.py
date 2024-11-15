@@ -29,7 +29,7 @@ st.markdown("""
 # TRUE
 @st.cache_resource
 def get_true():
-    true_sales = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\true_sales.csv", encoding='utf-8')
+    true_sales = pd.read_csv(r"data/true_ppg_sales.csv", encoding='utf-8')
     true_sales = true_sales[true_sales.status=='Closed']
     return StreamlitRenderer(true_sales)#, spec="./gw_config.json", spec_io_mode="rw")
 
