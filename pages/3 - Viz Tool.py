@@ -31,7 +31,7 @@ st.markdown("""
 def get_true():
     true_sales = pd.read_csv(r"true_ppg_sales.csv", encoding='utf-8',low_memory=False)
     true_sales = true_sales[true_sales.status=='Closed']
-    return StreamlitRenderer(true_sales)#, spec="./gw_config.json", spec_io_mode="rw")
+    return StreamlitRenderer(true_sales, spec="./gw_config.json", spec_io_mode="rw")
 
 renderer = get_true()
 renderer.explorer()
