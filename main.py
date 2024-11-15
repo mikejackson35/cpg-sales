@@ -28,7 +28,7 @@ config = {'displayModeBar': False}
 # DIRECT
 # @st.cache_data
 def get_direct():
-    direct_sales = pd.read_csv(r"data\direct_sales.csv")
+    direct_sales = pd.read_csv(r"data\direct_sales.csv", low_memory=False)
     direct_sales = direct_sales[direct_sales.status=='Closed']
     return direct_sales
 direct_sales = get_direct()
@@ -36,7 +36,7 @@ direct_sales = get_direct()
 # TRUE
 # @st.cache_data
 def get_true():
-    true_sales = pd.read_csv(r"data\true_sales.csv")
+    true_sales = pd.read_csv(r"data\true_sales.csv", low_memory=False)
     true_sales = true_sales[true_sales.status=='Closed']
     return true_sales
 true_sales = get_true()
@@ -335,6 +335,7 @@ area_market = px.area(df,
             height=2000,
             template = 'plotly_dark',
             labels={'date':"",'cust_segment':"",'value':""},
+            line_shape='spline',
             )
 
 area_market.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>',fill='tonexty')

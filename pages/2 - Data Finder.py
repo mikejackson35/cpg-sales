@@ -45,7 +45,7 @@ true_sales['date'] = true_sales['date'].dt.floor('D')
 # --- FILTERS AND SIDEBAR ----
 
 import datetime
-today = datetime.datetime.now()
+today = datetime.datetime.now()# - datetime.timedelta(days=1)
 this_year = today.year
 jan_1 = datetime.date(this_year, 1, 1)
 
