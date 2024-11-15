@@ -31,7 +31,7 @@ st.markdown("""
 # TRUE
 @st.cache_data
 def get_true():
-    true_sales = pd.read_csv(r"data\true_ppg_sales.csv", encoding='utf-8',low_memory=False)
+    true_sales = pd.read_csv(r"true_ppg_sales.csv", encoding='utf-8',low_memory=False)
     true_sales = true_sales[true_sales.status=='Closed']
     return true_sales
 true_sales = get_true()
