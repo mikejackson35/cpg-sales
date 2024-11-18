@@ -30,7 +30,7 @@
 [data-testid="stMetricDeltaIcon-Up"] {
     font-size: 12px;
     position: relative;
-    left: 45%;
+    left: 40%;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
@@ -40,7 +40,7 @@
 [data-testid="stMetricDeltaIcon-Down"] {
     font-size: 12px;
     position: relative;
-    left: 45%;
+    left: 40%;
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
