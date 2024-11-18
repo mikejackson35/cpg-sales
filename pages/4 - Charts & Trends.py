@@ -25,7 +25,7 @@ with open(r"styles/main.css") as f:
 # TRUE
 # @st.cache_data
 # def get_true():
-true_sales = pd.read_csv(r"true_sales.csv", encoding='utf-8',low_memory=False)
+true_sales = pd.read_csv(r"data\true_sales.csv", encoding='utf-8',low_memory=False)
 true_sales = true_sales[true_sales.status=='Closed']
 #     return true_sales
 # true_sales = get_true()
