@@ -27,11 +27,11 @@ config = {'displayModeBar': False}
 ###############
 # DIRECT
 # @st.cache_data
-# def get_direct():
-direct_sales = pd.read_csv(r"direct_sales.csv",low_memory=False)
-direct_sales = direct_sales[direct_sales.status=='Closed']
-#     return direct_sales
-# direct_sales = get_direct()
+def get_direct():
+    direct_sales = pd.read_csv(r"direct_sales.csv",low_memory=False)
+    direct_sales = direct_sales[direct_sales.status=='Closed']
+    return direct_sales
+direct_sales = get_direct()
 
 # TRUE
 # @st.cache_data
