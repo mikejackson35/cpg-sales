@@ -35,11 +35,11 @@ direct_sales = get_direct()
 
 # TRUE
 # @st.cache_data
-# def get_true():
-true_sales = pd.read_csv(r"true_sales.csv",low_memory=False)
-true_sales = true_sales[true_sales.status=='Closed']
-#     return true_sales
-# true_sales = get_true()
+def get_true():
+    true_sales = pd.read_csv(r"true_sales.csv",low_memory=False)
+    true_sales = true_sales[true_sales.status=='Closed']
+    return true_sales
+true_sales = get_true()
 
 # UPDATE TIMESTAMP
 direct_sales.date = pd.to_datetime(direct_sales.date, errors='coerce')
