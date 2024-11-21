@@ -75,7 +75,8 @@ parent_customer = st.sidebar.multiselect(
 
 df_selection = true_sales[
     (true_sales['cust_segment'].isin(segment)) &
-    (true_sales['source'].isin(source))
+    (true_sales['source'].isin(source)) &
+    (true_sales['cust_parent_name'].isin(parent_customer))
     ]
 
 # ---- TOP KPI's Row ----
