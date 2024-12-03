@@ -1,7 +1,7 @@
 import streamlit as st
 
 st.set_page_config(page_title='Direct vs TRUE',
-                   page_icon='assets/Nevil.png',
+                   page_icon='assets/logo_wilde_chips.jpg',
                    layout='wide')
 
 # CSS and PLOTLY CONFIGS
@@ -40,7 +40,7 @@ st.sidebar.title('TRUE Sales')
 st.sidebar.markdown('Dot Sales Realized upon Purchase From Dot')
 
 st.write('#')
-tab1, tab2 = st.tabs(['Direct', ':black[True]'])
+tab1, tab2 = st.tabs(['Direct', 'True'])
 with tab1:
     st.image(r"./assets/direct.png", use_column_width='auto')
 with tab2:
