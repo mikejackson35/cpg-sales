@@ -45,3 +45,14 @@ with tab1:
     st.image(r"./assets/direct.png", use_column_width='auto')
 with tab2:
     st.image(r"./assets/true.png", use_column_width='auto')
+
+# ---- REMOVE UNWANTED STREAMLIT STYLING ----
+hide_st_style = """
+            <style>
+            Main Menu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+            
+st.markdown(hide_st_style, unsafe_allow_html=True)
