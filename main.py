@@ -319,7 +319,7 @@ direct_bar = px.bar(direct_sales_bar_df,
                      height=chart_height,
                      text_auto=",.2s",
                      opacity=.8,
-                     title=f"November - ${direct_sales_bar_df.amount.sum():,.0f}")
+                     title=f"December - ${direct_sales_bar_df.amount.sum():,.0f}")
 
 direct_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>',marker_color="#FFFFFF")
 direct_bar.update_coloraxes(showscale=False)
