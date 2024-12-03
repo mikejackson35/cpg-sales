@@ -296,7 +296,7 @@ bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
 
 # CURRENT MONTH DAILY BAR DIRECT
 # direct_sales['amount'] = direct_sales['amount']*.75
-direct_sales_bar_df = round(direct_sales[(df.index>'2024-11-30') & (df.index<'2024-12-31')].groupby('date')['amount'].sum(),2).reset_index().set_index('date')
+direct_sales_bar_df = round(direct_sales[(direct_sales.index>'2024-11-30') & (direct_sales.index<'2024-12-31')].groupby('date')['amount'].sum(),2).reset_index().set_index('date')
 title_direct_sales = direct_sales_bar_df.amount.sum()
 
 direct_bar = px.bar(direct_sales_bar_df,
