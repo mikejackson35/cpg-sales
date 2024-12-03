@@ -63,17 +63,16 @@ source = st.sidebar.multiselect(
 
 segment = st.sidebar.multiselect(
     label='Market Segment',
-    options=list(pd.Series(true_sales['cust_segment'].unique())),
-    default=list(pd.Series(true_sales['cust_segment'].unique())),
+    options=sorted(list(pd.Series(true_sales['cust_segment'].dropna().astype(str).unique()))),
+    default=sorted(list(pd.Series(true_sales['cust_segment'].dropna().astype(str).unique()))),
 )
 
 parent_customer = st.sidebar.multiselect(
     label='Parent Customer',
-    # options=list(pd.Series(true_sales['cust_parent_name'].unique())),
-    # default=list(pd.Series(true_sales['cust_parent_name'].unique())),
-    options=sorted(list(pd.Series(true_sales['cust_parent_name'].unique()))),
-    default=sorted(list(pd.Series(true_sales['cust_parent_name'].unique()))),
+    options=sorted(list(pd.Series(true_sales['cust_parent_name'].dropna().astype(str).unique()))),
+    default=sorted(list(pd.Series(true_sales['cust_parent_name'].dropna().astype(str).unique()))),
 )
+
 
 df_selection = true_sales[
     (true_sales['cust_segment'].isin(segment)) &

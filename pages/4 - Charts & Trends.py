@@ -36,11 +36,21 @@ true_sales['date'] = pd.to_datetime(true_sales['date'])
 true_sales['date'] = true_sales['date'].dt.normalize()
 true_sales['date'] = true_sales['date'].dt.floor('D')
 
-unique_cust_parent_names = list(true_sales.cust_parent_name.unique())
-unique_cust_parent_names_sorted = sorted(filter(None, unique_cust_parent_names))
+# Ensure all values in 'cust_parent_name' are non-null and strings
+unique_cust_parent_names = [
+    str(name) for name in true_sales['cust_parent_name'].dropna().unique()
+]
+# Sort the cleaned list of names
+unique_cust_parent_names_sorted = sorted(unique_cust_parent_names)
 
-unique_cust_segments = list(true_sales.cust_segment.unique())
-unique_cust_segments_sorted = sorted(filter(None, unique_cust_segments))
+# Ensure all values in 'cust_segment' are non-null and strings
+unique_cust_segments = [
+    str(segment) for segment in true_sales['cust_segment'].dropna().unique()
+]
+
+# Sort the cleaned list of segments
+unique_cust_segments_sorted = sorted(unique_cust_segments)
+
 
 # --- FILTERS AND SIDEBAR ----
 year = st.sidebar.multiselect(
