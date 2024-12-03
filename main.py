@@ -236,7 +236,7 @@ bar_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
 
 # CURRENT MONTH DAILY BAR BY SALE ORIGIN
 df = true_sales.groupby([true_sales.date,'source']).amount.sum().reset_index().set_index('date')
-df = round(df[(df.index>'2024-10-31') & (df.index<'2024-11-30')].sort_index())
+df = round(df[(df.index>'2024-11-30') & (df.index<'2024-12-31')].sort_index())
 
 bar_origin = px.bar(
         df,
@@ -267,7 +267,7 @@ bar_origin.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
 
 # CURRENT MONTH DAILY TRUE BAR - ALL
 df = true_sales.groupby('date').amount.sum().reset_index().set_index('date')
-df = round(df[(df.index>'2024-10-31') & (df.index<'2024-11-30')].sort_index())
+df = round(df[(df.index>'2024-11-30') & (df.index<'2024-12-31')].sort_index())
 
 bar_all = px.bar(
         df,
@@ -296,7 +296,7 @@ bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
 
 # CURRENT MONTH DAILY BAR DIRECT
 # direct_sales['amount'] = direct_sales['amount']*.75
-direct_sales_bar_df = round(direct_sales[(direct_sales.date>'2024-10-31') & (direct_sales.date<'2024-11-30')].groupby('date')['amount'].sum(),2).reset_index().set_index('date')
+direct_sales_bar_df = round(direct_sales[(df.index>'2024-11-30') & (df.index<'2024-12-31')].groupby('date')['amount'].sum(),2).reset_index().set_index('date')
 title_direct_sales = direct_sales_bar_df.amount.sum()
 
 direct_bar = px.bar(direct_sales_bar_df,
