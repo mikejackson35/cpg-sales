@@ -198,8 +198,8 @@ true_fig.update_yaxes(
 
 
 # DAILY BY MARKET SEGMENT
-df = true_sales[(true_sales.date>'2024-10-31') & (true_sales.date<'2024-11-30')].groupby([true_sales.date,'cust_segment']).amount.sum().reset_index().set_index('date')
-df = round(df[(df.index>'2024-10-31') & (df.index<'2024-11-30')].sort_index())
+df = true_sales[(true_sales.date>'2024-11-30') & (true_sales.date<'2024-12-31')].groupby([true_sales.date,'cust_segment']).amount.sum().reset_index().set_index('date')
+df = round(df[(df.index>'2024-11-30') & (df.index<'2024-12-31')].sort_index())
 
 # Current Month Bar Chart Constants
 chart_height = 300
