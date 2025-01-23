@@ -25,8 +25,8 @@ with open(r"styles/main.css") as f:
 # TRUE
 # @st.cache_data
 # def get_true():
-true_sales = pd.read_csv(r"true_sales.csv", encoding='utf-8',low_memory=False)
-true_sales = true_sales[true_sales.status=='Closed']
+true_sales = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\true_sales.csv", encoding='utf-8',low_memory=False)
+true_sales = true_sales[true_sales.status=='closed']
 #     return true_sales
 # true_sales = get_true()
 
@@ -184,8 +184,8 @@ chart_df = round(true_sales[(true_sales['source'].isin(source) &
                             .groupby(['year','YearMonth'],as_index=False)['amount'].sum()
                             )
 
-sales_23_ = chart_df[(chart_df.year==2023)].amount
-sales_24_ = chart_df[chart_df.year==2024].amount
+sales_23_ = chart_df[(chart_df.year==2024)].amount
+sales_24_ = chart_df[chart_df.year==2025].amount
 
 months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -195,8 +195,8 @@ color = chart_df.year.astype('category').unique()
 # Bar and scatter monthly
 l2_fig = go.Figure(
     data=[
-        go.Bar(x=months, y=sales_23_, name="2023", marker_color="#909497",textfont=dict(color='#D6D8CF'), marker_line_color="#909497", marker_opacity=.5,hovertemplate="<br>".join(["%{y:.2s}"])),#,textposition='outside'),
-        go.Bar(x=months, y=sales_24_, name="2024", marker_color='#000000',textfont=dict(color='white',size=25), marker_line_color="#E09641",hovertemplate="<br>".join(["%{y:.2s}"])),#,textposition='outside')
+        go.Bar(x=months, y=sales_23_, name="2024", marker_color="#909497",textfont=dict(color='#D6D8CF'), marker_line_color="#909497", marker_opacity=.5,hovertemplate="<br>".join(["%{y:.2s}"])),#,textposition='outside'),
+        go.Bar(x=months, y=sales_24_, name="2025", marker_color='#000000',textfont=dict(color='white',size=25), marker_line_color="#E09641",hovertemplate="<br>".join(["%{y:.2s}"])),#,textposition='outside')
     ],
     layout=dict(#title='2024', title_x=.45, 
                 height=260, 

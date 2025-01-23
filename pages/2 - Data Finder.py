@@ -31,8 +31,8 @@ st.markdown("""
 # TRUE
 # @st.cache_data
 # def get_true():
-true_sales = pd.read_csv(r"true_ppg_sales.csv", encoding='utf-8',low_memory=False)
-true_sales = true_sales[true_sales.status=='Closed']
+true_sales = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\true_ppg_sales.csv", encoding='utf-8',low_memory=False)
+true_sales = true_sales[true_sales.status=='closed']
 #     return true_sales
 # true_sales = get_true()
 
@@ -47,7 +47,8 @@ true_sales['date'] = true_sales['date'].dt.floor('D')
 import datetime
 today = datetime.datetime.now()# - datetime.timedelta(days=1)
 this_year = today.year
-jan_1 = datetime.date(this_year, 1, 1)
+# jan_1 = datetime.date(this_year, 1, 1)
+jan_1 = true_sales['date'].min()
 
 
 date_range = st.sidebar.date_input("Chose Dates",(jan_1,today),jan_1, today,format="MM.DD.YYYY")
@@ -129,7 +130,7 @@ blank.markdown("##")
 num_rows_text.markdown(f"raw data  -  {len(df_selection)} rows")
 
 table_to_display = df_selection[
-    ['date', 'source', 'cust_channel','cust_segment', 'cust_parent_name', 'cust_name','ppg','sku_desc','qty','amount']
+    ['date', 'source', 'cust_channel','cust_segment', 'cust_parent_name', 'cust_name','ppg','item_id','quantity','amount']
     ].sort_values(by='date',ascending=False).reset_index(drop=True)
 
 table_to_display = table_to_display[(table_to_display.date>start) & (table_to_display.date<end)]

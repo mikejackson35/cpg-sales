@@ -28,16 +28,16 @@ config = {'displayModeBar': False}
 # DIRECT
 # @st.cache_data
 def get_direct():
-    direct_sales = pd.read_csv(r"direct_sales.csv",low_memory=False)
-    direct_sales = direct_sales[direct_sales.status=='Closed']
+    direct_sales = pd.read_csv(r'C:\Users\mikej\Desktop\cpg-sales\data\direct_sales.csv',low_memory=False)
+    direct_sales = direct_sales[direct_sales.status=='closed']
     return direct_sales
 direct_sales = get_direct()
 
 # TRUE
 # @st.cache_data
 def get_true():
-    true_sales = pd.read_csv(r"true_sales.csv",low_memory=False)
-    true_sales = true_sales[true_sales.status=='Closed']
+    true_sales = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\true_sales.csv",low_memory=False)
+    true_sales = true_sales[true_sales.status=='closed']
     return true_sales
 true_sales = get_true()
 
@@ -55,12 +55,12 @@ year_ago_today = datetime.datetime.today() - datetime.timedelta(days=365)
 
 
 # SALES SUMMARY
-direct_sales_24 = int(direct_sales[(direct_sales['date'] > '2023-12-31') & (direct_sales['date'] < current_date)].amount.sum())
-direct_sales_23 = int(direct_sales[(direct_sales['date'] > '2022-12-31') & (direct_sales['date'].dt.date < year_ago_today.date())].amount.sum())
+direct_sales_24 = int(direct_sales[(direct_sales['date'] > '2024-12-31') & (direct_sales['date'] < current_date)].amount.sum())
+direct_sales_23 = int(direct_sales[(direct_sales['date'] > '2023-12-31') & (direct_sales['date'].dt.date < year_ago_today.date())].amount.sum())
 direct_yoy_chg_perc = f"{(direct_sales_24/direct_sales_23-1)*100:.0f}%"
 
-true_sales_24 = int(true_sales[(true_sales['date'] > '2023-12-31') & (true_sales['date'] < current_date)].amount.sum())
-true_sales_23 = int(true_sales[(true_sales['date'] > '2022-12-31') & (true_sales['date'].dt.date < year_ago_today.date())].amount.sum())
+true_sales_24 = int(true_sales[(true_sales['date'] > '2024-12-31') & (true_sales['date'] < current_date)].amount.sum())
+true_sales_23 = int(true_sales[(true_sales['date'] > '2023-12-31') & (true_sales['date'].dt.date < year_ago_today.date())].amount.sum())
 yoy_chg_perc = f"{(true_sales_24/true_sales_23-1)*100:.0f}%"
 
 
@@ -72,8 +72,8 @@ dir_main_bar['YearMonth'] = dir_main_bar['date'].astype('string').apply(lambda x
 
 dir_main_bar = dir_main_bar.groupby(['year','YearMonth'],as_index=False)['amount'].sum()
 
-dir_23 = dir_main_bar[dir_main_bar.year==2023].amount
-dir_24 = dir_main_bar[dir_main_bar.year==2024].amount
+dir_23 = dir_main_bar[dir_main_bar.year==2024].amount
+dir_24 = dir_main_bar[dir_main_bar.year==2025].amount
 goal = dir_23 * 2
 
 months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -87,7 +87,7 @@ dir_fig = go.Figure(
         go.Bar(
             x=months, 
             y=dir_23, 
-            name="2023", 
+            name="2024", 
             marker_color="#909497",
             textfont=dict(color='#909497', size=16, family='Arial Black'),  # Adjust size and family as needed
             marker_line_color="#909497", 
@@ -98,7 +98,7 @@ dir_fig = go.Figure(
         go.Bar(
             x=months, 
             y=dir_24, 
-            name="2024", 
+            name="2025", 
             marker_color='#FFFFFF',
             textfont=dict(color='white', size=10, family='Arial Black'),  # Adjust size and family as needed
             marker_line_color="#5A5856",
@@ -134,8 +134,8 @@ true_sales['YearMonth'] = true_sales['date'].astype('string').apply(lambda x: x.
 # group by month year and add $0 sales to future months
 chart_df = round(true_sales.groupby(['year','YearMonth'],as_index=False)['amount'].sum())
 
-true_23 = chart_df[chart_df.year==2023].amount
-true_24 = chart_df[chart_df.year==2024].amount
+true_23 = chart_df[chart_df.year==2024].amount
+true_24 = chart_df[chart_df.year==2025].amount
 
 goal = true_23 * 2
 
@@ -150,7 +150,7 @@ true_fig = go.Figure(
         go.Bar(
             x=months, 
             y=true_23, 
-            name="2023", 
+            name="2024", 
             marker_color="#909497",
             textfont=dict(color='#909497', size=16, family='Arial Black'),  # Consistent font style
             marker_line_color="#909497", 
@@ -161,7 +161,7 @@ true_fig = go.Figure(
         go.Bar(
             x=months, 
             y=true_24, 
-            name="2024", 
+            name="2025", 
             marker_color= '#000000',
             textfont=dict(color='black', size=16, family='Arial Black'),  # Consistent font style
             marker_line_color= '#000000',
@@ -198,8 +198,8 @@ true_fig.update_yaxes(
 
 
 # DAILY BY MARKET SEGMENT
-df = true_sales[(true_sales.date>'2024-11-30') & (true_sales.date<'2024-12-31')].groupby([true_sales.date,'cust_segment']).amount.sum().reset_index().set_index('date')
-df = round(df[(df.index>'2024-11-30') & (df.index<'2024-12-31')].sort_index())
+df = true_sales[(true_sales.date>'2024-12-31') & (true_sales.date<'2025-02-01')].groupby([true_sales.date,'cust_segment']).amount.sum().reset_index().set_index('date')
+df = round(df[(df.index>'2024-12-31') & (df.index<'2025-02-01')].sort_index())
 
 # Current Month Bar Chart Constants
 chart_height = 300
@@ -236,7 +236,7 @@ bar_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
 
 # CURRENT MONTH DAILY BAR BY SALE ORIGIN
 df = true_sales.groupby([true_sales.date,'source']).amount.sum().reset_index().set_index('date')
-df = round(df[(df.index>'2024-11-30') & (df.index<'2024-12-31')].sort_index())
+df = round(df[(df.index>'2024-12-31') & (df.index<'2025-02-01')].sort_index())
 
 bar_origin = px.bar(
         df,
@@ -267,7 +267,7 @@ bar_origin.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
 
 # CURRENT MONTH DAILY TRUE BAR - ALL
 df = true_sales.groupby('date').amount.sum().reset_index().set_index('date')
-df = round(df[(df.index>'2024-11-30') & (df.index<'2024-12-31')].sort_index())
+df = round(df[(df.index>'2024-12-31') & (df.index<'2025-02-01')].sort_index())
 
 bar_all = px.bar(
         df,
@@ -295,13 +295,17 @@ bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
                                                     title=''))
 
 # CURRENT MONTH DAILY BAR DIRECT
+
+df = direct_sales.groupby('date').amount.sum().reset_index().set_index('date')
+df = round(df[(df.index>'2024-12-31') & (df.index<'2025-02-01')].sort_index())
 # Ensure the index is converted to datetime
-direct_sales.index = pd.to_datetime(direct_sales.index, errors='coerce')
+# df.index = pd.to_datetime(direct_sales.index, errors='coerce')
 
 # Filter and group the data
 direct_sales_bar_df = (
-    direct_sales[(direct_sales.index > pd.Timestamp('2024-11-30')) & 
-                 (direct_sales.index < pd.Timestamp('2024-12-31'))]
+    # direct_sales[(direct_sales.index > pd.Timestamp('2024-12-31')) & 
+    #              (direct_sales.index < pd.Timestamp('2025-02-01'))]
+    df
     .groupby('date')['amount'].sum()
     .round(2)
     .reset_index()
@@ -319,7 +323,7 @@ direct_bar = px.bar(direct_sales_bar_df,
                      height=chart_height,
                      text_auto=",.2s",
                      opacity=.8,
-                     title=f"December - ${direct_sales_bar_df.amount.sum():,.0f}")
+                     title=f"January - ${direct_sales_bar_df.amount.sum():,.0f}")
 
 direct_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>',marker_color="#FFFFFF")
 direct_bar.update_coloraxes(showscale=False)
@@ -381,7 +385,7 @@ with main_col_1:
     with col2:
         st.markdown("")
         st.image(r'assets/logo_wilde_chips.jpg', width=100)
-        st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2024</h5>", unsafe_allow_html=True)
+        st.markdown(f"<h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp2025</h5>", unsafe_allow_html=True)
         st.markdown(f"<small>thru: {true_sales.date.max().strftime('%a %b %d')}", unsafe_allow_html=True)
     with col3:
         st.markdown(f"<h2 style='color: #000000; outline-color: #000000;'>True<br><small>+{yoy_chg_perc}&nbsp yoy</small></h2>", unsafe_allow_html=True)
@@ -434,14 +438,14 @@ with main_col_2:
 
     yoy_data = {}
     for segment in market_segments:
-        yoy_difference, yoy_percentage = calculate_yearly_sales_difference(true_sales, 2024, segment, year_ago_today)
+        yoy_difference, yoy_percentage = calculate_yearly_sales_difference(true_sales, 2025, segment, year_ago_today)
         yoy_data[segment] = {'difference': yoy_difference, 'percentage': yoy_percentage}
 
     col1, col2 = st.columns(2)
 
     for i, segment in enumerate(market_segments):
-        yoy_difference, yoy_percentage = calculate_yearly_sales_difference(true_sales, 2024, segment, year_ago_today)
-        value = f"${millify(true_sales[(true_sales['date'].dt.year == 2024) & (true_sales['cust_segment'] == segment)].amount.sum(), precision=1)}"
+        yoy_difference, yoy_percentage = calculate_yearly_sales_difference(true_sales, 2025, segment, year_ago_today)
+        value = f"${millify(true_sales[(true_sales['date'].dt.year == 2025) & (true_sales['cust_segment'] == segment)].amount.sum(), precision=1)}"
         
         # Display metrics for the current market segment
         if i < 6:
