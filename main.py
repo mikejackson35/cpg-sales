@@ -28,7 +28,7 @@ config = {'displayModeBar': False}
 # DIRECT
 # @st.cache_data
 def get_direct():
-    direct_sales = pd.read_csv(r'C:/Users/mikej/Desktop/cpg-sales/data/direct_sales.csv',low_memory=False)
+    direct_sales = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\direct_sales.csv",low_memory=False)
     direct_sales = direct_sales[direct_sales.status=='closed']
     return direct_sales
 direct_sales = get_direct()
@@ -198,7 +198,7 @@ true_fig.update_yaxes(
 
 
 # DAILY BY MARKET SEGMENT
-df = true_sales[(true_sales.date>'2024-12-31') & (true_sales.date<'2025-02-01')].groupby([true_sales.date,'cust_segment']).amount.sum().reset_index().set_index('date')
+df = true_sales[(true_sales.date>'2024-01-31') & (true_sales.date<'2025-03-01')].groupby([true_sales.date,'cust_segment']).amount.sum().reset_index().set_index('date')
 df = round(df[(df.index>'2024-12-31') & (df.index<'2025-02-01')].sort_index())
 
 # Current Month Bar Chart Constants
@@ -236,7 +236,7 @@ bar_market.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
 
 # CURRENT MONTH DAILY BAR BY SALE ORIGIN
 df = true_sales.groupby([true_sales.date,'source']).amount.sum().reset_index().set_index('date')
-df = round(df[(df.index>'2024-12-31') & (df.index<'2025-02-01')].sort_index())
+df = round(df[(df.index>'2024-01-31') & (df.index<'2025-03-01')].sort_index())
 
 bar_origin = px.bar(
         df,
@@ -267,7 +267,7 @@ bar_origin.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
 
 # CURRENT MONTH DAILY TRUE BAR - ALL
 df = true_sales.groupby('date').amount.sum().reset_index().set_index('date')
-df = round(df[(df.index>'2024-12-31') & (df.index<'2025-02-01')].sort_index())
+df = round(df[(df.index>'2024-01-31') & (df.index<'2025-03-01')].sort_index())
 
 bar_all = px.bar(
         df,
@@ -297,7 +297,7 @@ bar_all.update_layout(hoverlabel=dict(font_size=18,font_family="Rockwell"),
 # CURRENT MONTH DAILY BAR DIRECT
 
 df = direct_sales.groupby('date').amount.sum().reset_index().set_index('date')
-df = round(df[(df.index>'2024-12-31') & (df.index<'2025-02-01')].sort_index())
+df = round(df[(df.index>'2024-01-31') & (df.index<'2025-03-01')].sort_index())
 # Ensure the index is converted to datetime
 # df.index = pd.to_datetime(direct_sales.index, errors='coerce')
 
