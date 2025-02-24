@@ -28,7 +28,7 @@ config = {'displayModeBar': False}
 # DIRECT
 # @st.cache_data
 def get_direct():
-    direct_sales = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\direct_sales.csv",low_memory=False)
+    direct_sales = pd.read_csv(r"C:\Users\mikej\Desktop\cpg-sales\data\direct_sales.csv",engine='python',low_memory=False)
     direct_sales = direct_sales[direct_sales.status=='closed']
     return direct_sales
 direct_sales = get_direct()
