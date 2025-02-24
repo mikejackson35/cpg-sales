@@ -199,7 +199,7 @@ true_fig.update_yaxes(
 
 # DAILY BY MARKET SEGMENT
 df = true_sales[(true_sales.date>'2024-01-31') & (true_sales.date<'2025-03-01')].groupby([true_sales.date,'cust_segment']).amount.sum().reset_index().set_index('date')
-df = round(df[(df.index>'2024-12-31') & (df.index<'2025-02-01')].sort_index())
+df = round(df[(df.index>'2024-01-31') & (df.index<'2025-03-01')].sort_index())
 
 # Current Month Bar Chart Constants
 chart_height = 300
@@ -323,7 +323,7 @@ direct_bar = px.bar(direct_sales_bar_df,
                      height=chart_height,
                      text_auto=",.2s",
                      opacity=.8,
-                     title=f"January - ${direct_sales_bar_df.amount.sum():,.0f}")
+                     title=f"February - ${direct_sales_bar_df.amount.sum():,.0f}")
 
 direct_bar.update_traces(hovertemplate = '$%{y:.2s}'+'<br>%{x:%Y-%m-%d}<br>',marker_color="#FFFFFF")
 direct_bar.update_coloraxes(showscale=False)
